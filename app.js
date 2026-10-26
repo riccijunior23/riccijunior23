@@ -4612,7 +4612,7 @@ function updatePublicRoute() {
   document.body.dataset.page = account ? "account" : generator ? "generator" : home ? "home" : "internal";
   const visible = new Set(account ? ["cliente"] : generator ? ["home", "gerador", "officialSummary"] : home ? ["home", "gerador", "officialSummary", "como-funciona", "blog"] : path.startsWith("/admin") ? ["admin", "receita"] : ["blog"]);
   document.querySelectorAll("main > section").forEach(section => { section.hidden = !visible.has(section.id); });
-  document.querySelector("#home h1").innerHTML = generator ? "Uma combinação <span>com a sua inspiração.</span>" : "Seus números da sorte <span>começam aqui.</span>";
+  document.querySelector("#home h1").innerHTML = generator ? "Uma combinação <span>com a sua inspiração.</span>" : "Sua inspiração,<br><span>em outra dimensão.</span>";
   for (const [id, expected] of [["catalogMethods", "/metodos"], ["catalogGames", "/jogos"]]) {
     document.querySelector(`#${id}`).hidden = path !== expected;
   }

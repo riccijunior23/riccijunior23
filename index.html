@@ -20,6 +20,7 @@
     <link rel="canonical" href="http://localhost:4173/" />
     <link rel="stylesheet" href="/styles.css?v=34" />
     <link rel="stylesheet" href="/refinements.css?v=1" />
+    <link rel="stylesheet" href="/experience-3d.css?v=1" />
     <script type="application/ld+json" id="seoSchema">{}</script>
     <script>
       window.palpinetTracking = {
@@ -88,10 +89,23 @@
 
     <main id="mainContent" tabindex="-1">
       <section class="hero" id="home">
-        <div class="hero-copy section-shell">
-          <span class="eyebrow">Um pouco de inspiração, muitas possibilidades</span>
-          <h1>Seus números da sorte <span>começam aqui.</span></h1>
-          <p>Crie combinações recreativas inspiradas em sonhos, signos, datas ou matemática.</p>
+        <div class="experience-grid section-shell">
+          <div class="hero-copy">
+            <span class="eyebrow"><span class="orbit-dot" aria-hidden="true"></span> Uma nova perspectiva para a sua inspiração</span>
+            <h1>Sua inspiração,<br><span>em outra dimensão.</span></h1>
+            <p>Sonhos, signos, datas ou matemática. Explore suas inspirações e crie uma combinação recreativa do seu jeito.</p>
+            <a class="primary-button experience-cta" href="/#gerador">Criar minha combinação <span aria-hidden="true">→</span></a>
+            <span class="experience-caption">Um universo de possibilidades. Sem promessas de premiação.</span>
+          </div>
+          <div class="luck-universe" id="luckUniverse">
+            <div class="universe-fallback" aria-hidden="true">
+              <span class="fallback-orbit"></span><span class="fallback-ball ball-a">07</span>
+              <span class="fallback-ball ball-b">23</span><span class="fallback-ball ball-c">42</span>
+            </div>
+            <canvas id="luckCanvas" aria-hidden="true"></canvas>
+            <div class="universe-label" aria-hidden="true"><span></span> Inspiração em movimento</div>
+            <button class="motion-toggle" id="motionToggle" type="button" aria-pressed="false" hidden>Pausar movimento</button>
+          </div>
         </div>
       </section>
 <section class="quick-generator section-shell" id="gerador">
@@ -365,6 +379,7 @@
       </section>
     </div>
 
-    <script src="/app.js?v=34"></script>
+    <script src="/app.js?v=35"></script>
+    <script src="/scene-3d.js?v=1"></script>
   </body>
 </html>

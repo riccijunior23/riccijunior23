@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Palpinet Offline | Números da sorte, sonhos e horóscopo</title>
+    <title>Palpinet 3D Offline | Números da sorte, sonhos e horóscopo</title>
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta
       name="description"
@@ -4265,6 +4265,68 @@ footer>p:last-child { grid-column:1/-1; margin:0; padding-top:20px; max-width:no
 .primary-button::before { display:none; }
 .client-kicker { color:#65408f; background:#f1eaf8; border-color:#dfd2ed; }
 .client-content .timeline-group h4,.client-content .timeline-list h4,.client-content h4 { color:var(--ink); }
+
+/* Immersive introduction. All forms and inner pages retain their existing layout. */
+body[data-page="home"] { background:#f8f7fc; }
+body[data-page="home"] .site-header { background:#0d1426; border-bottom:1px solid #ffffff12; }
+#home.hero { padding:0; overflow:hidden; background:#0d1426; color:#f9f7ff; }
+.experience-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.08fr); gap:16px; align-items:center; max-width:1200px; min-height:455px; position:relative; }
+#home .hero-copy { width:auto; padding:32px 0 78px; text-align:left; z-index:1; }
+#home .eyebrow { display:flex; align-items:center; gap:10px; color:#c6b5ec; font-size:.65rem; letter-spacing:.12em; }
+.orbit-dot { flex:0 0 7px; height:7px; border-radius:50%; background:#c7a6ef; box-shadow:0 0 0 5px #c7a6ef12; }
+#home h1 { margin:20px 0 16px; max-width:600px; color:#f5f1ff; font-size:clamp(2rem,3.4vw,3.25rem); font-weight:650; line-height:1.16; letter-spacing:-.045em; text-wrap:initial; }
+#home h1 span { color:#c3a5ef; }
+#home .hero-copy p { max-width:440px; margin:0 0 24px; color:#c2c4d4; font-size:.94rem; line-height:1.75; }
+.experience-cta { min-height:47px; gap:22px; padding-inline:20px; border-radius:10px; background:#754bc2; border-color:#754bc2; }
+.experience-cta:hover { background:#6740b1; }
+.experience-caption { display:block; margin-top:15px; color:#b5b8c9; font-size:.69rem; line-height:1.7; }
+.luck-universe { position:relative; height:440px; min-width:0; isolation:isolate; align-self:start; }
+#luckCanvas { display:block; position:absolute; inset:0; width:100%; height:100%; opacity:0; transition:opacity .5s; }
+.luck-universe.is-rendered #luckCanvas { opacity:1; }
+.universe-fallback { position:absolute; inset:0; transition:opacity .5s; }
+.luck-universe.is-rendered .universe-fallback { opacity:0; }
+.fallback-orbit { position:absolute; width:75%; height:58%; left:12%; top:15%; border:1px solid #c7a6ef30; border-radius:50%; transform:rotate(-25deg); box-shadow:0 0 60px #7252ba12; }
+.fallback-ball { position:absolute; display:grid; place-items:center; width:130px; height:130px; font-size:2.2rem; font-weight:650; border-radius:50%; color:#2b1b4a; background:radial-gradient(circle at 30% 22%,#fbf5ff,#b797dd 60%,#392551); box-shadow:18px 22px 35px #0005,inset -15px -16px 28px #35244a66; }
+.ball-a { top:100px; left:27%; width:170px; height:170px; }
+.ball-b { top:34px; left:5%; width:100px; height:100px; background:radial-gradient(circle at 30% 22%,#fff9e6,#d6b776 60%,#756242); font-size:1.8rem; }
+.ball-c { top:215px; right:6%; width:105px; height:105px; font-size:1.8rem; }
+.universe-label { position:absolute; left:14px; bottom:56px; display:flex; align-items:center; gap:8px; color:#c3bfd4; font-size:.65rem; letter-spacing:.1em; text-transform:uppercase; pointer-events:none; }
+.universe-label span { width:20px; height:1px; background:#c3a5ef; }
+.motion-toggle { position:absolute; right:12px; bottom:42px; min-height:44px; padding:10px 13px; font-size:.73rem; color:#e3d9f6; background:#171d33; border:1px solid #706187; border-radius:8px; }
+.motion-toggle:hover { background:#29223e; }
+.motion-toggle:focus-visible { outline-color:#e6cf98; }
+body[data-page="home"] #gerador { margin-top:-50px; z-index:2; border-color:#e4deee; max-width:980px; box-shadow:0 18px 45px #18203b0c; }
+body[data-page="home"] #officialSummary { max-width:980px; }
+body[data-page="generator"] #home { background:#f4f0fa; }
+body[data-page="generator"] .experience-grid { display:block; min-height:0; }
+body[data-page="generator"] #home .hero-copy { text-align:center; padding:28px 0; }
+body[data-page="generator"] #home .eyebrow { justify-content:center; color:#6841a0; }
+body[data-page="generator"] #home h1 { color:#172741; max-width:760px; margin-inline:auto; font-size:2rem; }
+body[data-page="generator"] #home h1 span { color:#6841c6; }
+body[data-page="generator"] #home p { color:#536176; margin:0 auto; }
+body[data-page="generator"] .luck-universe,body[data-page="generator"] .experience-cta,body[data-page="generator"] .experience-caption { display:none; }
+body[data-page="generator"] #gerador { margin-top:22px; }
+@media(max-width:1000px) and (min-width:761px) { .experience-grid { min-height:420px; } .luck-universe { height:410px; } #home h1 { font-size:2.5rem; } .universe-label { display:none; } }
+@media(max-width:760px) {
+ .experience-grid { display:block; min-height:0; }
+ #home .hero-copy { padding:26px 0 0; text-align:center; }
+ #home .eyebrow { justify-content:center; font-size:.57rem; letter-spacing:.07em; }
+ #home h1 { margin:16px auto 14px; font-size:2rem; line-height:1.15; }
+ #home .hero-copy p { max-width:410px; margin:0 auto 18px; font-size:.85rem; }
+ .experience-cta { min-height:44px; font-size:.85rem; }
+ .experience-caption { margin-top:12px; font-size:.64rem; }
+ .luck-universe { height:235px; max-width:430px; margin:10px auto 0; }
+ .universe-label { bottom:32px; left:0; font-size:.5rem; }
+ .motion-toggle { bottom:20px; right:0; min-height:40px; padding:8px 10px; font-size:.64rem; }
+ .fallback-ball.ball-a { top:45px; left:34%; width:110px; height:110px; font-size:1.7rem; }
+ .fallback-ball.ball-b { top:26px; left:12%; width:65px; height:65px; font-size:1.1rem; }
+ .fallback-ball.ball-c { top:118px; right:10%; width:65px; height:65px; font-size:1.1rem; }
+ body[data-page="home"] #gerador { margin-top:-6px; border-radius:16px; }
+ #home:after { content:""; display:block; height:20px; }
+ body[data-page="generator"] #home .hero-copy { padding:22px 0 0; }
+ body[data-page="generator"] #home h1 { font-size:1.7rem; }
+}
+@media(prefers-reduced-motion:reduce) { #luckCanvas,.universe-fallback { transition:none; } }
 </style></head>
   <body>
     <a class="skip-link" href="#mainContent">Pular para o conteúdo</a>
@@ -4296,10 +4358,23 @@ footer>p:last-child { grid-column:1/-1; margin:0; padding-top:20px; max-width:no
 
     <main id="mainContent" tabindex="-1">
       <section class="hero" id="home">
-        <div class="hero-copy section-shell">
-          <span class="eyebrow">Um pouco de inspiração, muitas possibilidades</span>
-          <h1>Seus números da sorte <span>começam aqui.</span></h1>
-          <p>Crie combinações recreativas inspiradas em sonhos, signos, datas ou matemática.</p>
+        <div class="experience-grid section-shell">
+          <div class="hero-copy">
+            <span class="eyebrow"><span class="orbit-dot" aria-hidden="true"></span> Uma nova perspectiva para a sua inspiração</span>
+            <h1>Sua inspiração,<br><span>em outra dimensão.</span></h1>
+            <p>Sonhos, signos, datas ou matemática. Explore suas inspirações e crie uma combinação recreativa do seu jeito.</p>
+            <a class="primary-button experience-cta" href="/#gerador">Criar minha combinação <span aria-hidden="true">→</span></a>
+            <span class="experience-caption">Um universo de possibilidades. Sem promessas de premiação.</span>
+          </div>
+          <div class="luck-universe" id="luckUniverse">
+            <div class="universe-fallback" aria-hidden="true">
+              <span class="fallback-orbit"></span><span class="fallback-ball ball-a">07</span>
+              <span class="fallback-ball ball-b">23</span><span class="fallback-ball ball-c">42</span>
+            </div>
+            <canvas id="luckCanvas" aria-hidden="true"></canvas>
+            <div class="universe-label" aria-hidden="true"><span></span> Inspiração em movimento</div>
+            <button class="motion-toggle" id="motionToggle" type="button" aria-pressed="false" hidden>Pausar movimento</button>
+          </div>
         </div>
       </section>
 <section class="quick-generator section-shell" id="gerador">
@@ -9204,7 +9279,7 @@ function updatePublicRoute() {
   document.body.dataset.page = account ? "account" : generator ? "generator" : home ? "home" : "internal";
   const visible = new Set(account ? ["cliente"] : generator ? ["home", "gerador", "officialSummary"] : home ? ["home", "gerador", "officialSummary", "como-funciona", "blog"] : path.startsWith("/admin") ? ["admin", "receita"] : ["blog"]);
   document.querySelectorAll("main > section").forEach(section => { section.hidden = !visible.has(section.id); });
-  document.querySelector("#home h1").innerHTML = generator ? "Uma combinação <span>com a sua inspiração.</span>" : "Seus números da sorte <span>começam aqui.</span>";
+  document.querySelector("#home h1").innerHTML = generator ? "Uma combinação <span>com a sua inspiração.</span>" : "Sua inspiração,<br><span>em outra dimensão.</span>";
   for (const [id, expected] of [["catalogMethods", "/metodos"], ["catalogGames", "/jogos"]]) {
     document.querySelector(`#${id}`).hidden = path !== expected;
   }
@@ -9249,6 +9324,177 @@ function setupNavigation() {
 
 setup();
 
+/* A small, self-contained WebGL scene. No remote models, scripts or textures. */
+(() => {
+  "use strict";
+  const canvas = document.querySelector("#luckCanvas");
+  const stage = document.querySelector("#luckUniverse");
+  const control = document.querySelector("#motionToggle");
+  if (!canvas || !stage || !control) return;
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  let gl;
+  try { gl = canvas.getContext("webgl", { alpha: false, antialias: false, powerPreference: "low-power" }); } catch { return; }
+  if (!gl) return; // The CSS illustration stays visible when WebGL is unavailable.
+  const vertex = `attribute vec2 aPosition; void main(){gl_Position=vec4(aPosition,0.,1.);}`;
+  const fragment = `
+    precision mediump float;
+    uniform vec2 uResolution;
+    uniform vec2 uPointer;
+    uniform float uTime;
+    uniform float uScroll;
+    uniform sampler2D uNumbers;
+    float noise(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+    vec3 center(float i){
+      vec3 p=vec3(0.,.05,1.0);
+      if(i>0.5)p=vec3(-2.15,.95,-.25);
+      if(i>1.5)p=vec3(2.15,.9,-.65);
+      if(i>2.5)p=vec3(1.55,-1.45,-.15);
+      if(i>3.5)p=vec3(-1.75,-1.3,-.75);
+      if(i>4.5)p=vec3(.1,2.,-1.45);
+      p.y+=sin(uTime*.55+i*1.8)*.11;
+      float angle=uPointer.x*.17+uScroll*.12;
+      p.xz=mat2(cos(angle),-sin(angle),sin(angle),cos(angle))*p.xz;
+      p.y+=uPointer.y*.13;
+      return p;
+    }
+    vec3 palette(float i){
+      if(i<.5)return vec3(.48,.30,.73);
+      if(i<1.5)return vec3(.79,.63,.36);
+      if(i<2.5)return vec3(.78,.74,.88);
+      if(i<3.5)return vec3(.59,.43,.78);
+      if(i<4.5)return vec3(.31,.41,.66);
+      return vec3(.83,.74,.57);
+    }
+    void main(){
+      vec2 uv=(2.*gl_FragCoord.xy-uResolution.xy)/uResolution.y;
+      vec3 ro=vec3(uPointer.x*.12,uPointer.y*.08,7.3);
+      vec3 rd=normalize(vec3(uv, -2.8));
+      vec3 bg=vec3(.051,.078,.149);
+      float halo=exp(-dot(uv,uv)*.65);
+      bg+=vec3(.052,.020,.083)*halo;
+      vec2 cell=floor((uv+vec2(uTime*.0007,0.))*45.);
+      vec2 point=fract((uv+vec2(uTime*.0007,0.))*45.)-.5;
+      float star=step(.985,noise(cell))*smoothstep(.065,0.,length(point));
+      bg+=star*vec3(.21,.18,.28);
+      float orbit=abs(length(uv*vec2(.9,1.35))-1.18);
+      bg+=vec3(.22,.15,.34)*smoothstep(.008,0.,orbit)*.55;
+      float nearest=100.; float chosen=-1.; float coverage=1.; vec3 sphere=vec3(0.); float radius=1.;
+      for(int j=0;j<6;j++){
+        float i=float(j); vec3 c=center(i); float r=i<.5?1.02:.65;
+        vec3 oc=ro-c; float b=dot(oc,rd); float d=b*b-dot(oc,oc)+r*r;
+        if(d>0.){float t=-b-sqrt(d);if(t>0.&&t<nearest){nearest=t;chosen=i;sphere=c;radius=r;coverage=smoothstep(0.,.025,d);}}
+      }
+      vec3 color=bg;
+      if(chosen>=0.){
+        vec3 pos=ro+rd*nearest; vec3 n=normalize(pos-sphere); vec3 view=-rd;
+        vec3 light=normalize(vec3(-.65,1.,1.8));
+        vec3 base=palette(chosen);
+        float disk=1.-smoothstep(.56,.59,length(n.xy));
+        disk*=step(.5,n.z);
+        base=mix(base,vec3(.95,.93,.99),disk);
+        vec2 textUV=n.xy/.94+.5;
+        textUV.x=(clamp(textUV.x,0.,1.)+chosen)/6.;
+        float ink=texture2D(uNumbers,textUV).a;
+        base=mix(base,vec3(.13,.09,.23),ink*disk);
+        float diffuse=max(dot(n,light),0.);
+        float spec=pow(max(dot(n,normalize(light+view)),0.),65.);
+        float fresnel=pow(1.-max(dot(n,view),0.),3.);
+        color=base*(.29+.78*diffuse)+vec3(.92,.85,1.)*spec*.63;
+        color+=vec3(.18,.12,.32)*fresnel;
+        color=mix(color,vec3(.77,.69,.93),pow(max(n.y,0.),9.)*.13);
+      }
+      color=mix(bg,color,coverage);
+      gl_FragColor=vec4(color,1.);
+    }`;
+  function compile(type, source) {
+    const shader = gl.createShader(type);
+    gl.shaderSource(shader, source); gl.compileShader(shader);
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) { gl.deleteShader(shader); throw new Error("Scene shader unavailable"); }
+    return shader;
+  }
+  let program;
+  try {
+    program = gl.createProgram();
+    const vs = compile(gl.VERTEX_SHADER, vertex), fs = compile(gl.FRAGMENT_SHADER, fragment);
+    gl.attachShader(program, vs); gl.attachShader(program, fs); gl.linkProgram(program);
+    gl.deleteShader(vs); gl.deleteShader(fs);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) throw new Error("Scene program unavailable");
+  } catch { return; }
+  gl.useProgram(program);
+  const buffer = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,3,-1,-1,3]), gl.STATIC_DRAW);
+  const position = gl.getAttribLocation(program,"aPosition");
+  gl.enableVertexAttribArray(position); gl.vertexAttribPointer(position,2,gl.FLOAT,false,0,0);
+  const atlas = document.createElement("canvas"); atlas.width=768; atlas.height=128;
+  const ctx=atlas.getContext("2d");
+  if (!ctx) return;
+  ctx.fillStyle="#111"; ctx.font="600 55px system-ui, sans-serif"; ctx.textAlign="center"; ctx.textBaseline="middle";
+  ["07","14","23","36","42","58"].forEach((number,i)=>ctx.fillText(number,128*i+64,65));
+  const texture=gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D,texture);
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);
+  gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,atlas);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+  const uniforms={};
+  ["uResolution","uPointer","uTime","uScroll","uNumbers"].forEach(key=>uniforms[key]=gl.getUniformLocation(program,key));
+  gl.uniform1i(uniforms.uNumbers,0);
+  let paused=reducedMotion.matches, visible=false, lost=false, frame=0, elapsed=0, previous=0;
+  let pointer={x:0,y:0}, target={x:0,y:0};
+  function resize(){
+    const rect=stage.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const scale=Math.min(devicePixelRatio||1,innerWidth<761?1:1.5);
+    const width=Math.round(rect.width*scale), height=Math.round(rect.height*scale);
+    if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height;gl.viewport(0,0,width,height);}
+  }
+  function draw(){
+    if(lost) return;
+    resize();
+    pointer.x+=(target.x-pointer.x)*.05; pointer.y+=(target.y-pointer.y)*.05;
+    gl.uniform2f(uniforms.uResolution,canvas.width,canvas.height);
+    gl.uniform2f(uniforms.uPointer,pointer.x,pointer.y);
+    gl.uniform1f(uniforms.uTime,elapsed);
+    gl.uniform1f(uniforms.uScroll,reducedMotion.matches?0:Math.min(scrollY/700,1));
+    gl.drawArrays(gl.TRIANGLES,0,3);
+    stage.classList.add("is-rendered");
+  }
+  function animate(now){
+    frame=0;
+    if(paused||!visible||document.hidden||lost) return;
+    if(!previous||now-previous>=32){elapsed+=previous?Math.min((now-previous)/1000,.08):0;previous=now;draw();}
+    frame=requestAnimationFrame(animate);
+  }
+  function sync(){
+    cancelAnimationFrame(frame);frame=0;previous=0;
+    control.textContent=paused?"Ativar movimento":"Pausar movimento";
+    control.setAttribute("aria-pressed",String(paused));
+    if(visible&&!document.hidden&&!lost){draw();if(!paused)frame=requestAnimationFrame(animate);}
+  }
+  control.hidden=false;
+  control.addEventListener("click",()=>{paused=!paused;sync();});
+  stage.addEventListener("pointermove",event=>{
+    if(paused||reducedMotion.matches||event.pointerType==="touch")return;
+    const rect=stage.getBoundingClientRect();
+    target.x=((event.clientX-rect.left)/rect.width-.5)*2;
+    target.y=-((event.clientY-rect.top)/rect.height-.5)*2;
+  });
+  stage.addEventListener("pointerleave",()=>{target={x:0,y:0};});
+  const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync();},{threshold:.01});
+  observer.observe(stage);
+  new ResizeObserver(()=>{if(visible&&!lost)draw();}).observe(stage);
+  document.addEventListener("visibilitychange",sync);
+  reducedMotion.addEventListener("change",()=>{paused=reducedMotion.matches;target={x:0,y:0};pointer={x:0,y:0};sync();});
+  canvas.addEventListener("webglcontextlost",event=>{
+    event.preventDefault();lost=true;cancelAnimationFrame(frame);stage.classList.remove("is-rendered");control.hidden=true;
+  });
+  canvas.addEventListener("webglcontextrestored",()=>{
+    // Keep the static illustration until the next load, instead of using invalid GPU resources.
+    lost=true;stage.classList.remove("is-rendered");control.hidden=true;
+  });
+})();
+
 
 function offlineRefresh() {
   renderBlog(); renderAdmin(); renderDashboard(); updatePublicRoute();
@@ -9273,5 +9519,6 @@ window.addEventListener('hashchange',offlineRefresh);
 window.addEventListener('popstate',offlineRefresh);
 offlineRefresh();
 </script>
+    
   </body>
 </html>

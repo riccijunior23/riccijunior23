@@ -42,3 +42,16 @@ Também é possível executar `python preview_server.py` na pasta do projeto. O 
 ## Arquivos
 
 `index.html` e `app.js` contêm as alterações estruturais e de navegação. `refinements.css` reúne o novo visual sobre a folha original, preservada para os componentes existentes. `preview_server.py` e `Visualizar.bat` servem somente à revisão local. A pasta `preview` pertence ao ZIP original; a aplicação usa os arquivos na raiz.
+
+## Proposta de apresentação 3D
+
+- Nova abertura com esferas renderizadas em WebGL, iluminação, profundidade, flutuação e perspectiva guiada pelo mouse.
+- Ação de acesso direto ao gerador e interface principal preservada. Os números da cena são ilustrativos.
+- Pausa e retomada por botão, compatível com teclado. A preferência por movimento reduzido inicia a cena pausada.
+- Renderização limitada a aproximadamente 30 quadros por segundo; resolução limitada e animação suspensa fora da tela e em abas ocultas.
+- Ilustração estática quando WebGL não está disponível, falha na inicialização ou o contexto gráfico é perdido.
+- Exportador offline reproduzível, sem bibliotecas ou recursos remotos.
+
+Verificações da proposta: 42 gerações entre modalidades/métodos e 55 combinações de página/tamanho passaram novamente. Também foram verificadas larguras de 320 a 1440 px, pausa/retomada, suspensão fora da tela, movimento reduzido, perda de contexto, ausência de WebGL e geração na versão offline sem requisições externas. Esses testes usam Chromium com renderização por software no ambiente; desempenho em aparelhos físicos ainda depende de revisão.
+
+O acesso à referência externa retornou HTTP 403. A proposta explora a direção 3D e imersiva do pedido, sem afirmar que reproduz a referência visual com precisão. Nenhuma publicação no Netlify foi realizada.
