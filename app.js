@@ -4588,10 +4588,10 @@ function renderHomeArticles() {
     if (!selected.some(item => item.category === article.category)) selected.push(article);
     if (selected.length === 3) break;
   }
-  return `<div class="section-shell home-articles"><div class="home-articles-head"><div>
-    <span class="eyebrow">Um convite à curiosidade</span><h2>Inspiração para explorar</h2></div>
-    <a class="text-link" href="/blog">Ver todos os artigos <span aria-hidden="true">→</span></a></div>
+  return `<div class="section-shell home-articles"><div class="home-articles-head">
+    <h2>Um pouco mais de inspiração</h2><a class="text-link" href="/blog">Explorar o blog <span aria-hidden="true">→</span></a></div>
     <div class="blog-grid">${selected.map(renderArticleCard).join("")}</div></div>`;
+
 }
 
 function revealGenerator() {
@@ -4610,9 +4610,9 @@ function updatePublicRoute() {
   const home = path === "/" && !account;
   const generator = path === "/gerador";
   document.body.dataset.page = account ? "account" : generator ? "generator" : home ? "home" : "internal";
-  const visible = new Set(account ? ["cliente"] : generator ? ["home", "gerador", "officialSummary"] : home ? ["home", "gerador", "officialSummary", "como-funciona", "blog"] : path.startsWith("/admin") ? ["admin", "receita"] : ["blog"]);
+  const visible = new Set(account ? ["cliente"] : generator ? ["home", "gerador", "officialSummary"] : home ? ["home", "gerador", "blog"] : path.startsWith("/admin") ? ["admin", "receita"] : ["blog"]);
   document.querySelectorAll("main > section").forEach(section => { section.hidden = !visible.has(section.id); });
-  document.querySelector("#home h1").innerHTML = generator ? "Uma combinação <span>com a sua inspiração.</span>" : "Seus números da sorte <span>começam aqui.</span>";
+  document.querySelector("#home h1").innerHTML = generator ? "Uma combinação <span>com a sua inspiração.</span>" : "Entre astros e números,<br><span>a sua inspiração.</span>";
   for (const [id, expected] of [["catalogMethods", "/metodos"], ["catalogGames", "/jogos"]]) {
     document.querySelector(`#${id}`).hidden = path !== expected;
   }

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="270" viewBox="0 0 300 270" fill="none">
+<g stroke="#ae9466" stroke-width=".8"><circle cx="151" cy="120" r="94" opacity=".44"/><circle cx="151" cy="120" r="76" opacity=".24"/><ellipse cx="151" cy="120" rx="122" ry="44" transform="rotate(-30 151 120)" opacity=".38"/></g>
+<text x="151.00" y="39.00" text-anchor="middle" fill="#947c56" font-family="Georgia,serif" font-size="10">1</text>
+<text x="204.99" y="58.65" text-anchor="middle" fill="#947c56" font-family="Georgia,serif" font-size="10">2</text>
+<text x="233.72" y="108.41" text-anchor="middle" fill="#947c56" font-family="Georgia,serif" font-size="10">3</text>
+<text x="223.75" y="165.00" text-anchor="middle" fill="#947c56" font-family="Georgia,serif" font-size="10">4</text>
+<text x="179.73" y="201.93" text-anchor="middle" fill="#947c56" font-family="Georgia,serif" font-size="10">5</text>
+<text x="122.27" y="201.93" text-anchor="middle" fill="#947c56" font-family="Georgia,serif" font-size="10">6</text>
+<text x="78.25" y="165.00" text-anchor="middle" fill="#947c56" font-family="Georgia,serif" font-size="10">7</text>
+<text x="68.28" y="108.41" text-anchor="middle" fill="#947c56" font-family="Georgia,serif" font-size="10">8</text>
+<text x="97.01" y="58.65" text-anchor="middle" fill="#947c56" font-family="Georgia,serif" font-size="10">9</text>
+<path d="M39 61h8 M43 57v8" stroke="#ad9260" stroke-width="1"/>
+<path d="M247 74h10 M252 69v10" stroke="#ad9260" stroke-width="1"/>
+<path d="M241 198h8 M245 194v8" stroke="#ad9260" stroke-width="1"/>
+<path d="M61 196h6 M64 193v6" stroke="#ad9260" stroke-width="1"/>
+<path d="M163 66a20 20 0 1 0 20 27 20 20 0 0 1-20-27Z" fill="#d1bf9c" opacity=".7"/>
+<text x="151" y="152" fill="#5f4b75" font-family="Georgia,serif" font-size="62" text-anchor="middle">7</text>
+<path d="M140 165h22" stroke="#ac9367" stroke-width=".8"/>
+<g fill="#faf8f3" stroke="#b5a286" stroke-width=".8"><circle cx="109" cy="228" r="17"/><circle cx="151" cy="228" r="17"/><circle cx="193" cy="228" r="17"/></g>
+<g fill="#63516f" font-family="Georgia,serif" font-size="12" text-anchor="middle"><text x="109" y="232">07</text><text x="151" y="232">23</text><text x="193" y="232">42</text></g>
+</svg>

@@ -42,3 +42,15 @@ Também é possível executar `python preview_server.py` na pasta do projeto. O 
 ## Arquivos
 
 `index.html` e `app.js` contêm as alterações estruturais e de navegação. `refinements.css` reúne o novo visual sobre a folha original, preservada para os componentes existentes. `preview_server.py` e `Visualizar.bat` servem somente à revisão local. A pasta `preview` pertence ao ZIP original; a aplicação usa os arquivos na raiz.
+
+## Modelo limpo: astrologia, numerologia e loterias
+
+- Abertura com uma frase curta, uma descrição e ilustração estática em traços finos.
+- Fundo claro, roxo suave, detalhes dourados e títulos em fonte com serifa.
+- Gerador em destaque; redução do texto de apoio e de elementos decorativos.
+- Home sem o bloco de prêmio e sem uma seção separada de passos. Os passos já aparecem nos rótulos do gerador; dados e administração do prêmio foram preservados.
+- Três links de artigos substituem os cartões ilustrados na home. Blog completo, artigos e demais páginas continuam acessíveis.
+- Versão offline atualizada, mantendo menus, navegação e geração local.
+- Inicializador para Windows contempla a instalação do Python 3.13 encontrada durante a configuração no computador do usuário.
+
+Validação do modelo limpo: 42 gerações entre sete modalidades e seis métodos; quantidades máximas das sete modalidades; 55 combinações de página e tamanho e uma checagem adicional em 320 px, sem rolagem horizontal. Navegação, menus, busca do blog, cópia, salvamento, favoritos e retorno da conta para o gerador passaram. A verificação automatizada de acessibilidade passou nas páginas verificadas e no login. A versão offline foi testada com a rede desativada, incluindo a ilustração incorporada, menus e geração em duas modalidades, sem requisições remotas ou erros de JavaScript. A instalação e a execução do inicializador no Windows não foram testadas nesta máquina Linux.
