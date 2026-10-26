@@ -205,23 +205,6 @@ const preferenceDefaults = {
   privacy: false
 };
 
-const defaultUser = {
-  id: "user_luiz_ricci",
-  name: "Luiz Ricci",
-  email: "riccijunior@gmail.com",
-  password: "1594826",
-  role: "admin",
-  status: "active",
-  plan: "Premium",
-  birth_date: "",
-  sign: "",
-  city: "",
-  lastAccess: "",
-  history: [],
-  favorites: [],
-  preferences: { ...preferenceDefaults },
-  createdAt: "2026-05-29T00:00:00.000Z"
-};
 
 const adminRoles = {
   admin: {
@@ -762,7 +745,7 @@ const legalSeoPages = {
     description: "Conheça as regras de uso do Palpinet, uma plataforma recreativa de números da sorte, sonhos e horóscopo.",
     sections: [
       ["Uso da plataforma", "O Palpinet oferece conteúdo recreativo e informativo para inspirar combinações de números. O usuário deve usar a plataforma com consciência e entender que não ha promessa de resultado."],
-      ["Conta e histórico", "No preview atual, contas e histórico ficam salvos localmente no navegador. Em versões futuras, a estrutura poderá ser conectada a banco de dados externo e autentificação segura."],
+      ["Conta e histórico", "Na prévia offline, contas de teste e histórico ficam neste navegador. Quando as contas online estão ativadas, cadastro e histórico ficam vinculados à conta no provedor configurado."],
       ["Responsabilidade", "Valores, probabilidades e informações sobre jogos são apenas informativos e podem mudar. Sempre consulte canais oficiais antes de qualquer decisão."]
     ]
   },
@@ -770,9 +753,9 @@ const legalSeoPages = {
     title: "Politica de Privacidade Palpinet",
     description: "Entenda como o Palpinet prepara a coleta, proteção e uso responsável de dados em sua plataforma.",
     sections: [
-      ["Dados coletados", "O preview usa armazenamento local para nome, e-mail, preferências e histórico. A chave da OpenAI não e exposta ao navegador."],
+      ["Dados coletados", "A prévia offline guarda os dados de teste neste navegador. Com contas online ativadas, nome, e-mail, preferências e histórico são vinculados à sua conta no provedor configurado."],
       ["Mediação e analytics", "A estrutura está preparada para Google Analytics 4, Search Console e Microsoft Clarity com carregamento condicional e eventos de produto."],
-      ["Controle do usuário", "O usuário pode encerrar sessão, exportar dados locais e excluir a conta criada neste navegador."]
+      ["Controle do usuário", "Você pode encerrar a sessão, exportar seus dados e excluir sua conta pelo painel. A prévia offline controla apenas os dados deste navegador."]
     ]
   },
   "/politica-de-cookies": {
@@ -796,6 +779,7 @@ const legalSeoPages = {
 };
 
 let pendingAfterAuth = null;
+let pendingCombination = null;
 let activeClientView = "dashboard";
 let activeFavoriteFilter = "all";
 let pendingRecoveryEmail = "";
@@ -937,14 +921,18 @@ function publicUser(user) {
 }
 
 function normalizeGuessRecord(record) {
+  if(!record || typeof record.game!=="string" || typeof record.method!=="string" || !Object.hasOwn(games,record.game) || !Object.hasOwn(methods,record.method) || !Array.isArray(record.numbers)) return null;
+  const rule=games[record.game];
+  if(!record.numbers.every(n=>Number.isInteger(n)&&n>=rule.min&&n<=rule.max) || new Set(record.numbers).size!==record.numbers.length) return null;
+  if(!(betOptions[record.game]||[]).some(option=>option.numbers===record.numbers.length)) return null;
   return {
     id: record.id || `guess_${hash(`${record.game}:${record.createdAt || Date.now()}:${record.numbers?.join("-")}`).toString(36)}`,
     game: record.game,
     method: record.method,
-    input: record.input || record.input_text || "",
-    quantity: record.quantity || record.numbers?.length || games[record.game]?.count || 0,
+    input: String(record.input || record.input_text || ""),
+    quantity: record.numbers.length,
     numbers: Array.isArray(record.numbers) ? record.numbers : [],
-    ai_response: record.ai_response || "",
+    ai_response: String(record.ai_response || ""),
     interpretation_type: record.interpretation_type || "",
     is_favorite: Boolean(record.is_favorite),
     createdAt: record.createdAt || record.created_at || new Date().toISOString()
@@ -952,7 +940,7 @@ function normalizeGuessRecord(record) {
 }
 
 function normalizeUserRecord(user) {
-  const history = (Array.isArray(user.history) ? user.history : []).map(normalizeGuessRecord);
+  const history = (Array.isArray(user.history) ? user.history : []).map(normalizeGuessRecord).filter(Boolean);
   const favoriteIds = new Set([
     ...(Array.isArray(user.favorites) ? user.favorites : []),
     ...history.filter((record) => record.is_favorite).map((record) => record.id)
@@ -981,34 +969,11 @@ function normalizeUserRecord(user) {
   };
 }
 
-// Carrega usuários locais e garante o usuário de teste da Fase 2.
+// Local accounts are a clearly labelled preview only. No seeded administrator.
 function loadUsers() {
-  const users = read(usersKey, []).map(normalizeUserRecord);
-  const email = cleanEmail(defaultUser.email);
-  const index = users.findIndex((user) => cleanEmail(user.email) === email);
-
-  if (index === -1) {
-    const nextUsers = [...users, normalizeUserRecord(defaultUser)];
-    saveUsers(nextUsers);
-    return nextUsers;
-  }
-
-  const current = users[index];
-  const patchedUser = normalizeUserRecord({
-    ...defaultUser,
-    ...current,
-    email: defaultUser.email,
-    password: defaultUser.password,
-    role: defaultUser.role,
-    status: current.status || defaultUser.status,
-    plan: current.plan || defaultUser.plan,
-    history: Array.isArray(current.history) ? current.history : [],
-    favorites: Array.isArray(current.favorites) ? current.favorites : [],
-    preferences: { ...preferenceDefaults, ...(current.preferences || {}) }
-  });
-  const nextUsers = users.map((user, userIndex) => (userIndex === index ? patchedUser : user));
-  saveUsers(nextUsers);
-  return nextUsers;
+  if (window.PalpinetAccounts?.enabled) return getCurrentUser() ? [getCurrentUser()] : [];
+  if (window.PalpinetAccounts?.blocked) return [];
+  return read(usersKey, []).map(normalizeUserRecord);
 }
 
 function saveUsers(users) {
@@ -1016,6 +981,8 @@ function saveUsers(users) {
 }
 
 function getCurrentUser() {
+  if (window.PalpinetAccounts?.enabled) return window.PalpinetAccounts.currentUser ? normalizeUserRecord(window.PalpinetAccounts.currentUser) : null;
+  if (window.PalpinetAccounts?.blocked) return null;
   const session = read(authSessionKey, null);
   if (!session?.userId) return null;
   return loadUsers().find((user) => user.id === session.userId) || null;
@@ -1025,42 +992,59 @@ function saveSession(user) {
   write(authSessionKey, { userId: user.id, createdAt: new Date().toISOString() });
 }
 
-function endSession() {
+async function endSession() {
+  if (window.PalpinetAccounts?.enabled) { await window.PalpinetAccounts.signOut(); return; }
   localStorage.removeItem(authSessionKey);
 }
 
-function authenticateUser(email, password) {
+async function authenticateUser(email, password) {
   if (!email.trim() || !password.trim()) {
     return { ok: false, message: "Preencha e-mail e senha." };
   }
 
+  if (window.PalpinetAccounts?.blocked) return {ok:false,message:"As contas online ainda não foram ativadas."};
+  if (window.PalpinetAccounts?.enabled) {
+    try { const user=await window.PalpinetAccounts.signIn(cleanEmail(email),password); return {ok:true,user:publicUser(user)}; }
+    catch(error){return {ok:false,message:error.message};}
+  }
   const users = loadUsers();
   const user = users.find((item) => cleanEmail(item.email) === cleanEmail(email));
   if (!user) return { ok: false, message: "E-mail não cadastrado." };
-  if (user.password !== password) return { ok: false, message: "Senha incorreta." };
+  const matches = user.passwordHash ? await previewPasswordHash(password,user.passwordSalt) === user.passwordHash : user.password === password;
+  if (!matches) return { ok: false, message: "Senha incorreta." };
+  const passwordSalt = user.passwordSalt || crypto.randomUUID();
+  const passwordHash = user.passwordHash || await previewPasswordHash(password,passwordSalt);
   if (user.status === "blocked") return { ok: false, message: "Conta bloqueada. Fale com o administrador." };
 
-  saveUsers(users.map((item) => (item.id === user.id ? { ...item, lastAccess: new Date().toISOString() } : item)));
+  saveUsers(users.map((item) => { if(item.id !== user.id) return item; const next={...item,passwordHash,passwordSalt,lastAccess:new Date().toISOString()}; delete next.password; return next; }));
   saveSession(user);
   trackEvent("login", { method: "local", role: user.role || "user" });
   return { ok: true, user: publicUser(user), message: "Login realizado com sucesso." };
 }
 
-function createUser(name, email, password, profile = {}) {
+async function createUser(name, email, password, profile = {}) {
   if (!name.trim() || !email.trim() || !password.trim()) {
     return { ok: false, message: "Preencha nome, e-mail e senha." };
   }
 
+  if (password.length < 8) return {ok:false,message:"Use uma senha com pelo menos 8 caracteres."};
+  if (window.PalpinetAccounts?.blocked) return {ok:false,message:"As contas online ainda não foram ativadas."};
+  if (window.PalpinetAccounts?.enabled) {
+    try {const user=await window.PalpinetAccounts.signUp(name.trim(),cleanEmail(email),password,profile);return {ok:true,user:user?publicUser(user):null,message:user?"Conta criada.":"Confira seu e-mail para confirmar a conta antes de entrar."};}
+    catch(error){return {ok:false,message:error.message};}
+  }
   const users = loadUsers();
   if (users.some((user) => cleanEmail(user.email) === cleanEmail(email))) {
     return { ok: false, message: "E-mail já cadastrado." };
   }
 
+  const passwordSalt=crypto.randomUUID();
   const user = {
     id: `user_${hash(`${email}:${Date.now()}`).toString(36)}`,
     name: name.trim(),
     email: cleanEmail(email),
-    password,
+    passwordHash: await previewPasswordHash(password,passwordSalt),
+    passwordSalt,
     role: "user",
     status: "active",
     plan: "Gratis",
@@ -1085,14 +1069,16 @@ function createUser(name, email, password, profile = {}) {
   return { ok: true, user: publicUser(user), message: "Conta criada com sucesso." };
 }
 
-function updateUser(userId, updater) {
+async function updateUser(userId, updater) {
+  if (window.PalpinetAccounts?.enabled) return window.PalpinetAccounts.update(updater);
+  if (window.PalpinetAccounts?.blocked) throw new Error("Entre para continuar.");
   const users = loadUsers();
   const nextUsers = users.map((user) => (user.id === userId ? normalizeUserRecord(updater(user)) : user));
   saveUsers(nextUsers);
 }
 
 // Salva o jogo apenas no histórico do usuário logado.
-function saveGameToHistory(record) {
+async function saveGameToHistory(record) {
   const user = getCurrentUser();
   if (!user) return { saved: false, reason: "guest" };
 
@@ -1103,14 +1089,14 @@ function saveGameToHistory(record) {
     input: record.input || record.input_text,
     quantity: record.quantity || record.numbers?.length,
     numbers: record.numbers,
-    ai_response: record.ai_response || "",
+    ai_response: String(record.ai_response || ""),
     interpretation_type: record.interpretation_type || "",
     is_favorite: Boolean(record.is_favorite),
     createdAt: record.createdAt || record.created_at
   };
 
   let alreadySaved = false;
-  updateUser(user.id, (storedUser) => ({
+  await updateUser(user.id, (storedUser) => ({
     ...storedUser,
     preferences: {
       ...preferenceDefaults,
@@ -2543,7 +2529,7 @@ function renderAdminUsers() {
     return true;
   });
   return `
-    ${renderAdminHeader("Usuários", "Gerencie contas, planos, status e níveis de acesso.", `<button class="primary-button" type="button" data-admin-action="seed-user">Criar usuário teste</button>`)}
+    ${renderAdminHeader("Usuários", "Gerencie contas, planos, status e níveis de acesso.")}
     ${renderAdminFilters(["todos", "ativos", "inativos", "novos"])}
     <div class="admin-table-wrap"><table><thead><tr><th>Nome</th><th>Email</th><th>Cadastro</th><th>Último acesso</th><th>Plano</th><th>Status</th><th>Ações</th></tr></thead><tbody>
       ${users.map((user) => `
@@ -2870,13 +2856,6 @@ function handleAdminAction(button) {
   const action = button.dataset.adminAction;
   const current = getCurrentUser();
   if (!isAdminUser(current)) return;
-
-  if (action === "seed-user" && adminCan("users")) {
-    const users = loadUsers();
-    const email = `editor${Date.now()}@palpinet.local`;
-    saveUsers([...users, normalizeUserRecord({ id: `user_${Date.now()}`, name: "Editor Palpinet", email, password: "123456", role: "editor", status: "active", plan: "Equipe", history: [], favorites: [], createdAt: new Date().toISOString(), lastAccess: "" })]);
-    addAdminLog("Criou usuário teste", email);
-  }
 
   if (action === "block-user" && adminCan("users")) {
     updateUser(button.dataset.userId, (user) => ({ ...user, status: user.status === "blocked" ? "active" : "blocked" }));
@@ -3219,8 +3198,22 @@ function emailResult(record) {
   window.location.href = `mailto:?subject=${subject}&body=${body}`;
 }
 
+async function copyText(text) {
+  try { if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(text); return true; } } catch {}
+  const input = document.createElement("textarea"); input.value = text;
+  input.setAttribute("readonly", ""); input.style.cssText = "position:fixed;left:-9999px;top:0";
+  const focus = document.activeElement; document.body.append(input); input.select();
+  let copied = false;
+  try { copied = document.execCommand("copy"); } catch {}
+  input.remove(); focus?.focus(); return copied;
+}
+
 function renderResult(record) {
+  const checked=normalizeGuessRecord(record);
+  if(!checked) { document.querySelector("#status").textContent="Esta combinação não pôde ser exibida. Gere uma nova combinação."; return; }
+  record={...record,...checked};
   const result = document.querySelector("#result");
+  document.querySelector("#generatorFields").hidden = false;
   result.classList.remove("hidden");
   const formattedNumbers = record.numbers.map((number) => formatNumber(record.game, number));
   const betInfo = betOptionFor(record.game, record.quantity || record.numbers.length);
@@ -3235,13 +3228,15 @@ function renderResult(record) {
       <span>Sua combinação</span>
       <small>${games[record.game].name} • ${record.quantity || record.numbers.length} números • ${betInfo?.price || ""}</small>
     </div>
-    <div class="quick-numbers">${formattedNumbers.map((number) => `<b class="number-ball">${number}</b>`).join("")}</div>
+    <div class="quick-numbers">${formattedNumbers.map((number) => `<b class="number-ball">${escapeHtml(number)}</b>`).join("")}</div>
     <div class="quick-actions">
-      <button data-action="save">Salvar</button>
-      <button data-action="copy">Copiar</button>
-      <button data-action="regenerate">Gerar Novamente</button>
-      <button data-action="share">Compartilhar</button>
-      <button data-action="email">Enviar por e-mail</button>
+      <button class="result-primary" data-action="copy">Copiar números</button>
+      <button class="result-save" data-action="save">Salvar combinação</button>
+      <details class="result-more"><summary>Mais opções</summary><div>
+        <button data-action="regenerate">Gerar novamente</button>
+        <button data-action="share">Compartilhar</button>
+        <button data-action="email">Enviar por e-mail</button>
+      </div></details>
     </div>
     ${
       aiText
@@ -3252,25 +3247,28 @@ function renderResult(record) {
             </div>
             <p>${aiText}</p>
           </section>`
-        : `<p class="result-note">${buildResultMessage(record)}</p>`
+        : `<p class="result-note">${escapeHtml(buildResultMessage(record))}</p>`
     }
     <p class="result-warning">As sugestões do Palpinet têm caráter recreativo e informativo. Não há garantia de premiação.</p>
     ${renderAdSlot("result-after-reading")}
   `;
 
-  result.querySelector('[data-action="save"]').addEventListener("click", () => {
-    const saved = saveGameToHistory(record);
+  result.querySelector('[data-action="save"]').addEventListener("click", async () => {
+    let saved;
+    try { saved = await saveGameToHistory(record); } catch(error) { document.querySelector("#status").textContent = error.message; return; }
     renderDashboard();
     if (saved.reason === "guest") {
       document.querySelector("#status").textContent = "Entre para salvar este palpite no seu histórico.";
-      openAuthModal("login");
+      pendingCombination = record;
+      openAuthModal("login", "save-result");
       return;
     }
     document.querySelector("#status").textContent = saved.reason === "exists" ? "Este palpite já está salvo." : "Palpite salvo no seu histórico.";
   });
 
-  result.querySelector('[data-action="copy"]').addEventListener("click", () => {
-    navigator.clipboard.writeText(record.numbers.map((number) => formatNumber(record.game, number)).join(" - "));
+  result.querySelector('[data-action="copy"]').addEventListener("click", async () => {
+    const copied = await copyText(record.numbers.map((number) => formatNumber(record.game, number)).join(" - "));
+    if (!copied) { document.querySelector("#status").textContent = "Não foi possível copiar. Selecione os números e copie manualmente."; return; }
     trackEvent("copy_numbers", { game: record.game, method: record.method, source: "result_card" });
     document.querySelector("#status").textContent = "Números copiados.";
   });
@@ -3282,10 +3280,13 @@ function renderResult(record) {
   result.querySelector('[data-action="share"]').addEventListener("click", async () => {
     const text = `Meu palpite Palpinet para ${games[record.game].name}: ${record.numbers.map((number) => formatNumber(record.game, number)).join(" - ")}`;
     if (navigator.share) await navigator.share({ title: "Palpinet", text });
-    else await navigator.clipboard.writeText(text);
+    else await copyText(text);
     trackEvent("share_guess", { game: record.game, method: record.method, source: "result_card" });
   });
 
+  result.querySelector(".result-more").addEventListener("keydown",event=>{
+    if(event.key==="Escape"){event.currentTarget.open=false;event.currentTarget.querySelector("summary").focus();}
+  });
   result.querySelector('[data-action="email"]').addEventListener("click", () => {
     emailResult(record);
   });
@@ -3309,7 +3310,7 @@ function renderDashboard() {
   guest.classList.add("hidden");
   dashboard.classList.remove("hidden");
   title.textContent = `Painel Palpinet de ${firstName(user.name)}`;
-  subtitle.textContent = "Seu histórico local fica salvo neste navegador e separado dos outros usuários.";
+  subtitle.textContent = window.PalpinetAccounts?.enabled ? "Seu histórico, favoritos e preferências acompanham sua conta." : "Seu histórico de teste fica somente neste navegador.";
 
   document.querySelector("#clientInitials").textContent = initials(user.name);
   document.querySelector("#clientName").textContent = user.name;
@@ -3403,8 +3404,8 @@ function renderClientHome(user) {
   return `
     <section class="client-welcome">
       <div>
-        <span class="client-kicker">Dashboard inteligente</span>
-        <h3>Ola ${escapeHtml(firstName(user.name))}</h3>
+        <span class="client-kicker">Seu espaço</span>
+        <h3>Olá, ${escapeHtml(firstName(user.name))}</h3>
         <p>Bem-vindo novamente ao Palpinet. Este é o seu painel pessoal para acompanhar palpites, sonhos, horóscopos e preferências.</p>
       </div>
       <button class="primary-button" type="button" data-client-view="guesses">Ver meus palpites</button>
@@ -3444,7 +3445,7 @@ function renderRecommendation(user) {
     <article class="recommendation-card">
       <strong>Você costuma usar ${escapeHtml(methods[favoriteMethod])} e ${escapeHtml(games[favoriteGame]?.name || favoriteGame)}.</strong>
       <p>Deseja gerar uma nova combinação seguindo esse mesmo caminho?</p>
-      <button class="primary-button" type="button" data-client-action="generate-preferred" data-game="${favoriteGame}" data-method="${favoriteMethod}">
+      <button class="primary-button" type="button" data-client-action="generate-preferred" data-game="${escapeHtml(favoriteGame)}" data-method="${escapeHtml(favoriteMethod)}">
         Gerar nova combinação
       </button>
     </article>`;
@@ -3587,7 +3588,7 @@ function renderClientInterpretations(user) {
                     <span>${label}</span>
                     <h4>${escapeHtml(title)}</h4>
                     <p>${escapeHtml(record.ai_response || buildResultMessage(record))}</p>
-                    <div class="client-number-row">${(record.numbers || []).map((number) => `<b>${formatNumber(record.game, number)}</b>`).join("")}</div>
+                    <div class="client-number-row">${(record.numbers || []).map((number) => `<b>${escapeHtml(formatNumber(record.game, number))}</b>`).join("")}</div>
                     <small>${escapeHtml(games[record.game].name)} - ${formatDateTime(record.createdAt)}</small>
                   </article>`;
               })
@@ -3679,15 +3680,15 @@ function renderGuessCard(record, variant = "") {
         <time>${formatDateTime(record.createdAt)}</time>
       </header>
       ${entry}
-      <div class="client-number-row">${(record.numbers || []).map((number) => `<b>${formatNumber(record.game, number)}</b>`).join("")}</div>
+      <div class="client-number-row">${(record.numbers || []).map((number) => `<b>${escapeHtml(formatNumber(record.game, number))}</b>`).join("")}</div>
       ${reading}
       <div class="client-row-actions">
-        <button type="button" data-client-action="copy" data-guess-id="${record.id}">Copiar</button>
-        <button type="button" data-client-action="favorite" data-guess-id="${record.id}">${isFavorite ? "Remover favorito" : "Favoritar"}</button>
-        <button type="button" data-client-action="share" data-guess-id="${record.id}">Compartilhar</button>
-        <button type="button" data-client-action="similar" data-guess-id="${record.id}">Gerar semelhante</button>
-        <button type="button" data-client-action="details" data-guess-id="${record.id}">Ver detalhes</button>
-        <button type="button" data-client-action="delete" data-guess-id="${record.id}">Excluir</button>
+        <button type="button" data-client-action="copy" data-guess-id="${escapeHtml(record.id)}">Copiar</button>
+        <button type="button" data-client-action="favorite" data-guess-id="${escapeHtml(record.id)}">${isFavorite ? "Remover favorito" : "Favoritar"}</button>
+        <button type="button" data-client-action="share" data-guess-id="${escapeHtml(record.id)}">Compartilhar</button>
+        <button type="button" data-client-action="similar" data-guess-id="${escapeHtml(record.id)}">Gerar semelhante</button>
+        <button type="button" data-client-action="details" data-guess-id="${escapeHtml(record.id)}">Ver detalhes</button>
+        <button type="button" data-client-action="delete" data-guess-id="${escapeHtml(record.id)}">Excluir</button>
       </div>
     </article>`;
 }
@@ -3704,14 +3705,14 @@ function getGuessById(guessId) {
   return (user.history || []).find((record) => record.id === guessId) || null;
 }
 
-function updateCurrentUser(updater) {
+async function updateCurrentUser(updater) {
   const user = getCurrentUser();
   if (!user) return;
-  updateUser(user.id, updater);
+  await updateUser(user.id, updater);
 }
 
-function toggleFavoriteGuess(guessId) {
-  updateCurrentUser((user) => {
+async function toggleFavoriteGuess(guessId) {
+  await updateCurrentUser((user) => {
     const history = user.history || [];
     const current = history.find((record) => record.id === guessId);
     const nextFavoriteState = !current?.is_favorite;
@@ -3724,8 +3725,8 @@ function toggleFavoriteGuess(guessId) {
   renderDashboard();
 }
 
-function deleteGuessById(guessId) {
-  updateCurrentUser((user) => ({
+async function deleteGuessById(guessId) {
+  await updateCurrentUser((user) => ({
     ...user,
     history: (user.history || []).filter((record) => record.id !== guessId),
     favorites: (user.favorites || []).filter((id) => id !== guessId)
@@ -3756,7 +3757,7 @@ async function shareGuessById(guessId) {
 function showGuessDetails(guessId) {
   const record = getGuessById(guessId);
   if (!record) return;
-  revealGenerator();
+  fillGeneratorFromRecord(record, false);
   renderResult(record);
   document.querySelector("#result").scrollIntoView({ behavior: "smooth", block: "center" });
   document.querySelector("#status").textContent = "Detalhes carregados no gerador.";
@@ -3810,7 +3811,8 @@ function generatePreferred(game, method) {
 function exportCurrentUserData() {
   const user = getCurrentUser();
   if (!user) return;
-  const safeUser = { ...user, password: "oculta" };
+  const safeUser = { ...user };
+  delete safeUser.password; delete safeUser.passwordHash; delete safeUser.passwordSalt;
   const blob = new Blob([JSON.stringify({ users: [safeUser], guesses: user.history || [], favorites: user.favorites || [], user_preferences: user.preferences || {} }, null, 2)], {
     type: "application/json"
   });
@@ -3821,18 +3823,22 @@ function exportCurrentUserData() {
   URL.revokeObjectURL(link.href);
 }
 
-function deleteCurrentAccount() {
+async function deleteCurrentAccount() {
   const user = getCurrentUser();
   if (!user) return;
+  if (window.PalpinetAccounts?.enabled) {
+    if(!window.confirm("Excluir sua conta e todo o histórico sincronizado? Esta ação é permanente."))return;
+    await window.PalpinetAccounts.deleteAccount(); renderAuthState();renderDashboard();return;
+  }
   if (!window.confirm("Excluir esta conta local e todos os dados salvos neste navegador?")) return;
   saveUsers(loadUsers().filter((storedUser) => storedUser.id !== user.id));
-  endSession();
+  await endSession();
   renderAuthState();
   renderDashboard();
   document.querySelector("#status").textContent = "Conta local excluida.";
 }
 
-function saveAccountForm() {
+async function saveAccountForm() {
   const user = getCurrentUser();
   if (!user) return;
   const name = document.querySelector("#accountName").value.trim();
@@ -3853,10 +3859,14 @@ function saveAccountForm() {
     return;
   }
 
-  updateUser(user.id, (storedUser) => ({
+  if(window.PalpinetAccounts?.enabled && email !== user.email) {
+    await window.PalpinetAccounts.updateEmail(email);
+    setMessage(message,"Confirme a alteração de e-mail pelo link recebido.","success");
+  }
+  await updateUser(user.id, (storedUser) => ({
     ...storedUser,
     name,
-    email,
+    email: window.PalpinetAccounts?.enabled ? user.email : email,
     birth_date: birthDate,
     sign,
     city
@@ -3864,57 +3874,29 @@ function saveAccountForm() {
   renderAuthState();
   renderDashboard();
   document.querySelector("#status").textContent = "Conta atualizada com sucesso.";
+  document.querySelector("#accountCloudStatus").textContent = window.PalpinetAccounts?.enabled && email !== user.email ? "Perfil atualizado. Confirme a alteração de e-mail pelo link recebido." : "Perfil atualizado.";
 }
 
-function updateUserPreference(keyName, value) {
-  updateCurrentUser((user) => ({
+async function updateUserPreference(keyName, value) {
+  await updateCurrentUser((user) => ({
     ...user,
     preferences: { ...preferenceDefaults, ...(user.preferences || {}), [keyName]: value }
   }));
 }
 
-function submitRecoveryForm() {
-  const email = cleanEmail(document.querySelector("#recoverEmail").value);
-  const message = document.querySelector("#recoverMessage");
-
-  if (!pendingRecoveryEmail) {
-    if (!email) {
-      setMessage(message, "Informe o e-mail cadastrado.", "error");
-      return;
+async function submitRecoveryForm() {
+  const message=document.querySelector("#recoverMessage");
+  if(!window.PalpinetAccounts?.enabled){setMessage(message,"Esta prévia local não envia e-mails de recuperação. As contas online ainda não foram ativadas.","error");return;}
+  try {
+    if(window.PalpinetAccounts.recovering){
+      const password=document.querySelector("#recoverPassword").value;
+      if(password.length<8 || password!==document.querySelector("#recoverPasswordConfirm").value){setMessage(message,"Use pelo menos 8 caracteres e confirme a mesma senha.","error");return;}
+      await window.PalpinetAccounts.resetPassword(password);await window.PalpinetAccounts.signOut().catch(()=>{});setAuthMode("login");setMessage(document.querySelector("#loginMessage"),"Senha atualizada. Entre com a nova senha.","success");return;
     }
-
-    const user = loadUsers().find((storedUser) => cleanEmail(storedUser.email) === email);
-    if (!user) {
-      setMessage(message, "E-mail não cadastrado.", "error");
-      return;
-    }
-
-    pendingRecoveryEmail = email;
-    document.querySelector("#recoverReset").classList.remove("hidden");
-    document.querySelector("#recoverSubmit").textContent = "Criar nova senha";
-    setMessage(message, "Link local liberado. Defina uma nova senha abaixo.", "success");
-    return;
-  }
-
-  const password = document.querySelector("#recoverPassword").value;
-  const confirmPassword = document.querySelector("#recoverPasswordConfirm").value;
-  if (!password.trim() || !confirmPassword.trim()) {
-    setMessage(message, "Preencha e confirme a nova senha.", "error");
-    return;
-  }
-  if (password !== confirmPassword) {
-    setMessage(message, "As senhas não conferem.", "error");
-    return;
-  }
-
-  saveUsers(loadUsers().map((user) => (cleanEmail(user.email) === pendingRecoveryEmail ? { ...user, password } : user)));
-  const recoveredEmail = pendingRecoveryEmail;
-  pendingRecoveryEmail = "";
-  document.querySelector("#recoverPassword").value = "";
-  document.querySelector("#recoverPasswordConfirm").value = "";
-  document.querySelector("#loginEmail").value = recoveredEmail;
-  setAuthMode("login");
-  setMessage(document.querySelector("#loginMessage"), "Senha atualizada. Entre com a nova senha.", "success");
+    const email=cleanEmail(document.querySelector("#recoverEmail").value);
+    if(!email){setMessage(message,"Informe seu e-mail.","error");return;}
+    await window.PalpinetAccounts.recover(email);setMessage(message,"Se houver uma conta para esse e-mail, você receberá as instruções de recuperação.","success");
+  }catch(error){setMessage(message,error.message,"error");}
 }
 
 function setMessage(element, message = "", type = "") {
@@ -3940,12 +3922,14 @@ function setAuthMode(mode) {
   if (!isRecover) {
     pendingRecoveryEmail = "";
     document.querySelector("#recoverReset").classList.add("hidden");
-    document.querySelector("#recoverSubmit").textContent = "Receber link local";
+    document.querySelector("#recoverSubmit").textContent = "Receber link por e-mail";
   }
 }
 
 function openAuthModal(mode = "login", afterAuth = null, message = "") {
+  document.querySelector("#authModeNote").textContent = window.PalpinetAccounts?.enabled ? "Sua conta e seu histórico são sincronizados entre dispositivos." : window.PalpinetAccounts?.blocked ? "As contas online ainda não foram ativadas." : "Prévia local: esta conta fica somente neste navegador. Use uma senha exclusiva para testes.";
   pendingAfterAuth = afterAuth;
+  if(afterAuth !== "save-result") pendingCombination = null;
   setAuthMode(mode);
   document.querySelector("#authModal").classList.remove("hidden");
   document.body.classList.add("modal-open");
@@ -3961,15 +3945,21 @@ function closeAuthModal() {
   document.querySelector("#authModal").classList.add("hidden");
   document.body.classList.remove("modal-open");
   pendingAfterAuth = null;
+  pendingCombination = null;
 }
 
-function afterSuccessfulAuth() {
+async function afterSuccessfulAuth() {
   const action = pendingAfterAuth;
+  const combination = pendingCombination;
   renderAuthState();
   renderDashboard();
   renderAdmin();
   closeAuthModal();
 
+  if(action === "save-result" && combination) {
+    try {const saved=await saveGameToHistory(combination);renderDashboard();document.querySelector("#status").textContent=saved.reason==="exists"?"Esta combinação já estava salva.":"Combinação salva no seu histórico.";}
+    catch(error){document.querySelector("#status").textContent="Você entrou, mas a combinação não pôde ser salva. "+error.message;}
+  }
   if (action === "generator") {
     revealGenerator();
   document.querySelector("#gerador").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -4018,7 +4008,7 @@ function setup() {
     .map(([slug, name]) => `<option value="${slug}">${name}</option>`)
     .join("");
   methodSelect.value = "aleatorio";
-  signSelect.innerHTML = Object.entries(signOptions)
+  signSelect.innerHTML = `<option value="">Selecione seu signo</option>` + Object.entries(signOptions)
     .map(([slug, name]) => `<option value="${slug}">${name}</option>`)
     .join("");
   signPicker.innerHTML = Object.entries(signOptions)
@@ -4076,6 +4066,33 @@ function setup() {
   }
 
   const customizeToggle = document.querySelector("#customizeToggle");
+  const inspirationButtons = [...document.querySelectorAll("[data-inspiration]")];
+  function syncInspiration() {
+    const method = methodSelect.value;
+    const numeric = ["nome-da-sorte", "data-especial"].includes(method);
+    document.querySelector("#otherInspirations summary").textContent = ["sonho", "matematica"].includes(method) ? "Inspiração: " + methods[method] : "Outras inspirações";
+    document.querySelector("#generatorFields").hidden = false;
+    document.querySelector("#numericChoices").hidden = !numeric;
+    for (const button of inspirationButtons) {
+      const selected = button.dataset.inspiration === method || (numeric && button.dataset.inspiration === "nome-da-sorte");
+      button.setAttribute("aria-pressed", String(selected));
+    }
+    document.querySelectorAll('[name="numericSource"]').forEach(radio => { radio.checked = radio.value === method; });
+  }
+  inspirationButtons.forEach(button => button.addEventListener("click", () => {
+    methodSelect.value = button.dataset.inspiration;
+    methodSelect.dispatchEvent(new Event("change"));
+    document.querySelector("#otherInspirations").open = false;
+  }));
+  document.querySelectorAll('[name="numericSource"]').forEach(radio => radio.addEventListener("change", () => {
+    methodSelect.value = radio.value;
+    methodSelect.dispatchEvent(new Event("change"));
+  }));
+  document.querySelector("#useOtherInspiration").addEventListener("click", () => {
+    methodSelect.dispatchEvent(new Event("change"));
+    document.querySelector("#otherInspirations").open = false;
+    document.querySelector("#game").focus();
+  });
   customizeToggle.addEventListener("click", () => {
     const expanded = customizeToggle.getAttribute("aria-expanded") !== "true";
     customizeToggle.setAttribute("aria-expanded", String(expanded));
@@ -4102,7 +4119,7 @@ function setup() {
     signSelect.classList.toggle("hidden", !isSignMode);
     signPicker.classList.add("hidden");
     if (isSignMode) {
-      signSelect.value = signSelect.value || "aries";
+      signSelect.value = signSelect.value || getCurrentUser()?.sign || "";
       updateSelectedSignButton();
     }
     if (!isSignMode) input.value = "";
@@ -4115,7 +4132,7 @@ function setup() {
   }
 
   gameSelect.addEventListener("change", updateQuantityOptions);
-  methodSelect.addEventListener("change", updateDynamicInput);
+  methodSelect.addEventListener("change", () => { updateDynamicInput(); syncInspiration(); });
   signPicker.addEventListener("click", (event) => {
     const button = event.target.closest("[data-sign]");
     if (!button) return;
@@ -4127,6 +4144,7 @@ function setup() {
     button.addEventListener("click", () => {
       gameSelect.value = button.dataset.gameTarget;
       updateQuantityOptions();
+      syncInspiration();
       revealGenerator();
   document.querySelector("#gerador").scrollIntoView({ behavior: "smooth", block: "start" });
     });
@@ -4148,8 +4166,8 @@ function setup() {
     document.querySelector("#recoverEmail").value = document.querySelector("#loginEmail").value;
     setAuthMode("recover");
   });
-  document.querySelector("#logoutButton").addEventListener("click", () => {
-    endSession();
+  document.querySelector("#logoutButton").addEventListener("click", async () => {
+    try { await endSession(); } catch { document.querySelector("#accountCloudStatus").textContent="Sessão encerrada neste dispositivo. A revogação remota não pôde ser confirmada."; }
     renderAuthState();
     renderDashboard();
     renderAdmin();
@@ -4160,20 +4178,21 @@ function setup() {
     button.addEventListener("click", () => setAuthMode(button.dataset.authMode));
   });
 
-  document.querySelector("#loginForm").addEventListener("submit", (event) => {
+  document.querySelector("#loginForm").addEventListener("submit", async (event) => {
     event.preventDefault();
-    const result = authenticateUser(document.querySelector("#loginEmail").value, document.querySelector("#loginPassword").value);
+    const result = await runAuthAction(event.currentTarget, () => authenticateUser(document.querySelector("#loginEmail").value, document.querySelector("#loginPassword").value));
+    if(!result) return;
     if (!result.ok) {
       setMessage(document.querySelector("#loginMessage"), result.message, "error");
       return;
     }
     document.querySelector("#loginPassword").value = "";
-    afterSuccessfulAuth();
+    await afterSuccessfulAuth();
   });
 
-  document.querySelector("#signupForm").addEventListener("submit", (event) => {
+  document.querySelector("#signupForm").addEventListener("submit", async (event) => {
     event.preventDefault();
-    const result = createUser(
+    const result = await runAuthAction(event.currentTarget, () => createUser(
       document.querySelector("#signupName").value,
       document.querySelector("#signupEmail").value,
       document.querySelector("#signupPassword").value,
@@ -4182,13 +4201,15 @@ function setup() {
         sign: document.querySelector("#signupSign").value,
         city: document.querySelector("#signupCity").value
       }
-    );
+    ));
+    if(!result) return;
     if (!result.ok) {
       setMessage(document.querySelector("#signupMessage"), result.message, "error");
       return;
     }
     document.querySelector("#signupPassword").value = "";
-    afterSuccessfulAuth();
+    if(!result.user){setMessage(document.querySelector("#signupMessage"),result.message,"success");return;}
+    await afterSuccessfulAuth();
   });
 
   document.querySelector("#recoverForm").addEventListener("submit", (event) => {
@@ -4196,7 +4217,7 @@ function setup() {
     submitRecoveryForm();
   });
 
-  document.querySelector("#clientDashboard").addEventListener("click", (event) => {
+  document.querySelector("#clientDashboard").addEventListener("click", async (event) => {
     const viewButton = event.target.closest("[data-client-view]");
     if (viewButton) {
       activeClientView = viewButton.dataset.clientView;
@@ -4218,27 +4239,29 @@ function setup() {
     const action = actionButton.dataset.clientAction;
     const guessId = actionButton.dataset.guessId;
 
-    if (action === "copy") copyGuessById(guessId);
-    if (action === "favorite") toggleFavoriteGuess(guessId);
-    if (action === "share") shareGuessById(guessId);
+    try {
+    if (action === "copy") await copyGuessById(guessId);
+    if (action === "favorite") await toggleFavoriteGuess(guessId);
+    if (action === "share") await shareGuessById(guessId);
     if (action === "similar") generateSimilarGuess(guessId);
     if (action === "details") showGuessDetails(guessId);
-    if (action === "delete" && window.confirm("Excluir este palpite do histórico?")) deleteGuessById(guessId);
+    if (action === "delete" && window.confirm("Excluir este palpite do histórico?")) await deleteGuessById(guessId);
     if (action === "generate-preferred") generatePreferred(actionButton.dataset.game, actionButton.dataset.method);
     if (action === "export-data") exportCurrentUserData();
-    if (action === "delete-account") deleteCurrentAccount();
+    if (action === "delete-account") await deleteCurrentAccount();
+    } catch(error) { document.querySelector("#accountCloudStatus").textContent=error.message; renderDashboard(); }
   });
 
-  document.querySelector("#clientDashboard").addEventListener("submit", (event) => {
+  document.querySelector("#clientDashboard").addEventListener("submit", async (event) => {
     if (!event.target.matches("#accountForm")) return;
     event.preventDefault();
-    saveAccountForm();
+    try { await saveAccountForm(); } catch(error) { setMessage(document.querySelector("#accountMessage"),error.message,"error"); }
   });
 
-  document.querySelector("#clientDashboard").addEventListener("change", (event) => {
+  document.querySelector("#clientDashboard").addEventListener("change", async (event) => {
     const prefInput = event.target.closest("[data-user-pref]");
     if (!prefInput) return;
-    updateUserPreference(prefInput.dataset.userPref, prefInput.checked);
+    try { await updateUserPreference(prefInput.dataset.userPref, prefInput.checked); } catch(error) { document.querySelector("#accountCloudStatus").textContent=error.message; renderDashboard(); }
   });
 
   document.addEventListener("click", (event) => {
@@ -4526,7 +4549,9 @@ function setup() {
       ? "Descreva seu sonho para gerar a interpretação."
       : method === "nome-da-sorte"
         ? "Informe um nome para gerar a interpretação numerológica."
-        : "";
+        : method === "horoscopo" ? "Escolha seu signo para continuar."
+        : method === "data-especial" ? "Escolha uma data para continuar."
+          : "";
 
     if (requiredInputMessage && !value.trim()) {
       document.querySelector("#status").textContent = requiredInputMessage;
@@ -4541,13 +4566,13 @@ function setup() {
     try {
       const record = await requestBackendGeneration(gameSelect.value, method, value, quantity);
       saveRecord(record);
-      const savedForUser = saveGameToHistory(record);
+      const savedForUser = await saveGameToHistory(record).catch(error => ({saved:false,reason:"sync-error",message:error.message}));
       trackEvent("generate_numbers", { game: record.game, method: record.method, quantity: record.quantity, logged_in: Boolean(getCurrentUser()) });
       if (method === "sonho") trackEvent("dream_search", { query: value, game: record.game, source: "generator" });
       if (method === "horoscopo") trackEvent("horoscope_view", { sign: value, game: record.game, source: "generator" });
       renderResult(record);
       renderDashboard();
-      document.querySelector("#status").textContent = savedForUser.saved
+      document.querySelector("#status").textContent = savedForUser.reason === "sync-error" ? "Números gerados, mas não sincronizados. " + savedForUser.message : savedForUser.saved
         ? usesAiReading
           ? "Palpite gerado, interpretado e salvo no seu histórico."
           : "Palpite gerado e salvo no seu histórico."
@@ -4557,12 +4582,12 @@ function setup() {
     } catch (error) {
       const fallbackRecord = generateSmart(gameSelect.value, method, value, quantity) || generateSmart(gameSelect.value, "aleatorio", crypto.randomUUID(), quantity);
       saveRecord(fallbackRecord);
-      saveGameToHistory(fallbackRecord);
+      const savedFallback = await saveGameToHistory(fallbackRecord).catch(error => ({saved:false,reason:"sync-error",message:error.message}));
       trackEvent("generate_numbers", { game: fallbackRecord.game, method: fallbackRecord.method, quantity: fallbackRecord.quantity, mode: "fallback" });
       renderResult(fallbackRecord);
       renderDashboard();
       console.warn("Falha na geração pelo backend Palpinet:", error);
-      document.querySelector("#status").textContent = "Seus números foram gerados com sucesso.";
+      document.querySelector("#status").textContent = savedFallback.reason === "sync-error" ? "Números gerados, mas não sincronizados. " + savedFallback.message : "Seus números foram gerados com sucesso.";
     } finally {
       generateButton.disabled = false;
     }
@@ -4570,6 +4595,7 @@ function setup() {
 
   updateQuantityOptions();
   updateDynamicInput();
+  document.querySelector("#generatorFields").hidden = true;
   hydrateAdSlots();
   renderBlog();
   renderRevenueDashboard();
@@ -4655,4 +4681,35 @@ function setupNavigation() {
   window.addEventListener("popstate", () => { renderBlog(); renderAdmin(); updatePublicRoute(); });
 }
 
+async function runAuthAction(form, operation) {
+  if(form.dataset.submitting) return null;
+  form.dataset.submitting="true";
+  const button=form.querySelector('button[type="submit"]');button.disabled=true;
+  try { return await operation(); }
+  catch(error) { return {ok:false,message:error.message||"Não foi possível concluir. Tente novamente."}; }
+  finally {button.disabled=false;delete form.dataset.submitting;}
+}
+
+async function previewPasswordHash(password, salt) {
+  const data=new TextEncoder();
+  const key=await crypto.subtle.importKey("raw",data.encode(password),"PBKDF2",false,["deriveBits"]);
+  const bits=await crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-256",salt:data.encode(salt),iterations:120000},key,256);
+  return [...new Uint8Array(bits)].map(byte=>byte.toString(16).padStart(2,"0")).join("");
+}
+
 setup();
+const accountStatus = document.querySelector("#accountCloudStatus");
+accountStatus.textContent = window.PalpinetAccounts?.enabled ? "" : window.PalpinetAccounts?.blocked ? "As contas online ainda não foram ativadas." : "Prévia local: seus dados de teste ficam somente neste navegador.";
+const refreshAccount = document.querySelector("#refreshCloudAccount");
+refreshAccount.hidden = !window.PalpinetAccounts?.enabled;
+refreshAccount.addEventListener("click", async () => {
+  try {await window.PalpinetAccounts.refresh();accountStatus.textContent="Histórico atualizado.";}
+  catch(error){accountStatus.textContent=error.message;}
+});
+window.addEventListener("palpinet:accountchange", () => {renderAuthState();renderDashboard();renderAdmin();});
+window.PalpinetAccounts?.init().then(() => {
+  if(window.PalpinetAccounts.recovering){openAuthModal("recover");document.querySelector("#recoverReset").classList.remove("hidden");document.querySelector("#recoverSubmit").textContent="Definir nova senha";}
+}).catch(error => {accountStatus.textContent=error.message;});
+document.addEventListener("visibilitychange", () => {
+  if(!document.hidden && window.PalpinetAccounts?.enabled && getCurrentUser()) window.PalpinetAccounts.refresh().catch(error=>{accountStatus.textContent=error.message;});
+});

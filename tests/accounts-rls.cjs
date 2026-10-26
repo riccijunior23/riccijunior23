@@ -1,0 +1,25 @@
+const {PGlite}=require('@electric-sql/pglite');
+const fs=require('fs');
+(async()=>{
+ const db=new PGlite();
+ await db.exec(`create schema auth; create role anon; create role authenticated;
+ create table auth.users(id uuid primary key);
+ create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;
+ grant usage on schema auth to authenticated,anon; grant execute on function auth.uid() to authenticated,anon;`);
+ await db.exec(fs.readFileSync(require('path').join(__dirname,'../supabase/accounts.sql'),'utf8'));
+ const a='00000000-0000-0000-0000-000000000001',b='00000000-0000-0000-0000-000000000002';
+ await db.exec(`insert into auth.users values ('${a}'),('${b}'); set role authenticated; set request.jwt.claim.sub='${a}'; insert into public.palpinet_profiles(user_id,data) values('${a}','{"name":"A"}');`);
+ let rejected=false;try{await db.exec(`insert into public.palpinet_profiles(user_id) values('${b}')`)}catch{rejected=true}if(!rejected)throw Error('Cross-owner insert accepted');
+ await db.exec(`set request.jwt.claim.sub='${b}';insert into public.palpinet_profiles(user_id,data) values('${b}','{"name":"B"}');`);
+ let r=await db.query('select user_id from public.palpinet_profiles');if(r.rows.length!==1||r.rows[0].user_id!==b)throw Error('RLS read leak');
+ r=await db.query(`update public.palpinet_profiles set revision=7 where user_id='${a}' returning user_id`);if(r.rows.length)throw Error('Cross-owner write allowed');
+ r=await db.query(`delete from public.palpinet_profiles where user_id='${a}' returning user_id`);if(r.rows.length)throw Error('Cross-owner delete allowed');
+ await db.exec(`set role anon;set request.jwt.claim.sub='';`);
+ rejected=false;try{await db.query('select * from public.palpinet_profiles')}catch{rejected=true}if(!rejected)throw Error('Anonymous table read accepted');
+ rejected=false;try{await db.query('select public.palpinet_delete_account()')}catch{rejected=true}if(!rejected)throw Error('Anonymous delete RPC accepted');
+ await db.exec(`set role authenticated;set request.jwt.claim.sub='${b}';select public.palpinet_delete_account();reset role;`);
+ r=await db.query('select id from auth.users');if(r.rows.length!==1||r.rows[0].id!==a)throw Error('Wrong user deleted');
+ r=await db.query('select user_id from public.palpinet_profiles');if(r.rows.length!==1||r.rows[0].user_id!==a)throw Error('Profile cascade failed');
+ console.log('SQL policies passed: own-row access; cross-user insert/read/update/delete denied; anonymous access and RPC denied; own-account deletion and profile cascade verified.');
+ await db.close();
+})().catch(e=>{console.error(e);process.exit(1)});

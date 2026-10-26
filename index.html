@@ -3,9 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      (() => {
+        const callback = new URLSearchParams(location.hash.slice(1));
+        if (callback.has("access_token")) {
+          window.palpinetAuthCallback = Object.fromEntries(callback);
+          history.replaceState(null, "", location.pathname + location.search);
+        }
+      })();
+    </script>
     <title>Palpinet | Números da sorte, sonhos e horóscopo</title>
-    <link rel="icon" href="/palpinet-logo.svg" />
-    <link rel="preload" href="/palpinet-logo.svg" as="image" />
+    <link rel="icon" href="/public/palpinet-wordmark.svg" />
+    <link rel="preload" href="/public/palpinet-wordmark.svg" as="image" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta
       name="description"
@@ -15,12 +24,13 @@
     <meta property="og:description" content="Conteúdos e gerador recreativo de números da sorte." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="http://localhost:4173/" />
-    <meta property="og:image" content="/palpinet-logo.svg" />
+    <meta property="og:image" content="/public/palpinet-wordmark.svg" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="canonical" href="http://localhost:4173/" />
     <link rel="stylesheet" href="/styles.css?v=34" />
     <link rel="stylesheet" href="/refinements.css?v=1" />
-    <link rel="stylesheet" href="/celestial.css?v=1" />
+    <link rel="stylesheet" href="/celestial.css?v=2" />
+    <link rel="stylesheet" href="/ritual.css?v=1" />
     <script type="application/ld+json" id="seoSchema">{}</script>
     <script>
       window.palpinetTracking = {
@@ -63,7 +73,7 @@
     <a class="skip-link" href="#mainContent">Pular para o conteúdo</a>
     <header class="site-header">
       <a class="brand" href="/" aria-label="Palpinet">
-        <img src="/palpinet-logo.svg" alt="Palpinet" width="178" height="58" loading="lazy" />
+        <img src="/public/palpinet-wordmark.svg" alt="Palpinet" width="178" height="58" loading="lazy" />
       </a>
       <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="primaryNav">Menu <span aria-hidden="true">☰</span></button>
       <nav id="primaryNav" aria-label="Navegação principal">
@@ -93,18 +103,32 @@
           <div class="hero-copy">
             <span class="eyebrow">Astrologia <i aria-hidden="true">·</i> Numerologia <i aria-hidden="true">·</i> Loterias</span>
             <h1>Entre astros e números,<br><span>a sua inspiração.</span></h1>
-            <p>Escolha um jogo e transforme sonhos, nomes ou datas em uma combinação recreativa.</p>
+            <p>Escolha uma inspiração e crie uma combinação recreativa para o seu jogo.</p>
           </div>
           <img class="celestial-dial" src="/public/celestial-dial.svg" alt="" width="300" height="270" aria-hidden="true" />
         </div>
       </section>
 <section class="quick-generator section-shell" id="gerador">
         <div class="quick-head">
-          <div><h2>Crie sua combinação</h2></div>
-          <p>Um jogo. Uma inspiração. Seus números.</p>
+          <div><h2>Qual é a sua inspiração?</h2></div>
+          <p>Comece por um dos caminhos abaixo.</p>
         </div>
 
         <div class="quick-controls">
+          <div class="inspiration-picker" role="group" aria-label="Escolha sua inspiração">
+            <button type="button" data-inspiration="horoscopo" aria-pressed="false"><span class="inspiration-icon" aria-hidden="true">☾</span><span>Meu signo<small>Uma inspiração nos astros</small></span></button>
+            <button type="button" data-inspiration="nome-da-sorte" aria-pressed="false"><span class="inspiration-icon numeral" aria-hidden="true">7</span><span>Meu nome ou data<small>Um significado pessoal</small></span></button>
+            <button type="button" data-inspiration="aleatorio" aria-pressed="false"><span class="inspiration-icon" aria-hidden="true">✧</span><span>Surpreenda-me<small>Deixe os números acontecerem</small></span></button>
+          </div>
+          <details class="other-inspirations" id="otherInspirations"><summary>Outras inspirações</summary>
+            <label for="method">Como você quer se inspirar?<select id="method"></select></label>
+            <button type="button" class="use-inspiration" id="useOtherInspiration">Usar esta inspiração</button>
+          </details>
+          <fieldset id="numericChoices" class="numeric-choices" hidden><legend>O que tem significado para você?</legend>
+            <label><input type="radio" name="numericSource" value="nome-da-sorte" checked /> Meu nome</label>
+            <label><input type="radio" name="numericSource" value="data-especial" /> Uma data</label>
+          </fieldset>
+          <div id="generatorFields" class="generator-fields" hidden>
           <label>
             <span><b>1</b> Escolha o jogo</span>
             <select id="game"></select>
@@ -113,10 +137,6 @@
             <span><b>2</b> Quantidade de números</span>
             <select id="quantity" aria-describedby="betInfo"></select>
             <small id="betInfo" class="bet-info" aria-live="polite"></small>
-          </label>
-          <label>
-            <span><b>3</b> Método ou inspiração</span>
-            <select id="method"></select>
           </label>
           <button class="customize-toggle" id="customizeToggle" type="button" aria-expanded="false" aria-controls="complementaryField">Personalizar inspiração (opcional)</button>
           <div class="dynamic-field" id="complementaryField">
@@ -127,6 +147,7 @@
             <small id="inputHint">Use poucas palavras. Ex: cobra, água, dinheiro.</small>
           </div>
           <button class="primary-button generate-button" id="generate" type="button">Gerar combinação</button>
+          </div>
         </div>
 
         <div id="result" class="quick-result hidden" role="region" aria-label="Combinação gerada" aria-live="polite"></div>
@@ -198,6 +219,8 @@
           </div>
         </div>
 
+        <p class="auth-mode-note" id="accountCloudStatus" role="status"></p>
+        <button type="button" id="refreshCloudAccount" class="use-inspiration" hidden>Atualizar histórico</button>
         <div class="client-empty" id="clientGuest">
           <div>
             <span class="client-kicker">Conta gratuita</span>
@@ -254,7 +277,7 @@
 
     <footer>
       <div>
-        <img src="/palpinet-logo.svg" alt="Palpinet" width="178" height="58" loading="lazy" />
+        <img src="/public/palpinet-wordmark.svg" alt="Palpinet" width="178" height="58" loading="lazy" />
         <p>Unindo sonhos, astrologia e matemática para inspirar combinações recreativas.</p>
       </div>
       <nav aria-label="Links do rodapé">
@@ -279,7 +302,7 @@
       <section class="auth-card">
         <button class="auth-close" id="authClose" type="button" aria-label="Fechar">x</button>
         <div class="auth-brand">
-          <img src="/palpinet-logo.svg" alt="Palpinet" width="178" height="58" loading="lazy" />
+          <img src="/public/palpinet-wordmark.svg" alt="Palpinet" width="178" height="58" loading="lazy" />
           <div>
             <span class="eyebrow">Conta Palpinet</span>
             <h2 id="authTitle">Entrar na sua conta</h2>
@@ -287,6 +310,7 @@
           </div>
         </div>
 
+        <p class="auth-mode-note" id="authModeNote"></p>
         <div class="auth-tabs" role="group" aria-label="Entrar ou criar conta">
           <button class="active" type="button" data-auth-mode="login">Entrar</button>
           <button type="button" data-auth-mode="signup">Criar conta</button>
@@ -317,7 +341,7 @@
           </label>
           <label>
             Senha
-            <input id="signupPassword" type="password" autocomplete="new-password" placeholder="Crie uma senha" />
+            <input id="signupPassword" minlength="8" type="password" autocomplete="new-password" placeholder="Crie uma senha" />
           </label>
           <div class="auth-optional-grid">
             <label>
@@ -369,6 +393,8 @@
       </section>
     </div>
 
-    <script src="/app.js?v=36"></script>
+    <script src="/account-config.js"></script>
+    <script src="/cloud-account.js"></script>
+    <script src="/app.js?v=37"></script>
   </body>
 </html>

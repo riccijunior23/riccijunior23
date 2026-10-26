@@ -1,27 +1,38 @@
-# Palpinet — proposta limpa para revisão
+# Palpinet — uma experiência de inspiração
 
-Código recuperado do ZIP original e reformulado para simplificar a home, a navegação e o gerador. Esta branch serve para revisão; o site do Netlify não foi atualizado.
+Uma interface limpa para criar combinações recreativas a partir do signo, do nome ou de uma data. Os métodos de sonhos, matemática e demais opções continuam em Outras inspirações. As regras de cada modalidade e de não repetição permanecem no gerador existente.
 
-## Baixar para o Windows
+## Visualizar
 
-Na branch `palpinet-clean`, clique em **Code → Download ZIP**. Extraia o ZIP em uma pasta nova, preservando sua versão anterior.
+Na branch `palpinet-ritual`, escolha **Code → Download ZIP** no GitHub e extraia o arquivo em uma pasta nova.
 
-## Visualizar sem internet
+- **Offline:** abra `offline/Palpinet-offline.html` no Chrome ou Edge. Estilos, imagens e scripts estão incluídos. Interpretações por IA e contas sincronizadas dependem de serviços online e ficam indisponíveis nessa prévia.
+- **Localhost:** abra `Visualizar.bat` na raiz. O inicializador procura também a instalação por usuário do Python 3.13 identificada no computador do usuário. Mantenha a janela do servidor aberta. A aplicação não exige instalação de pacotes para funcionar.
 
-Abra `offline/Palpinet-offline.html` com Chrome ou Edge. O arquivo inclui estilos, imagens, navegação e geração local. As interpretações por IA e os links externos precisam de conexão. Esta é uma versão portátil para revisão, não o arquivo de publicação.
+Para atualizar o HTML portátil depois de editar o projeto, execute `python build_offline.py`.
 
-## Visualizar o projeto completo no localhost
+## O que mudou
 
-Com Python 3 instalado, abra `Visualizar.bat` na raiz do projeto. Mantenha o terminal aberto enquanto navega. O servidor local suporta as rotas internas do site.
+- Três caminhos iniciais: Meu signo, Meu nome ou data e Surpreenda-me. Os campos aparecem depois da escolha.
+- Alternância entre nome e data; os demais métodos permanecem disponíveis em um menu secundário.
+- Copiar e Salvar em destaque. Nova geração, compartilhamento e e-mail continuam em Mais opções.
+- Logotipo simplificado, mantendo trevo, nome e um número como elementos da marca. O arquivo anterior continua preservado.
+- Fundo claro, roxo suave, lua e órbitas em traços finos; conteúdo secundário concentrado nas páginas próprias.
 
-Consulte `REVISAO.md` para as mudanças, verificações e limitações. A autenticação e o histórico desta versão permanecem locais ao navegador; APIs e sincronização externa não foram ativadas.
+![Tela inicial](docs/ritual-inicio.png)
 
-## Direção visual
+[Ver resultado](docs/ritual-resultado.png) · [Ver no celular](docs/ritual-celular.png)
 
-Fundo claro, roxo suave e pequenos detalhes dourados. Uma ilustração estática de lua, órbitas e números reúne astrologia, numerologia e loterias. A abertura é curta, o gerador permanece em destaque e o conteúdo complementar foi reduzido a três links de artigos. Os demais recursos continuam nas páginas internas.
+## Contas e histórico
 
-![Modelo no computador](docs/modelo-limpo.png)
+A integração com Supabase Auth e histórico por usuário está implementada, mas **ainda precisa de um projeto configurado e validação real**. Veja [as instruções de ativação](supabase/README.md). Não foram criados projetos, aplicadas migrações externas ou ativados serviços hospedados durante esta alteração.
 
-[Ver modelo no celular](docs/modelo-limpo-celular.png)
+O login com administrador pré-cadastrado e a recuperação local por conhecimento do e-mail foram removidos. Contas locais de teste usam hash com salt; elas continuam sendo uma prévia, não uma autenticação online. Em hospedagem pública, a configuração ausente impede o login em vez de usar a conta local como substituto.
 
-As propostas anteriores permanecem nas branches `palpinet-reformulado` e `palpinet-3d`. Nenhuma publicação foi feita no Netlify. Para atualizar o HTML portátil depois de editar o projeto, execute `python build_offline.py`.
+## Verificações
+
+Os testes de navegador precisam de Playwright e Chromium; não são dependências do site. Instale `tests/requirements.txt`, ajuste `PALPINET_TEST_URL` para seu servidor local e execute `python tests/browser_checks.py`. `PALPINET_CHROMIUM` permite indicar outro executável do navegador.
+
+As políticas de acesso são exercitadas em PostgreSQL via PGlite: na pasta `tests`, execute `npm ci` e `npm run test:rls`. Isso verifica o isolamento entre usuários e a exclusão da própria conta, mas não substitui testes no projeto Supabase real.
+
+A alteração está disponível para revisão. O site no Netlify não foi atualizado. As versões anteriores continuam nas respectivas branches.

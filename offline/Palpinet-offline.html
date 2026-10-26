@@ -3,6 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      (() => {
+        const callback = new URLSearchParams(location.hash.slice(1));
+        if (callback.has("access_token")) {
+          window.palpinetAuthCallback = Object.fromEntries(callback);
+          history.replaceState(null, "", location.pathname + location.search);
+        }
+      })();
+    </script>
     <title>Palpinet Offline | Números da sorte, sonhos e horóscopo</title>
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta
@@ -13,7 +22,7 @@
     <meta property="og:description" content="Conteúdos e gerador recreativo de números da sorte." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="http://localhost:4173/" />
-    <meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzEwIiBoZWlnaHQ9Ijg2IiB2aWV3Qm94PSIwIDAgMzEwIDg2IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJncmVlbiIgeDE9IjEyIiB5MT0iMTAiIHgyPSI3NiIgeTI9IjcwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgIDxzdG9wIHN0b3AtY29sb3I9IiM4QkYxNUIiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIwLjU1IiBzdG9wLWNvbG9yPSIjMjZDODRFIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBBOEIzOCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ29sZCIgeDE9IjExMiIgeTE9IjgiIHgyPSIyNTAiIHkyPSI3MiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBzdG9wLWNvbG9yPSIjRkZGM0E3Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMC40NiIgc3RvcC1jb2xvcj0iI0Y2Qzk1RiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNFMDhDMjQiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InB1cnBsZSIgeDE9IjcxIiB5MT0iMjIiIHgyPSIxMDgiIHkyPSI2MiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBzdG9wLWNvbG9yPSIjQTU3QkZGIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzYyMzZFOCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxmaWx0ZXIgaWQ9Imdsb3ciIHg9Ii0xMCUiIHk9Ii0zMCUiIHdpZHRoPSIxMjUlIiBoZWlnaHQ9IjE3MCUiIGNvbG9yLWludGVycG9sYXRpb24tZmlsdGVycz0ic1JHQiI+CiAgICAgIDxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSI2IiBzdGREZXZpYXRpb249IjYiIGZsb29kLWNvbG9yPSIjRjZDOTVGIiBmbG9vZC1vcGFjaXR5PSIwLjI4Ii8+CiAgICA8L2ZpbHRlcj4KICA8L2RlZnM+CgogIDxnIGZpbHRlcj0idXJsKCNnbG93KSI+CiAgICA8cGF0aCBkPSJNMzkuMyAyMC42QzM3LjIgOC4yIDE4LjggMTEuNyAyMS41IDI1LjNDOCAyMi43IDQuNSA0MS4yIDE2LjkgNDMuMkM3LjEgNTEuNSAxOC44IDY2LjYgMjkuMSA1Ny40QzI3LjcgNzIuNCA0OS40IDcyLjQgNDggNTcuNEM1OC40IDY2LjYgNzAgNTEuNSA2MC4yIDQzLjJDNzIuNyA0MS4yIDY5LjEgMjIuNyA1NS43IDI1LjNDNTguMyAxMS43IDQxLjQgOC4yIDM5LjMgMjAuNloiIGZpbGw9InVybCgjZ3JlZW4pIi8+CiAgICA8cGF0aCBkPSJNMzkuMiA0MC42QzMzLjUgNDcuOCAyNy41IDU2LjIgMjEuMSA2Ny44IiBzdHJva2U9IiMwNzZBMkIiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgICA8Y2lyY2xlIGN4PSI3NiIgY3k9IjM3IiByPSIxNC41IiBmaWxsPSJ1cmwoI3B1cnBsZSkiIHN0cm9rZT0iI0Y0RThGRiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8dGV4dCB4PSI2OCIgeT0iNDIiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iSW50ZXIsIFNlZ29lIFVJLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9IjkwMCI+MDc8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSI5OCIgY3k9IjUyIiByPSIxMi41IiBmaWxsPSIjRjVDODVCIiBzdHJva2U9IiNGRkYyQkEiIHN0cm9rZS13aWR0aD0iMiIvPgogICAgPHRleHQgeD0iOTEiIHk9IjU3IiBmaWxsPSIjMDcxMTFGIiBmb250LWZhbWlseT0iSW50ZXIsIFNlZ29lIFVJLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjkwMCI+MjM8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSI5MyIgY3k9IjI0IiByPSIxMC41IiBmaWxsPSIjRjM2QUExIiBzdHJva2U9IiNGRkU0RjAiIHN0cm9rZS13aWR0aD0iMiIvPgogIDwvZz4KCiAgPHBhdGggZD0iTTEyMSAyNEMxNDMgOCAxODUgOCAyMTEgMjIiIHN0cm9rZT0idXJsKCNnb2xkKSIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNMTE4IDYyQzE0OSA3OSAyMDUgNzggMjM2IDU0IiBzdHJva2U9IiNGNkM5NUYiIHN0cm9rZS1vcGFjaXR5PSIwLjQ2IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgoKICA8dGV4dCB4PSIxMTQiIHk9IjU0IiBmaWxsPSJ1cmwoI2dvbGQpIiBmb250LWZhbWlseT0iVHJlYnVjaGV0IE1TLCBTZWdvZSBVSSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMzgiIGZvbnQtc3R5bGU9Iml0YWxpYyIgZm9udC13ZWlnaHQ9IjkwMCIgbGV0dGVyLXNwYWNpbmc9Ii0xLjIiPlBhbHBpbmV0PC90ZXh0PgogIDx0ZXh0IHg9IjExOSIgeT0iNzIiIGZpbGw9IiNGRkU2OUMiIGZvbnQtZmFtaWx5PSJJbnRlciwgU2Vnb2UgVUksIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjkuNSIgZm9udC13ZWlnaHQ9IjkwMCIgbGV0dGVyLXNwYWNpbmc9IjAuNjUiPlNVQSBTT1JURSBWSUEgUkVERSBNVU5ESUFMPC90ZXh0PgogIDxjaXJjbGUgY3g9IjExMiIgY3k9IjY1IiByPSI3IiBmaWxsPSIjRjVDODVCIi8+CiAgPHRleHQgeD0iMTA3LjYiIHk9IjY4LjgiIGZpbGw9IiMwNzExMUYiIGZvbnQtZmFtaWx5PSJJbnRlciwgU2Vnb2UgVUksIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjgiIGZvbnQtd2VpZ2h0PSI5MDAiPjEwPC90ZXh0Pgo8L3N2Zz4K" />
+    <meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNzYiIHdpZHRoPSIzMDAiIGhlaWdodD0iNzYiIGZpbGw9Im5vbmUiPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg2IDgpIj48cGF0aCBkPSJNMjggMjlDOSAyOSA5IDYgMjMgOGM0IDAgNiA0IDYgOEMyOS0zIDUyIDAgNTAgMTRjMCA1LTUgOC0xMCAxMEM1OSAxOSA2NiA0MSA1MSA0NWMtNSAxLTktMi0xMi02IDggMTctMTIgMzEtMjAgMTgtMy01IDAtMTEgMy0xNkM5IDU1LTYgMzggNSAyOWM2LTUgMTUtMyAyMyAwWiIgZmlsbD0iI2JmYTQ3OCIvPjxwYXRoIGQ9Ik0yOSAzMCAxNiA1NiIgc3Ryb2tlPSIjMjUyNzNkIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxjaXJjbGUgY3g9IjUxIiBjeT0iNDkiIHI9IjEwIiBmaWxsPSIjNzc2MDhkIi8+PHRleHQgeD0iNTEiIHk9IjUzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmIiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSIxMSI+NzwvdGV4dD48L2c+Cjx0ZXh0IHg9IjgyIiB5PSI0OSIgZmlsbD0iI2Y0ZWVlNCIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iNDMiIGxldHRlci1zcGFjaW5nPSItMS44Ij5QYWxwaW5ldDwvdGV4dD4KPHBhdGggZD0ibTI2NyAxMCAyIDUgNSAyLTUgMi0yIDUtMi01LTUtMiA1LTJaIiBmaWxsPSIjYmZhNDc4Ii8+Cjwvc3ZnPg==" />
     <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json" id="seoSchema">{}</script>
     <script>
@@ -4357,12 +4366,60 @@ body[data-page="generator"] .celestial-dial { width:220px; }
  body[data-page="generator"] .celestial-intro { min-height:0; }
  body[data-page="generator"] .celestial-dial { width:170px; }
 }
+
+.inspiration-picker { grid-column:1/-1; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.inspiration-picker button { display:flex; align-items:center; gap:12px; min-height:90px; padding:16px; background:#fdfcfa; color:#373044; border:1px solid #ddd6e2; border-radius:12px; text-align:left; font-weight:600; font-size:.86rem; }
+.inspiration-picker button:hover { border-color:#9b84ad; background:#f8f4fa; }
+.inspiration-picker button[aria-pressed="true"] { background:#eee8f3; border-color:#795b91; box-shadow:inset 0 0 0 1px #795b91; }
+.inspiration-picker small { display:block; margin-top:5px; font-weight:400; font-size:.7rem; color:#696372; line-height:1.5; }
+.inspiration-icon { display:grid; place-items:center; flex:0 0 30px; font-size:1.9rem; color:#856e9a; line-height:1; }
+.inspiration-icon.numeral { font-family:Georgia,serif; }
+.other-inspirations { grid-column:1/-1; font-size:.8rem; color:#655078; }
+.other-inspirations summary { cursor:pointer; padding:7px 0; min-height:40px; width:fit-content; }
+.other-inspirations>label { max-width:430px; margin-top:10px; }
+.use-inspiration { background:#f5f0f7; color:#574162; border:1px solid #d8ccdf; padding:9px 14px; min-height:44px; margin-top:12px; border-radius:8px; }
+.generator-fields { display:grid; grid-template-columns:1fr 1fr; gap:20px 24px; grid-column:1/-1; padding-top:16px; border-top:1px solid #e8e2eb; }
+.generator-fields>.customize-toggle { grid-column:1/-1; min-height:32px; }
+.numeric-choices { grid-column:1/-1; border:0; padding:0; margin:0; display:flex; flex-wrap:wrap; gap:16px; }
+.numeric-choices legend { font-size:.8rem; color:#4c4356; padding-bottom:8px; }
+.numeric-choices label { display:flex; align-items:center; gap:8px; }
+.numeric-choices input { min-height:0; width:18px; height:18px; accent-color:#655078; }
+.quick-result .quick-label { align-items:center; }
+.quick-result .quick-label span { font-size:.98rem; font-weight:600; }
+.quick-result .quick-label small { font-size:.77rem; }
+.quick-numbers { gap:10px; }
+.quick-numbers .number-ball { width:52px; height:52px; flex-basis:52px; font-size:1.15rem; }
+.quick-actions { align-items:start; gap:10px; }
+.quick-actions .result-primary { background:#655078; border-color:#655078; color:white; }
+.quick-actions .result-save { color:#5e456d; border-color:#b7a7c1; background:white; }
+.result-more { position:relative; margin-left:auto; }
+.result-more summary { min-height:44px; padding:10px 12px; color:#655078; cursor:pointer; font-size:.8rem; }
+.result-more>div { position:absolute; top:100%; right:0; display:grid; gap:4px; width:190px; padding:8px; background:white; border:1px solid #ddd6e2; border-radius:10px; box-shadow:0 8px 25px #25273d12; z-index:5; }
+.result-more>div button { text-align:left; background:white; border:0; width:100%; }
+.result-more>div button:hover { background:#f4eff7; }
+.auth-mode-note { color:#6c6175; font-size:.75rem; padding:10px 12px; background:#f7f3f8; border-radius:8px; }
+@media(max-width:760px) {
+ .inspiration-picker { grid-template-columns:1fr; gap:9px; }
+ .inspiration-picker button { min-height:68px; padding:12px 14px; gap:12px; }
+ .inspiration-picker small { margin-top:3px; font-size:.7rem; }
+ .inspiration-icon { font-size:1.65rem; }
+ .generator-fields { grid-template-columns:1fr; gap:14px; padding-top:16px; }
+ .quick-numbers .number-ball { width:45px; height:45px; flex-basis:45px; font-size:1rem; }
+ .quick-actions .result-primary,.quick-actions .result-save { flex:1; min-width:120px; }
+ .result-more { margin-left:0; width:100%; }
+ .result-more>div { left:0; right:auto; }
+}
+.generator-fields { align-items:start; }
+.quick-result .quick-label { padding:0; background:none; border:0; border-radius:0; }
+.quick-numbers .number-ball::before,.quick-numbers .number-ball::after { display:none; }
+.quick-result .result-warning { display:none; }
+.auth-mode-note:empty { display:none; }
 </style></head>
   <body>
     <a class="skip-link" href="#mainContent">Pular para o conteúdo</a>
     <header class="site-header">
       <a class="brand" href="/" aria-label="Palpinet">
-        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzEwIiBoZWlnaHQ9Ijg2IiB2aWV3Qm94PSIwIDAgMzEwIDg2IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJncmVlbiIgeDE9IjEyIiB5MT0iMTAiIHgyPSI3NiIgeTI9IjcwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgIDxzdG9wIHN0b3AtY29sb3I9IiM4QkYxNUIiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIwLjU1IiBzdG9wLWNvbG9yPSIjMjZDODRFIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBBOEIzOCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ29sZCIgeDE9IjExMiIgeTE9IjgiIHgyPSIyNTAiIHkyPSI3MiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBzdG9wLWNvbG9yPSIjRkZGM0E3Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMC40NiIgc3RvcC1jb2xvcj0iI0Y2Qzk1RiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNFMDhDMjQiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InB1cnBsZSIgeDE9IjcxIiB5MT0iMjIiIHgyPSIxMDgiIHkyPSI2MiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBzdG9wLWNvbG9yPSIjQTU3QkZGIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzYyMzZFOCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxmaWx0ZXIgaWQ9Imdsb3ciIHg9Ii0xMCUiIHk9Ii0zMCUiIHdpZHRoPSIxMjUlIiBoZWlnaHQ9IjE3MCUiIGNvbG9yLWludGVycG9sYXRpb24tZmlsdGVycz0ic1JHQiI+CiAgICAgIDxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSI2IiBzdGREZXZpYXRpb249IjYiIGZsb29kLWNvbG9yPSIjRjZDOTVGIiBmbG9vZC1vcGFjaXR5PSIwLjI4Ii8+CiAgICA8L2ZpbHRlcj4KICA8L2RlZnM+CgogIDxnIGZpbHRlcj0idXJsKCNnbG93KSI+CiAgICA8cGF0aCBkPSJNMzkuMyAyMC42QzM3LjIgOC4yIDE4LjggMTEuNyAyMS41IDI1LjNDOCAyMi43IDQuNSA0MS4yIDE2LjkgNDMuMkM3LjEgNTEuNSAxOC44IDY2LjYgMjkuMSA1Ny40QzI3LjcgNzIuNCA0OS40IDcyLjQgNDggNTcuNEM1OC40IDY2LjYgNzAgNTEuNSA2MC4yIDQzLjJDNzIuNyA0MS4yIDY5LjEgMjIuNyA1NS43IDI1LjNDNTguMyAxMS43IDQxLjQgOC4yIDM5LjMgMjAuNloiIGZpbGw9InVybCgjZ3JlZW4pIi8+CiAgICA8cGF0aCBkPSJNMzkuMiA0MC42QzMzLjUgNDcuOCAyNy41IDU2LjIgMjEuMSA2Ny44IiBzdHJva2U9IiMwNzZBMkIiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgICA8Y2lyY2xlIGN4PSI3NiIgY3k9IjM3IiByPSIxNC41IiBmaWxsPSJ1cmwoI3B1cnBsZSkiIHN0cm9rZT0iI0Y0RThGRiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8dGV4dCB4PSI2OCIgeT0iNDIiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iSW50ZXIsIFNlZ29lIFVJLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9IjkwMCI+MDc8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSI5OCIgY3k9IjUyIiByPSIxMi41IiBmaWxsPSIjRjVDODVCIiBzdHJva2U9IiNGRkYyQkEiIHN0cm9rZS13aWR0aD0iMiIvPgogICAgPHRleHQgeD0iOTEiIHk9IjU3IiBmaWxsPSIjMDcxMTFGIiBmb250LWZhbWlseT0iSW50ZXIsIFNlZ29lIFVJLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjkwMCI+MjM8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSI5MyIgY3k9IjI0IiByPSIxMC41IiBmaWxsPSIjRjM2QUExIiBzdHJva2U9IiNGRkU0RjAiIHN0cm9rZS13aWR0aD0iMiIvPgogIDwvZz4KCiAgPHBhdGggZD0iTTEyMSAyNEMxNDMgOCAxODUgOCAyMTEgMjIiIHN0cm9rZT0idXJsKCNnb2xkKSIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNMTE4IDYyQzE0OSA3OSAyMDUgNzggMjM2IDU0IiBzdHJva2U9IiNGNkM5NUYiIHN0cm9rZS1vcGFjaXR5PSIwLjQ2IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgoKICA8dGV4dCB4PSIxMTQiIHk9IjU0IiBmaWxsPSJ1cmwoI2dvbGQpIiBmb250LWZhbWlseT0iVHJlYnVjaGV0IE1TLCBTZWdvZSBVSSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMzgiIGZvbnQtc3R5bGU9Iml0YWxpYyIgZm9udC13ZWlnaHQ9IjkwMCIgbGV0dGVyLXNwYWNpbmc9Ii0xLjIiPlBhbHBpbmV0PC90ZXh0PgogIDx0ZXh0IHg9IjExOSIgeT0iNzIiIGZpbGw9IiNGRkU2OUMiIGZvbnQtZmFtaWx5PSJJbnRlciwgU2Vnb2UgVUksIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjkuNSIgZm9udC13ZWlnaHQ9IjkwMCIgbGV0dGVyLXNwYWNpbmc9IjAuNjUiPlNVQSBTT1JURSBWSUEgUkVERSBNVU5ESUFMPC90ZXh0PgogIDxjaXJjbGUgY3g9IjExMiIgY3k9IjY1IiByPSI3IiBmaWxsPSIjRjVDODVCIi8+CiAgPHRleHQgeD0iMTA3LjYiIHk9IjY4LjgiIGZpbGw9IiMwNzExMUYiIGZvbnQtZmFtaWx5PSJJbnRlciwgU2Vnb2UgVUksIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjgiIGZvbnQtd2VpZ2h0PSI5MDAiPjEwPC90ZXh0Pgo8L3N2Zz4K" alt="Palpinet" width="178" height="58" loading="lazy" />
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNzYiIHdpZHRoPSIzMDAiIGhlaWdodD0iNzYiIGZpbGw9Im5vbmUiPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg2IDgpIj48cGF0aCBkPSJNMjggMjlDOSAyOSA5IDYgMjMgOGM0IDAgNiA0IDYgOEMyOS0zIDUyIDAgNTAgMTRjMCA1LTUgOC0xMCAxMEM1OSAxOSA2NiA0MSA1MSA0NWMtNSAxLTktMi0xMi02IDggMTctMTIgMzEtMjAgMTgtMy01IDAtMTEgMy0xNkM5IDU1LTYgMzggNSAyOWM2LTUgMTUtMyAyMyAwWiIgZmlsbD0iI2JmYTQ3OCIvPjxwYXRoIGQ9Ik0yOSAzMCAxNiA1NiIgc3Ryb2tlPSIjMjUyNzNkIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxjaXJjbGUgY3g9IjUxIiBjeT0iNDkiIHI9IjEwIiBmaWxsPSIjNzc2MDhkIi8+PHRleHQgeD0iNTEiIHk9IjUzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmIiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSIxMSI+NzwvdGV4dD48L2c+Cjx0ZXh0IHg9IjgyIiB5PSI0OSIgZmlsbD0iI2Y0ZWVlNCIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iNDMiIGxldHRlci1zcGFjaW5nPSItMS44Ij5QYWxwaW5ldDwvdGV4dD4KPHBhdGggZD0ibTI2NyAxMCAyIDUgNSAyLTUgMi0yIDUtMi01LTUtMiA1LTJaIiBmaWxsPSIjYmZhNDc4Ii8+Cjwvc3ZnPg==" alt="Palpinet" width="178" height="58" loading="lazy" />
       </a>
       <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="primaryNav">Menu <span aria-hidden="true">☰</span></button>
       <nav id="primaryNav" aria-label="Navegação principal">
@@ -4392,18 +4449,32 @@ body[data-page="generator"] .celestial-dial { width:220px; }
           <div class="hero-copy">
             <span class="eyebrow">Astrologia <i aria-hidden="true">·</i> Numerologia <i aria-hidden="true">·</i> Loterias</span>
             <h1>Entre astros e números,<br><span>a sua inspiração.</span></h1>
-            <p>Escolha um jogo e transforme sonhos, nomes ou datas em uma combinação recreativa.</p>
+            <p>Escolha uma inspiração e crie uma combinação recreativa para o seu jogo.</p>
           </div>
           <img class="celestial-dial" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjcwIiB2aWV3Qm94PSIwIDAgMzAwIDI3MCIgZmlsbD0ibm9uZSI+CjxnIHN0cm9rZT0iI2FlOTQ2NiIgc3Ryb2tlLXdpZHRoPSIuOCI+PGNpcmNsZSBjeD0iMTUxIiBjeT0iMTIwIiByPSI5NCIgb3BhY2l0eT0iLjQ0Ii8+PGNpcmNsZSBjeD0iMTUxIiBjeT0iMTIwIiByPSI3NiIgb3BhY2l0eT0iLjI0Ii8+PGVsbGlwc2UgY3g9IjE1MSIgY3k9IjEyMCIgcng9IjEyMiIgcnk9IjQ0IiB0cmFuc2Zvcm09InJvdGF0ZSgtMzAgMTUxIDEyMCkiIG9wYWNpdHk9Ii4zOCIvPjwvZz4KPHRleHQgeD0iMTUxLjAwIiB5PSIzOS4wMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzk0N2M1NiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMTAiPjE8L3RleHQ+Cjx0ZXh0IHg9IjIwNC45OSIgeT0iNTguNjUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM5NDdjNTYiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXNpemU9IjEwIj4yPC90ZXh0Pgo8dGV4dCB4PSIyMzMuNzIiIHk9IjEwOC40MSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzk0N2M1NiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMTAiPjM8L3RleHQ+Cjx0ZXh0IHg9IjIyMy43NSIgeT0iMTY1LjAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTQ3YzU2IiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSIxMCI+NDwvdGV4dD4KPHRleHQgeD0iMTc5LjczIiB5PSIyMDEuOTMiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM5NDdjNTYiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXNpemU9IjEwIj41PC90ZXh0Pgo8dGV4dCB4PSIxMjIuMjciIHk9IjIwMS45MyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzk0N2M1NiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMTAiPjY8L3RleHQ+Cjx0ZXh0IHg9Ijc4LjI1IiB5PSIxNjUuMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM5NDdjNTYiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXNpemU9IjEwIj43PC90ZXh0Pgo8dGV4dCB4PSI2OC4yOCIgeT0iMTA4LjQxIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTQ3YzU2IiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSIxMCI+ODwvdGV4dD4KPHRleHQgeD0iOTcuMDEiIHk9IjU4LjY1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTQ3YzU2IiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSIxMCI+OTwvdGV4dD4KPHBhdGggZD0iTTM5IDYxaDggTTQzIDU3djgiIHN0cm9rZT0iI2FkOTI2MCIgc3Ryb2tlLXdpZHRoPSIxIi8+CjxwYXRoIGQ9Ik0yNDcgNzRoMTAgTTI1MiA2OXYxMCIgc3Ryb2tlPSIjYWQ5MjYwIiBzdHJva2Utd2lkdGg9IjEiLz4KPHBhdGggZD0iTTI0MSAxOThoOCBNMjQ1IDE5NHY4IiBzdHJva2U9IiNhZDkyNjAiIHN0cm9rZS13aWR0aD0iMSIvPgo8cGF0aCBkPSJNNjEgMTk2aDYgTTY0IDE5M3Y2IiBzdHJva2U9IiNhZDkyNjAiIHN0cm9rZS13aWR0aD0iMSIvPgo8cGF0aCBkPSJNMTYzIDY2YTIwIDIwIDAgMSAwIDIwIDI3IDIwIDIwIDAgMCAxLTIwLTI3WiIgZmlsbD0iI2QxYmY5YyIgb3BhY2l0eT0iLjciLz4KPHRleHQgeD0iMTUxIiB5PSIxNTIiIGZpbGw9IiM1ZjRiNzUiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXNpemU9IjYyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj43PC90ZXh0Pgo8cGF0aCBkPSJNMTQwIDE2NWgyMiIgc3Ryb2tlPSIjYWM5MzY3IiBzdHJva2Utd2lkdGg9Ii44Ii8+CjxnIGZpbGw9IiNmYWY4ZjMiIHN0cm9rZT0iI2I1YTI4NiIgc3Ryb2tlLXdpZHRoPSIuOCI+PGNpcmNsZSBjeD0iMTA5IiBjeT0iMjI4IiByPSIxNyIvPjxjaXJjbGUgY3g9IjE1MSIgY3k9IjIyOCIgcj0iMTciLz48Y2lyY2xlIGN4PSIxOTMiIGN5PSIyMjgiIHI9IjE3Ii8+PC9nPgo8ZyBmaWxsPSIjNjM1MTZmIiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSIxMiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+PHRleHQgeD0iMTA5IiB5PSIyMzIiPjA3PC90ZXh0Pjx0ZXh0IHg9IjE1MSIgeT0iMjMyIj4yMzwvdGV4dD48dGV4dCB4PSIxOTMiIHk9IjIzMiI+NDI8L3RleHQ+PC9nPgo8L3N2Zz4=" alt="" width="300" height="270" aria-hidden="true" />
         </div>
       </section>
 <section class="quick-generator section-shell" id="gerador">
         <p style="margin:0 0 14px;color:#6040a3;font-size:.8rem">Prévia offline · geração local, sem interpretação por IA</p><div class="quick-head">
-          <div><h2>Crie sua combinação</h2></div>
-          <p>Um jogo. Uma inspiração. Seus números.</p>
+          <div><h2>Qual é a sua inspiração?</h2></div>
+          <p>Comece por um dos caminhos abaixo.</p>
         </div>
 
         <div class="quick-controls">
+          <div class="inspiration-picker" role="group" aria-label="Escolha sua inspiração">
+            <button type="button" data-inspiration="horoscopo" aria-pressed="false"><span class="inspiration-icon" aria-hidden="true">☾</span><span>Meu signo<small>Uma inspiração nos astros</small></span></button>
+            <button type="button" data-inspiration="nome-da-sorte" aria-pressed="false"><span class="inspiration-icon numeral" aria-hidden="true">7</span><span>Meu nome ou data<small>Um significado pessoal</small></span></button>
+            <button type="button" data-inspiration="aleatorio" aria-pressed="false"><span class="inspiration-icon" aria-hidden="true">✧</span><span>Surpreenda-me<small>Deixe os números acontecerem</small></span></button>
+          </div>
+          <details class="other-inspirations" id="otherInspirations"><summary>Outras inspirações</summary>
+            <label for="method">Como você quer se inspirar?<select id="method"></select></label>
+            <button type="button" class="use-inspiration" id="useOtherInspiration">Usar esta inspiração</button>
+          </details>
+          <fieldset id="numericChoices" class="numeric-choices" hidden><legend>O que tem significado para você?</legend>
+            <label><input type="radio" name="numericSource" value="nome-da-sorte" checked /> Meu nome</label>
+            <label><input type="radio" name="numericSource" value="data-especial" /> Uma data</label>
+          </fieldset>
+          <div id="generatorFields" class="generator-fields" hidden>
           <label>
             <span><b>1</b> Escolha o jogo</span>
             <select id="game"></select>
@@ -4412,10 +4483,6 @@ body[data-page="generator"] .celestial-dial { width:220px; }
             <span><b>2</b> Quantidade de números</span>
             <select id="quantity" aria-describedby="betInfo"></select>
             <small id="betInfo" class="bet-info" aria-live="polite"></small>
-          </label>
-          <label>
-            <span><b>3</b> Método ou inspiração</span>
-            <select id="method"></select>
           </label>
           <button class="customize-toggle" id="customizeToggle" type="button" aria-expanded="false" aria-controls="complementaryField">Personalizar inspiração (opcional)</button>
           <div class="dynamic-field" id="complementaryField">
@@ -4426,6 +4493,7 @@ body[data-page="generator"] .celestial-dial { width:220px; }
             <small id="inputHint">Use poucas palavras. Ex: cobra, água, dinheiro.</small>
           </div>
           <button class="primary-button generate-button" id="generate" type="button">Gerar combinação</button>
+          </div>
         </div>
 
         <div id="result" class="quick-result hidden" role="region" aria-label="Combinação gerada" aria-live="polite"></div>
@@ -4497,6 +4565,8 @@ body[data-page="generator"] .celestial-dial { width:220px; }
           </div>
         </div>
 
+        <p class="auth-mode-note" id="accountCloudStatus" role="status"></p>
+        <button type="button" id="refreshCloudAccount" class="use-inspiration" hidden>Atualizar histórico</button>
         <div class="client-empty" id="clientGuest">
           <div>
             <span class="client-kicker">Conta gratuita</span>
@@ -4553,7 +4623,7 @@ body[data-page="generator"] .celestial-dial { width:220px; }
 
     <footer>
       <div>
-        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzEwIiBoZWlnaHQ9Ijg2IiB2aWV3Qm94PSIwIDAgMzEwIDg2IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJncmVlbiIgeDE9IjEyIiB5MT0iMTAiIHgyPSI3NiIgeTI9IjcwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgIDxzdG9wIHN0b3AtY29sb3I9IiM4QkYxNUIiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIwLjU1IiBzdG9wLWNvbG9yPSIjMjZDODRFIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBBOEIzOCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ29sZCIgeDE9IjExMiIgeTE9IjgiIHgyPSIyNTAiIHkyPSI3MiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBzdG9wLWNvbG9yPSIjRkZGM0E3Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMC40NiIgc3RvcC1jb2xvcj0iI0Y2Qzk1RiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNFMDhDMjQiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InB1cnBsZSIgeDE9IjcxIiB5MT0iMjIiIHgyPSIxMDgiIHkyPSI2MiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBzdG9wLWNvbG9yPSIjQTU3QkZGIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzYyMzZFOCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxmaWx0ZXIgaWQ9Imdsb3ciIHg9Ii0xMCUiIHk9Ii0zMCUiIHdpZHRoPSIxMjUlIiBoZWlnaHQ9IjE3MCUiIGNvbG9yLWludGVycG9sYXRpb24tZmlsdGVycz0ic1JHQiI+CiAgICAgIDxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSI2IiBzdGREZXZpYXRpb249IjYiIGZsb29kLWNvbG9yPSIjRjZDOTVGIiBmbG9vZC1vcGFjaXR5PSIwLjI4Ii8+CiAgICA8L2ZpbHRlcj4KICA8L2RlZnM+CgogIDxnIGZpbHRlcj0idXJsKCNnbG93KSI+CiAgICA8cGF0aCBkPSJNMzkuMyAyMC42QzM3LjIgOC4yIDE4LjggMTEuNyAyMS41IDI1LjNDOCAyMi43IDQuNSA0MS4yIDE2LjkgNDMuMkM3LjEgNTEuNSAxOC44IDY2LjYgMjkuMSA1Ny40QzI3LjcgNzIuNCA0OS40IDcyLjQgNDggNTcuNEM1OC40IDY2LjYgNzAgNTEuNSA2MC4yIDQzLjJDNzIuNyA0MS4yIDY5LjEgMjIuNyA1NS43IDI1LjNDNTguMyAxMS43IDQxLjQgOC4yIDM5LjMgMjAuNloiIGZpbGw9InVybCgjZ3JlZW4pIi8+CiAgICA8cGF0aCBkPSJNMzkuMiA0MC42QzMzLjUgNDcuOCAyNy41IDU2LjIgMjEuMSA2Ny44IiBzdHJva2U9IiMwNzZBMkIiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgICA8Y2lyY2xlIGN4PSI3NiIgY3k9IjM3IiByPSIxNC41IiBmaWxsPSJ1cmwoI3B1cnBsZSkiIHN0cm9rZT0iI0Y0RThGRiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8dGV4dCB4PSI2OCIgeT0iNDIiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iSW50ZXIsIFNlZ29lIFVJLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9IjkwMCI+MDc8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSI5OCIgY3k9IjUyIiByPSIxMi41IiBmaWxsPSIjRjVDODVCIiBzdHJva2U9IiNGRkYyQkEiIHN0cm9rZS13aWR0aD0iMiIvPgogICAgPHRleHQgeD0iOTEiIHk9IjU3IiBmaWxsPSIjMDcxMTFGIiBmb250LWZhbWlseT0iSW50ZXIsIFNlZ29lIFVJLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjkwMCI+MjM8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSI5MyIgY3k9IjI0IiByPSIxMC41IiBmaWxsPSIjRjM2QUExIiBzdHJva2U9IiNGRkU0RjAiIHN0cm9rZS13aWR0aD0iMiIvPgogIDwvZz4KCiAgPHBhdGggZD0iTTEyMSAyNEMxNDMgOCAxODUgOCAyMTEgMjIiIHN0cm9rZT0idXJsKCNnb2xkKSIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNMTE4IDYyQzE0OSA3OSAyMDUgNzggMjM2IDU0IiBzdHJva2U9IiNGNkM5NUYiIHN0cm9rZS1vcGFjaXR5PSIwLjQ2IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgoKICA8dGV4dCB4PSIxMTQiIHk9IjU0IiBmaWxsPSJ1cmwoI2dvbGQpIiBmb250LWZhbWlseT0iVHJlYnVjaGV0IE1TLCBTZWdvZSBVSSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMzgiIGZvbnQtc3R5bGU9Iml0YWxpYyIgZm9udC13ZWlnaHQ9IjkwMCIgbGV0dGVyLXNwYWNpbmc9Ii0xLjIiPlBhbHBpbmV0PC90ZXh0PgogIDx0ZXh0IHg9IjExOSIgeT0iNzIiIGZpbGw9IiNGRkU2OUMiIGZvbnQtZmFtaWx5PSJJbnRlciwgU2Vnb2UgVUksIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjkuNSIgZm9udC13ZWlnaHQ9IjkwMCIgbGV0dGVyLXNwYWNpbmc9IjAuNjUiPlNVQSBTT1JURSBWSUEgUkVERSBNVU5ESUFMPC90ZXh0PgogIDxjaXJjbGUgY3g9IjExMiIgY3k9IjY1IiByPSI3IiBmaWxsPSIjRjVDODVCIi8+CiAgPHRleHQgeD0iMTA3LjYiIHk9IjY4LjgiIGZpbGw9IiMwNzExMUYiIGZvbnQtZmFtaWx5PSJJbnRlciwgU2Vnb2UgVUksIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjgiIGZvbnQtd2VpZ2h0PSI5MDAiPjEwPC90ZXh0Pgo8L3N2Zz4K" alt="Palpinet" width="178" height="58" loading="lazy" />
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNzYiIHdpZHRoPSIzMDAiIGhlaWdodD0iNzYiIGZpbGw9Im5vbmUiPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg2IDgpIj48cGF0aCBkPSJNMjggMjlDOSAyOSA5IDYgMjMgOGM0IDAgNiA0IDYgOEMyOS0zIDUyIDAgNTAgMTRjMCA1LTUgOC0xMCAxMEM1OSAxOSA2NiA0MSA1MSA0NWMtNSAxLTktMi0xMi02IDggMTctMTIgMzEtMjAgMTgtMy01IDAtMTEgMy0xNkM5IDU1LTYgMzggNSAyOWM2LTUgMTUtMyAyMyAwWiIgZmlsbD0iI2JmYTQ3OCIvPjxwYXRoIGQ9Ik0yOSAzMCAxNiA1NiIgc3Ryb2tlPSIjMjUyNzNkIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxjaXJjbGUgY3g9IjUxIiBjeT0iNDkiIHI9IjEwIiBmaWxsPSIjNzc2MDhkIi8+PHRleHQgeD0iNTEiIHk9IjUzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmIiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSIxMSI+NzwvdGV4dD48L2c+Cjx0ZXh0IHg9IjgyIiB5PSI0OSIgZmlsbD0iI2Y0ZWVlNCIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iNDMiIGxldHRlci1zcGFjaW5nPSItMS44Ij5QYWxwaW5ldDwvdGV4dD4KPHBhdGggZD0ibTI2NyAxMCAyIDUgNSAyLTUgMi0yIDUtMi01LTUtMiA1LTJaIiBmaWxsPSIjYmZhNDc4Ii8+Cjwvc3ZnPg==" alt="Palpinet" width="178" height="58" loading="lazy" />
         <p>Unindo sonhos, astrologia e matemática para inspirar combinações recreativas.</p>
       </div>
       <nav aria-label="Links do rodapé">
@@ -4578,7 +4648,7 @@ body[data-page="generator"] .celestial-dial { width:220px; }
       <section class="auth-card">
         <button class="auth-close" id="authClose" type="button" aria-label="Fechar">x</button>
         <div class="auth-brand">
-          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzEwIiBoZWlnaHQ9Ijg2IiB2aWV3Qm94PSIwIDAgMzEwIDg2IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJncmVlbiIgeDE9IjEyIiB5MT0iMTAiIHgyPSI3NiIgeTI9IjcwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgIDxzdG9wIHN0b3AtY29sb3I9IiM4QkYxNUIiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIwLjU1IiBzdG9wLWNvbG9yPSIjMjZDODRFIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBBOEIzOCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ29sZCIgeDE9IjExMiIgeTE9IjgiIHgyPSIyNTAiIHkyPSI3MiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBzdG9wLWNvbG9yPSIjRkZGM0E3Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMC40NiIgc3RvcC1jb2xvcj0iI0Y2Qzk1RiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNFMDhDMjQiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InB1cnBsZSIgeDE9IjcxIiB5MT0iMjIiIHgyPSIxMDgiIHkyPSI2MiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBzdG9wLWNvbG9yPSIjQTU3QkZGIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzYyMzZFOCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxmaWx0ZXIgaWQ9Imdsb3ciIHg9Ii0xMCUiIHk9Ii0zMCUiIHdpZHRoPSIxMjUlIiBoZWlnaHQ9IjE3MCUiIGNvbG9yLWludGVycG9sYXRpb24tZmlsdGVycz0ic1JHQiI+CiAgICAgIDxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSI2IiBzdGREZXZpYXRpb249IjYiIGZsb29kLWNvbG9yPSIjRjZDOTVGIiBmbG9vZC1vcGFjaXR5PSIwLjI4Ii8+CiAgICA8L2ZpbHRlcj4KICA8L2RlZnM+CgogIDxnIGZpbHRlcj0idXJsKCNnbG93KSI+CiAgICA8cGF0aCBkPSJNMzkuMyAyMC42QzM3LjIgOC4yIDE4LjggMTEuNyAyMS41IDI1LjNDOCAyMi43IDQuNSA0MS4yIDE2LjkgNDMuMkM3LjEgNTEuNSAxOC44IDY2LjYgMjkuMSA1Ny40QzI3LjcgNzIuNCA0OS40IDcyLjQgNDggNTcuNEM1OC40IDY2LjYgNzAgNTEuNSA2MC4yIDQzLjJDNzIuNyA0MS4yIDY5LjEgMjIuNyA1NS43IDI1LjNDNTguMyAxMS43IDQxLjQgOC4yIDM5LjMgMjAuNloiIGZpbGw9InVybCgjZ3JlZW4pIi8+CiAgICA8cGF0aCBkPSJNMzkuMiA0MC42QzMzLjUgNDcuOCAyNy41IDU2LjIgMjEuMSA2Ny44IiBzdHJva2U9IiMwNzZBMkIiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgICA8Y2lyY2xlIGN4PSI3NiIgY3k9IjM3IiByPSIxNC41IiBmaWxsPSJ1cmwoI3B1cnBsZSkiIHN0cm9rZT0iI0Y0RThGRiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8dGV4dCB4PSI2OCIgeT0iNDIiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iSW50ZXIsIFNlZ29lIFVJLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9IjkwMCI+MDc8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSI5OCIgY3k9IjUyIiByPSIxMi41IiBmaWxsPSIjRjVDODVCIiBzdHJva2U9IiNGRkYyQkEiIHN0cm9rZS13aWR0aD0iMiIvPgogICAgPHRleHQgeD0iOTEiIHk9IjU3IiBmaWxsPSIjMDcxMTFGIiBmb250LWZhbWlseT0iSW50ZXIsIFNlZ29lIFVJLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjkwMCI+MjM8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSI5MyIgY3k9IjI0IiByPSIxMC41IiBmaWxsPSIjRjM2QUExIiBzdHJva2U9IiNGRkU0RjAiIHN0cm9rZS13aWR0aD0iMiIvPgogIDwvZz4KCiAgPHBhdGggZD0iTTEyMSAyNEMxNDMgOCAxODUgOCAyMTEgMjIiIHN0cm9rZT0idXJsKCNnb2xkKSIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNMTE4IDYyQzE0OSA3OSAyMDUgNzggMjM2IDU0IiBzdHJva2U9IiNGNkM5NUYiIHN0cm9rZS1vcGFjaXR5PSIwLjQ2IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgoKICA8dGV4dCB4PSIxMTQiIHk9IjU0IiBmaWxsPSJ1cmwoI2dvbGQpIiBmb250LWZhbWlseT0iVHJlYnVjaGV0IE1TLCBTZWdvZSBVSSwgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMzgiIGZvbnQtc3R5bGU9Iml0YWxpYyIgZm9udC13ZWlnaHQ9IjkwMCIgbGV0dGVyLXNwYWNpbmc9Ii0xLjIiPlBhbHBpbmV0PC90ZXh0PgogIDx0ZXh0IHg9IjExOSIgeT0iNzIiIGZpbGw9IiNGRkU2OUMiIGZvbnQtZmFtaWx5PSJJbnRlciwgU2Vnb2UgVUksIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjkuNSIgZm9udC13ZWlnaHQ9IjkwMCIgbGV0dGVyLXNwYWNpbmc9IjAuNjUiPlNVQSBTT1JURSBWSUEgUkVERSBNVU5ESUFMPC90ZXh0PgogIDxjaXJjbGUgY3g9IjExMiIgY3k9IjY1IiByPSI3IiBmaWxsPSIjRjVDODVCIi8+CiAgPHRleHQgeD0iMTA3LjYiIHk9IjY4LjgiIGZpbGw9IiMwNzExMUYiIGZvbnQtZmFtaWx5PSJJbnRlciwgU2Vnb2UgVUksIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjgiIGZvbnQtd2VpZ2h0PSI5MDAiPjEwPC90ZXh0Pgo8L3N2Zz4K" alt="Palpinet" width="178" height="58" loading="lazy" />
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgNzYiIHdpZHRoPSIzMDAiIGhlaWdodD0iNzYiIGZpbGw9Im5vbmUiPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg2IDgpIj48cGF0aCBkPSJNMjggMjlDOSAyOSA5IDYgMjMgOGM0IDAgNiA0IDYgOEMyOS0zIDUyIDAgNTAgMTRjMCA1LTUgOC0xMCAxMEM1OSAxOSA2NiA0MSA1MSA0NWMtNSAxLTktMi0xMi02IDggMTctMTIgMzEtMjAgMTgtMy01IDAtMTEgMy0xNkM5IDU1LTYgMzggNSAyOWM2LTUgMTUtMyAyMyAwWiIgZmlsbD0iI2JmYTQ3OCIvPjxwYXRoIGQ9Ik0yOSAzMCAxNiA1NiIgc3Ryb2tlPSIjMjUyNzNkIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxjaXJjbGUgY3g9IjUxIiBjeT0iNDkiIHI9IjEwIiBmaWxsPSIjNzc2MDhkIi8+PHRleHQgeD0iNTEiIHk9IjUzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmIiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSIxMSI+NzwvdGV4dD48L2c+Cjx0ZXh0IHg9IjgyIiB5PSI0OSIgZmlsbD0iI2Y0ZWVlNCIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iNDMiIGxldHRlci1zcGFjaW5nPSItMS44Ij5QYWxwaW5ldDwvdGV4dD4KPHBhdGggZD0ibTI2NyAxMCAyIDUgNSAyLTUgMi0yIDUtMi01LTUtMiA1LTJaIiBmaWxsPSIjYmZhNDc4Ii8+Cjwvc3ZnPg==" alt="Palpinet" width="178" height="58" loading="lazy" />
           <div>
             <span class="eyebrow">Conta Palpinet</span>
             <h2 id="authTitle">Entrar na sua conta</h2>
@@ -4586,6 +4656,7 @@ body[data-page="generator"] .celestial-dial { width:220px; }
           </div>
         </div>
 
+        <p class="auth-mode-note" id="authModeNote"></p>
         <div class="auth-tabs" role="group" aria-label="Entrar ou criar conta">
           <button class="active" type="button" data-auth-mode="login">Entrar</button>
           <button type="button" data-auth-mode="signup">Criar conta</button>
@@ -4616,7 +4687,7 @@ body[data-page="generator"] .celestial-dial { width:220px; }
           </label>
           <label>
             Senha
-            <input id="signupPassword" type="password" autocomplete="new-password" placeholder="Crie uma senha" />
+            <input id="signupPassword" minlength="8" type="password" autocomplete="new-password" placeholder="Crie uma senha" />
           </label>
           <div class="auth-optional-grid">
             <label>
@@ -4668,7 +4739,11 @@ body[data-page="generator"] .celestial-dial { width:220px; }
       </section>
     </div>
 
+
+
     <script>
+window.palpinetOffline=true;
+window.palpinetAccount={enabled:false,url:'',publishableKey:''};
 function palpinetOfflinePath() {
   return location.hash.startsWith('#/') ? location.hash.slice(1).split('#')[0].split('?')[0] || '/' : '/';
 }
@@ -4684,6 +4759,117 @@ const offlineStorage = {
   removeItem(key) { offlineMemory.delete(key); try { localStorage.removeItem(key); } catch {} }
 };
 function offlineFetch() { return Promise.reject(new Error('Esta prévia está em modo offline.')); }
+
+/* Supabase Auth + owner-only profiles. No client-side administrative authority. */
+(() => {
+  "use strict";
+  const config = window.palpinetAccount || {};
+  const localPreview = window.palpinetOffline === true || location.protocol === "file:" || ["localhost", "127.0.0.1", "[::1]"].includes(location.hostname);
+  const url = String(config.url || "").replace(/\/$/, "");
+  const key = String(config.publishableKey || "");
+  let validKey = key.startsWith("sb_publishable_");
+  try { validKey ||= JSON.parse(atob(key.split(".")[1].replace(/-/g,"+").replace(/_/g,"/"))).role === "anon"; } catch {}
+  const enabled = Boolean(config.enabled && /^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(url) && validKey);
+  const storageKey = "palpinet.auth.session:" + url;
+  let session = null, current = null, revision = 0, refreshing = null, recovering = false;
+  const notice = "As contas online ainda não foram ativadas. Você pode gerar e copiar seus números.";
+  const emit = () => window.dispatchEvent(new Event("palpinet:accountchange"));
+  function saveSession(value) {
+    session = value;
+    try { if(value) sessionStorage.setItem(storageKey,JSON.stringify(value)); else sessionStorage.removeItem(storageKey); } catch {}
+  }
+  function setToken(payload) {
+    saveSession({access_token:payload.access_token,refresh_token:payload.refresh_token,expires_at:Date.now()+Number(payload.expires_in || 3600)*1000});
+  }
+  async function request(path, {method="GET",body,authenticated=true,token,retry=true,prefer}={}) {
+    if (!enabled) throw new Error(notice);
+    if(authenticated && !token && session && session.expires_at<Date.now()+30000) await refreshToken();
+    let response; try { response=await fetch(url+path,{method,headers:{apikey:key,...((token||authenticated&&session?.access_token)?{Authorization:"Bearer "+(token||session.access_token)}:{}),...(body!==undefined?{"Content-Type":"application/json"}:{}),...(prefer?{Prefer:prefer}:{})},...(body!==undefined?{body:JSON.stringify(body)}:{})}); } catch { throw new Error("Não foi possível conectar à sua conta. Verifique a conexão e tente novamente."); }
+    let payload=null;try { payload=await response.json(); } catch {}
+    if(response.status===401 && authenticated && retry && session?.refresh_token){await refreshToken();return request(path,{method,body,authenticated,retry:false,prefer});}
+    if(!response.ok) {
+      const code=payload?.error_code || payload?.code;
+      if(code==="invalid_credentials")throw new Error("E-mail ou senha incorretos.");
+      if(code==="email_not_confirmed")throw new Error("Confirme seu e-mail antes de entrar.");
+      if(response.status===429)throw new Error("Muitas tentativas. Aguarde um pouco e tente novamente.");
+      throw new Error("Não foi possível concluir a operação na sua conta. Tente novamente.");
+    }
+    return payload;
+  }
+  async function refreshToken() {
+    if(refreshing)return refreshing;
+    refreshing=(async()=>{
+      if(!session?.refresh_token)throw new Error("Entre novamente para continuar.");
+      try {
+        const payload=await request("/auth/v1/token?grant_type=refresh_token",{method:"POST",body:{refresh_token:session.refresh_token},authenticated:false});
+        setToken(payload);
+      }catch(error){saveSession(null);current=null;emit();throw error;}
+    })().finally(()=>{refreshing=null;});
+    return refreshing;
+  }
+  function profile(user, data={}) {
+    // Identity and privileges always come from the verified session, never JSON profile data.
+    return {id:user.id,email:user.email,name:data.name||user.user_metadata?.name||"Usuário Palpinet",birth_date:data.birth_date||"",sign:data.sign||"",city:data.city||"",history:Array.isArray(data.history)?data.history:[],favorites:Array.isArray(data.favorites)?data.favorites:[],preferences:data.preferences||{},createdAt:user.created_at,role:"user",status:"active",plan:"Gratis"};
+  }
+  async function loadProfile(user) {
+    const filter="?user_id=eq."+encodeURIComponent(user.id)+"&select=data,revision";
+    let rows=await request("/rest/v1/palpinet_profiles"+filter);
+    if(!rows?.length){
+      await request("/rest/v1/palpinet_profiles?on_conflict=user_id",{method:"POST",body:{user_id:user.id,data:{name:user.user_metadata?.name||"Usuário Palpinet",birth_date:user.user_metadata?.birth_date||"",sign:user.user_metadata?.sign||"",city:user.user_metadata?.city||""}},prefer:"resolution=ignore-duplicates"});
+      rows=await request("/rest/v1/palpinet_profiles"+filter);
+    }
+    if(!rows?.length)throw new Error("Seu histórico ainda não pôde ser carregado. Tente novamente.");
+    revision=rows[0].revision;current=profile(user,rows[0].data);emit();return current;
+  }
+  async function establish(payload) {
+    setToken(payload);
+    try {const user=await request("/auth/v1/user");await loadProfile(user);return current;}
+    catch(error){current=null;saveSession(null);emit();throw error;}
+  }
+  async function init() {
+    const callback=new URLSearchParams(window.palpinetAuthCallback || location.hash.slice(1));
+    delete window.palpinetAuthCallback;
+    if(!enabled)return;
+    if(callback.has("access_token")){
+      recovering=callback.get("type")==="recovery";
+      const token=callback.get("access_token"),refresh=callback.get("refresh_token");
+      // Remove credentials from the address bar before rendering routes or tracking pages.
+      history.replaceState(null,"",location.pathname+location.search);
+      await establish({access_token:token,refresh_token:refresh,expires_in:callback.get("expires_in")});return;
+    }
+    try {session=JSON.parse(sessionStorage.getItem(storageKey)||"null");}catch{session=null;}
+    if(session){try{const user=await request("/auth/v1/user");await loadProfile(user);}catch{saveSession(null);current=null;emit();}}
+  }
+  const api = {
+    enabled, localPreview, blocked:!enabled&&(!localPreview||config.enabled===true),
+    get currentUser(){return current;},get recovering(){return recovering;},
+    init,
+    async signIn(email,password){
+      const payload=await request("/auth/v1/token?grant_type=password",{method:"POST",body:{email,password},authenticated:false});
+      return establish(payload);
+    },
+    async signUp(name,email,password,extra={}){
+      const payload=await request("/auth/v1/signup",{method:"POST",body:{email,password,data:{name,...extra}},authenticated:false});
+      if(payload?.access_token)return establish(payload);
+      return null; // Email confirmation is required: do not invent a logged-in session.
+    },
+    async signOut(){try{if(session)await request("/auth/v1/logout?scope=local",{method:"POST",body:{}});}finally{saveSession(null);current=null;recovering=false;emit();}},
+    async refresh(){if(!current)return;const user=await request("/auth/v1/user");return loadProfile(user);},
+    async update(updater){
+      if(!current)throw new Error("Entre para salvar na sua conta.");
+      const next=updater(structuredClone(current));
+      const data={name:next.name,birth_date:next.birth_date,sign:next.sign,city:next.city,history:next.history,favorites:next.favorites,preferences:next.preferences};
+      const rows=await request("/rest/v1/palpinet_profiles?user_id=eq."+encodeURIComponent(current.id)+"&revision=eq."+revision,{method:"PATCH",body:{data,revision:revision+1,updated_at:new Date().toISOString()},prefer:"return=representation"});
+      if(!rows?.length){await api.refresh();throw new Error("Seu histórico mudou em outro dispositivo. Atualizamos os dados; tente novamente.");}
+      revision=rows[0].revision;current={...current,...data,role:"user"};emit();return current;
+    },
+    async updateEmail(email){await request("/auth/v1/user",{method:"PUT",body:{email}});},
+    async recover(email){await request("/auth/v1/recover?redirect_to="+encodeURIComponent(location.origin+"/conta"),{method:"POST",body:{email},authenticated:false});},
+    async resetPassword(password){if(!recovering||!current)throw new Error("Abra o link de recuperação recebido por e-mail.");await request("/auth/v1/user",{method:"PUT",body:{password}});recovering=false;},
+    async deleteAccount(){await request("/rest/v1/rpc/palpinet_delete_account",{method:"POST",body:{}});saveSession(null);current=null;emit();}
+  };
+  window.PalpinetAccounts=api;
+})();
 
 const games = {
   "mega-sena": { name: "Mega-Sena", count: 6, min: 1, max: 60 },
@@ -4892,23 +5078,6 @@ const preferenceDefaults = {
   privacy: false
 };
 
-const defaultUser = {
-  id: "user_luiz_ricci",
-  name: "Luiz Ricci",
-  email: "riccijunior@gmail.com",
-  password: "1594826",
-  role: "admin",
-  status: "active",
-  plan: "Premium",
-  birth_date: "",
-  sign: "",
-  city: "",
-  lastAccess: "",
-  history: [],
-  favorites: [],
-  preferences: { ...preferenceDefaults },
-  createdAt: "2026-05-29T00:00:00.000Z"
-};
 
 const adminRoles = {
   admin: {
@@ -5449,7 +5618,7 @@ const legalSeoPages = {
     description: "Conheça as regras de uso do Palpinet, uma plataforma recreativa de números da sorte, sonhos e horóscopo.",
     sections: [
       ["Uso da plataforma", "O Palpinet oferece conteúdo recreativo e informativo para inspirar combinações de números. O usuário deve usar a plataforma com consciência e entender que não ha promessa de resultado."],
-      ["Conta e histórico", "No preview atual, contas e histórico ficam salvos localmente no navegador. Em versões futuras, a estrutura poderá ser conectada a banco de dados externo e autentificação segura."],
+      ["Conta e histórico", "Na prévia offline, contas de teste e histórico ficam neste navegador. Quando as contas online estão ativadas, cadastro e histórico ficam vinculados à conta no provedor configurado."],
       ["Responsabilidade", "Valores, probabilidades e informações sobre jogos são apenas informativos e podem mudar. Sempre consulte canais oficiais antes de qualquer decisão."]
     ]
   },
@@ -5457,9 +5626,9 @@ const legalSeoPages = {
     title: "Politica de Privacidade Palpinet",
     description: "Entenda como o Palpinet prepara a coleta, proteção e uso responsável de dados em sua plataforma.",
     sections: [
-      ["Dados coletados", "O preview usa armazenamento local para nome, e-mail, preferências e histórico. A chave da OpenAI não e exposta ao navegador."],
+      ["Dados coletados", "A prévia offline guarda os dados de teste neste navegador. Com contas online ativadas, nome, e-mail, preferências e histórico são vinculados à sua conta no provedor configurado."],
       ["Mediação e analytics", "A estrutura está preparada para Google Analytics 4, Search Console e Microsoft Clarity com carregamento condicional e eventos de produto."],
-      ["Controle do usuário", "O usuário pode encerrar sessão, exportar dados locais e excluir a conta criada neste navegador."]
+      ["Controle do usuário", "Você pode encerrar a sessão, exportar seus dados e excluir sua conta pelo painel. A prévia offline controla apenas os dados deste navegador."]
     ]
   },
   "/politica-de-cookies": {
@@ -5483,6 +5652,7 @@ const legalSeoPages = {
 };
 
 let pendingAfterAuth = null;
+let pendingCombination = null;
 let activeClientView = "dashboard";
 let activeFavoriteFilter = "all";
 let pendingRecoveryEmail = "";
@@ -5624,14 +5794,18 @@ function publicUser(user) {
 }
 
 function normalizeGuessRecord(record) {
+  if(!record || typeof record.game!=="string" || typeof record.method!=="string" || !Object.hasOwn(games,record.game) || !Object.hasOwn(methods,record.method) || !Array.isArray(record.numbers)) return null;
+  const rule=games[record.game];
+  if(!record.numbers.every(n=>Number.isInteger(n)&&n>=rule.min&&n<=rule.max) || new Set(record.numbers).size!==record.numbers.length) return null;
+  if(!(betOptions[record.game]||[]).some(option=>option.numbers===record.numbers.length)) return null;
   return {
     id: record.id || `guess_${hash(`${record.game}:${record.createdAt || Date.now()}:${record.numbers?.join("-")}`).toString(36)}`,
     game: record.game,
     method: record.method,
-    input: record.input || record.input_text || "",
-    quantity: record.quantity || record.numbers?.length || games[record.game]?.count || 0,
+    input: String(record.input || record.input_text || ""),
+    quantity: record.numbers.length,
     numbers: Array.isArray(record.numbers) ? record.numbers : [],
-    ai_response: record.ai_response || "",
+    ai_response: String(record.ai_response || ""),
     interpretation_type: record.interpretation_type || "",
     is_favorite: Boolean(record.is_favorite),
     createdAt: record.createdAt || record.created_at || new Date().toISOString()
@@ -5639,7 +5813,7 @@ function normalizeGuessRecord(record) {
 }
 
 function normalizeUserRecord(user) {
-  const history = (Array.isArray(user.history) ? user.history : []).map(normalizeGuessRecord);
+  const history = (Array.isArray(user.history) ? user.history : []).map(normalizeGuessRecord).filter(Boolean);
   const favoriteIds = new Set([
     ...(Array.isArray(user.favorites) ? user.favorites : []),
     ...history.filter((record) => record.is_favorite).map((record) => record.id)
@@ -5668,34 +5842,11 @@ function normalizeUserRecord(user) {
   };
 }
 
-// Carrega usuários locais e garante o usuário de teste da Fase 2.
+// Local accounts are a clearly labelled preview only. No seeded administrator.
 function loadUsers() {
-  const users = read(usersKey, []).map(normalizeUserRecord);
-  const email = cleanEmail(defaultUser.email);
-  const index = users.findIndex((user) => cleanEmail(user.email) === email);
-
-  if (index === -1) {
-    const nextUsers = [...users, normalizeUserRecord(defaultUser)];
-    saveUsers(nextUsers);
-    return nextUsers;
-  }
-
-  const current = users[index];
-  const patchedUser = normalizeUserRecord({
-    ...defaultUser,
-    ...current,
-    email: defaultUser.email,
-    password: defaultUser.password,
-    role: defaultUser.role,
-    status: current.status || defaultUser.status,
-    plan: current.plan || defaultUser.plan,
-    history: Array.isArray(current.history) ? current.history : [],
-    favorites: Array.isArray(current.favorites) ? current.favorites : [],
-    preferences: { ...preferenceDefaults, ...(current.preferences || {}) }
-  });
-  const nextUsers = users.map((user, userIndex) => (userIndex === index ? patchedUser : user));
-  saveUsers(nextUsers);
-  return nextUsers;
+  if (window.PalpinetAccounts?.enabled) return getCurrentUser() ? [getCurrentUser()] : [];
+  if (window.PalpinetAccounts?.blocked) return [];
+  return read(usersKey, []).map(normalizeUserRecord);
 }
 
 function saveUsers(users) {
@@ -5703,6 +5854,8 @@ function saveUsers(users) {
 }
 
 function getCurrentUser() {
+  if (window.PalpinetAccounts?.enabled) return window.PalpinetAccounts.currentUser ? normalizeUserRecord(window.PalpinetAccounts.currentUser) : null;
+  if (window.PalpinetAccounts?.blocked) return null;
   const session = read(authSessionKey, null);
   if (!session?.userId) return null;
   return loadUsers().find((user) => user.id === session.userId) || null;
@@ -5712,42 +5865,59 @@ function saveSession(user) {
   write(authSessionKey, { userId: user.id, createdAt: new Date().toISOString() });
 }
 
-function endSession() {
+async function endSession() {
+  if (window.PalpinetAccounts?.enabled) { await window.PalpinetAccounts.signOut(); return; }
   offlineStorage.removeItem(authSessionKey);
 }
 
-function authenticateUser(email, password) {
+async function authenticateUser(email, password) {
   if (!email.trim() || !password.trim()) {
     return { ok: false, message: "Preencha e-mail e senha." };
   }
 
+  if (window.PalpinetAccounts?.blocked) return {ok:false,message:"As contas online ainda não foram ativadas."};
+  if (window.PalpinetAccounts?.enabled) {
+    try { const user=await window.PalpinetAccounts.signIn(cleanEmail(email),password); return {ok:true,user:publicUser(user)}; }
+    catch(error){return {ok:false,message:error.message};}
+  }
   const users = loadUsers();
   const user = users.find((item) => cleanEmail(item.email) === cleanEmail(email));
   if (!user) return { ok: false, message: "E-mail não cadastrado." };
-  if (user.password !== password) return { ok: false, message: "Senha incorreta." };
+  const matches = user.passwordHash ? await previewPasswordHash(password,user.passwordSalt) === user.passwordHash : user.password === password;
+  if (!matches) return { ok: false, message: "Senha incorreta." };
+  const passwordSalt = user.passwordSalt || crypto.randomUUID();
+  const passwordHash = user.passwordHash || await previewPasswordHash(password,passwordSalt);
   if (user.status === "blocked") return { ok: false, message: "Conta bloqueada. Fale com o administrador." };
 
-  saveUsers(users.map((item) => (item.id === user.id ? { ...item, lastAccess: new Date().toISOString() } : item)));
+  saveUsers(users.map((item) => { if(item.id !== user.id) return item; const next={...item,passwordHash,passwordSalt,lastAccess:new Date().toISOString()}; delete next.password; return next; }));
   saveSession(user);
   trackEvent("login", { method: "local", role: user.role || "user" });
   return { ok: true, user: publicUser(user), message: "Login realizado com sucesso." };
 }
 
-function createUser(name, email, password, profile = {}) {
+async function createUser(name, email, password, profile = {}) {
   if (!name.trim() || !email.trim() || !password.trim()) {
     return { ok: false, message: "Preencha nome, e-mail e senha." };
   }
 
+  if (password.length < 8) return {ok:false,message:"Use uma senha com pelo menos 8 caracteres."};
+  if (window.PalpinetAccounts?.blocked) return {ok:false,message:"As contas online ainda não foram ativadas."};
+  if (window.PalpinetAccounts?.enabled) {
+    try {const user=await window.PalpinetAccounts.signUp(name.trim(),cleanEmail(email),password,profile);return {ok:true,user:user?publicUser(user):null,message:user?"Conta criada.":"Confira seu e-mail para confirmar a conta antes de entrar."};}
+    catch(error){return {ok:false,message:error.message};}
+  }
   const users = loadUsers();
   if (users.some((user) => cleanEmail(user.email) === cleanEmail(email))) {
     return { ok: false, message: "E-mail já cadastrado." };
   }
 
+  const passwordSalt=crypto.randomUUID();
   const user = {
     id: `user_${hash(`${email}:${Date.now()}`).toString(36)}`,
     name: name.trim(),
     email: cleanEmail(email),
-    password,
+    passwordHash: await previewPasswordHash(password,passwordSalt),
+    passwordSalt,
     role: "user",
     status: "active",
     plan: "Gratis",
@@ -5772,14 +5942,16 @@ function createUser(name, email, password, profile = {}) {
   return { ok: true, user: publicUser(user), message: "Conta criada com sucesso." };
 }
 
-function updateUser(userId, updater) {
+async function updateUser(userId, updater) {
+  if (window.PalpinetAccounts?.enabled) return window.PalpinetAccounts.update(updater);
+  if (window.PalpinetAccounts?.blocked) throw new Error("Entre para continuar.");
   const users = loadUsers();
   const nextUsers = users.map((user) => (user.id === userId ? normalizeUserRecord(updater(user)) : user));
   saveUsers(nextUsers);
 }
 
 // Salva o jogo apenas no histórico do usuário logado.
-function saveGameToHistory(record) {
+async function saveGameToHistory(record) {
   const user = getCurrentUser();
   if (!user) return { saved: false, reason: "guest" };
 
@@ -5790,14 +5962,14 @@ function saveGameToHistory(record) {
     input: record.input || record.input_text,
     quantity: record.quantity || record.numbers?.length,
     numbers: record.numbers,
-    ai_response: record.ai_response || "",
+    ai_response: String(record.ai_response || ""),
     interpretation_type: record.interpretation_type || "",
     is_favorite: Boolean(record.is_favorite),
     createdAt: record.createdAt || record.created_at
   };
 
   let alreadySaved = false;
-  updateUser(user.id, (storedUser) => ({
+  await updateUser(user.id, (storedUser) => ({
     ...storedUser,
     preferences: {
       ...preferenceDefaults,
@@ -7230,7 +7402,7 @@ function renderAdminUsers() {
     return true;
   });
   return `
-    ${renderAdminHeader("Usuários", "Gerencie contas, planos, status e níveis de acesso.", `<button class="primary-button" type="button" data-admin-action="seed-user">Criar usuário teste</button>`)}
+    ${renderAdminHeader("Usuários", "Gerencie contas, planos, status e níveis de acesso.")}
     ${renderAdminFilters(["todos", "ativos", "inativos", "novos"])}
     <div class="admin-table-wrap"><table><thead><tr><th>Nome</th><th>Email</th><th>Cadastro</th><th>Último acesso</th><th>Plano</th><th>Status</th><th>Ações</th></tr></thead><tbody>
       ${users.map((user) => `
@@ -7557,13 +7729,6 @@ function handleAdminAction(button) {
   const action = button.dataset.adminAction;
   const current = getCurrentUser();
   if (!isAdminUser(current)) return;
-
-  if (action === "seed-user" && adminCan("users")) {
-    const users = loadUsers();
-    const email = `editor${Date.now()}@palpinet.local`;
-    saveUsers([...users, normalizeUserRecord({ id: `user_${Date.now()}`, name: "Editor Palpinet", email, password: "123456", role: "editor", status: "active", plan: "Equipe", history: [], favorites: [], createdAt: new Date().toISOString(), lastAccess: "" })]);
-    addAdminLog("Criou usuário teste", email);
-  }
 
   if (action === "block-user" && adminCan("users")) {
     updateUser(button.dataset.userId, (user) => ({ ...user, status: user.status === "blocked" ? "active" : "blocked" }));
@@ -7906,8 +8071,22 @@ function emailResult(record) {
   window.location.href = `mailto:?subject=${subject}&body=${body}`;
 }
 
+async function copyText(text) {
+  try { if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(text); return true; } } catch {}
+  const input = document.createElement("textarea"); input.value = text;
+  input.setAttribute("readonly", ""); input.style.cssText = "position:fixed;left:-9999px;top:0";
+  const focus = document.activeElement; document.body.append(input); input.select();
+  let copied = false;
+  try { copied = document.execCommand("copy"); } catch {}
+  input.remove(); focus?.focus(); return copied;
+}
+
 function renderResult(record) {
+  const checked=normalizeGuessRecord(record);
+  if(!checked) { document.querySelector("#status").textContent="Esta combinação não pôde ser exibida. Gere uma nova combinação."; return; }
+  record={...record,...checked};
   const result = document.querySelector("#result");
+  document.querySelector("#generatorFields").hidden = false;
   result.classList.remove("hidden");
   const formattedNumbers = record.numbers.map((number) => formatNumber(record.game, number));
   const betInfo = betOptionFor(record.game, record.quantity || record.numbers.length);
@@ -7922,13 +8101,15 @@ function renderResult(record) {
       <span>Sua combinação</span>
       <small>${games[record.game].name} • ${record.quantity || record.numbers.length} números • ${betInfo?.price || ""}</small>
     </div>
-    <div class="quick-numbers">${formattedNumbers.map((number) => `<b class="number-ball">${number}</b>`).join("")}</div>
+    <div class="quick-numbers">${formattedNumbers.map((number) => `<b class="number-ball">${escapeHtml(number)}</b>`).join("")}</div>
     <div class="quick-actions">
-      <button data-action="save">Salvar</button>
-      <button data-action="copy">Copiar</button>
-      <button data-action="regenerate">Gerar Novamente</button>
-      <button data-action="share">Compartilhar</button>
-      <button data-action="email">Enviar por e-mail</button>
+      <button class="result-primary" data-action="copy">Copiar números</button>
+      <button class="result-save" data-action="save">Salvar combinação</button>
+      <details class="result-more"><summary>Mais opções</summary><div>
+        <button data-action="regenerate">Gerar novamente</button>
+        <button data-action="share">Compartilhar</button>
+        <button data-action="email">Enviar por e-mail</button>
+      </div></details>
     </div>
     ${
       aiText
@@ -7939,25 +8120,28 @@ function renderResult(record) {
             </div>
             <p>${aiText}</p>
           </section>`
-        : `<p class="result-note">${buildResultMessage(record)}</p>`
+        : `<p class="result-note">${escapeHtml(buildResultMessage(record))}</p>`
     }
     <p class="result-warning">As sugestões do Palpinet têm caráter recreativo e informativo. Não há garantia de premiação.</p>
     ${renderAdSlot("result-after-reading")}
   `;
 
-  result.querySelector('[data-action="save"]').addEventListener("click", () => {
-    const saved = saveGameToHistory(record);
+  result.querySelector('[data-action="save"]').addEventListener("click", async () => {
+    let saved;
+    try { saved = await saveGameToHistory(record); } catch(error) { document.querySelector("#status").textContent = error.message; return; }
     renderDashboard();
     if (saved.reason === "guest") {
       document.querySelector("#status").textContent = "Entre para salvar este palpite no seu histórico.";
-      openAuthModal("login");
+      pendingCombination = record;
+      openAuthModal("login", "save-result");
       return;
     }
     document.querySelector("#status").textContent = saved.reason === "exists" ? "Este palpite já está salvo." : "Palpite salvo no seu histórico.";
   });
 
-  result.querySelector('[data-action="copy"]').addEventListener("click", () => {
-    navigator.clipboard.writeText(record.numbers.map((number) => formatNumber(record.game, number)).join(" - "));
+  result.querySelector('[data-action="copy"]').addEventListener("click", async () => {
+    const copied = await copyText(record.numbers.map((number) => formatNumber(record.game, number)).join(" - "));
+    if (!copied) { document.querySelector("#status").textContent = "Não foi possível copiar. Selecione os números e copie manualmente."; return; }
     trackEvent("copy_numbers", { game: record.game, method: record.method, source: "result_card" });
     document.querySelector("#status").textContent = "Números copiados.";
   });
@@ -7969,10 +8153,13 @@ function renderResult(record) {
   result.querySelector('[data-action="share"]').addEventListener("click", async () => {
     const text = `Meu palpite Palpinet para ${games[record.game].name}: ${record.numbers.map((number) => formatNumber(record.game, number)).join(" - ")}`;
     if (navigator.share) await navigator.share({ title: "Palpinet", text });
-    else await navigator.clipboard.writeText(text);
+    else await copyText(text);
     trackEvent("share_guess", { game: record.game, method: record.method, source: "result_card" });
   });
 
+  result.querySelector(".result-more").addEventListener("keydown",event=>{
+    if(event.key==="Escape"){event.currentTarget.open=false;event.currentTarget.querySelector("summary").focus();}
+  });
   result.querySelector('[data-action="email"]').addEventListener("click", () => {
     emailResult(record);
   });
@@ -7996,7 +8183,7 @@ function renderDashboard() {
   guest.classList.add("hidden");
   dashboard.classList.remove("hidden");
   title.textContent = `Painel Palpinet de ${firstName(user.name)}`;
-  subtitle.textContent = "Seu histórico local fica salvo neste navegador e separado dos outros usuários.";
+  subtitle.textContent = window.PalpinetAccounts?.enabled ? "Seu histórico, favoritos e preferências acompanham sua conta." : "Seu histórico de teste fica somente neste navegador.";
 
   document.querySelector("#clientInitials").textContent = initials(user.name);
   document.querySelector("#clientName").textContent = user.name;
@@ -8090,8 +8277,8 @@ function renderClientHome(user) {
   return `
     <section class="client-welcome">
       <div>
-        <span class="client-kicker">Dashboard inteligente</span>
-        <h3>Ola ${escapeHtml(firstName(user.name))}</h3>
+        <span class="client-kicker">Seu espaço</span>
+        <h3>Olá, ${escapeHtml(firstName(user.name))}</h3>
         <p>Bem-vindo novamente ao Palpinet. Este é o seu painel pessoal para acompanhar palpites, sonhos, horóscopos e preferências.</p>
       </div>
       <button class="primary-button" type="button" data-client-view="guesses">Ver meus palpites</button>
@@ -8131,7 +8318,7 @@ function renderRecommendation(user) {
     <article class="recommendation-card">
       <strong>Você costuma usar ${escapeHtml(methods[favoriteMethod])} e ${escapeHtml(games[favoriteGame]?.name || favoriteGame)}.</strong>
       <p>Deseja gerar uma nova combinação seguindo esse mesmo caminho?</p>
-      <button class="primary-button" type="button" data-client-action="generate-preferred" data-game="${favoriteGame}" data-method="${favoriteMethod}">
+      <button class="primary-button" type="button" data-client-action="generate-preferred" data-game="${escapeHtml(favoriteGame)}" data-method="${escapeHtml(favoriteMethod)}">
         Gerar nova combinação
       </button>
     </article>`;
@@ -8274,7 +8461,7 @@ function renderClientInterpretations(user) {
                     <span>${label}</span>
                     <h4>${escapeHtml(title)}</h4>
                     <p>${escapeHtml(record.ai_response || buildResultMessage(record))}</p>
-                    <div class="client-number-row">${(record.numbers || []).map((number) => `<b>${formatNumber(record.game, number)}</b>`).join("")}</div>
+                    <div class="client-number-row">${(record.numbers || []).map((number) => `<b>${escapeHtml(formatNumber(record.game, number))}</b>`).join("")}</div>
                     <small>${escapeHtml(games[record.game].name)} - ${formatDateTime(record.createdAt)}</small>
                   </article>`;
               })
@@ -8366,15 +8553,15 @@ function renderGuessCard(record, variant = "") {
         <time>${formatDateTime(record.createdAt)}</time>
       </header>
       ${entry}
-      <div class="client-number-row">${(record.numbers || []).map((number) => `<b>${formatNumber(record.game, number)}</b>`).join("")}</div>
+      <div class="client-number-row">${(record.numbers || []).map((number) => `<b>${escapeHtml(formatNumber(record.game, number))}</b>`).join("")}</div>
       ${reading}
       <div class="client-row-actions">
-        <button type="button" data-client-action="copy" data-guess-id="${record.id}">Copiar</button>
-        <button type="button" data-client-action="favorite" data-guess-id="${record.id}">${isFavorite ? "Remover favorito" : "Favoritar"}</button>
-        <button type="button" data-client-action="share" data-guess-id="${record.id}">Compartilhar</button>
-        <button type="button" data-client-action="similar" data-guess-id="${record.id}">Gerar semelhante</button>
-        <button type="button" data-client-action="details" data-guess-id="${record.id}">Ver detalhes</button>
-        <button type="button" data-client-action="delete" data-guess-id="${record.id}">Excluir</button>
+        <button type="button" data-client-action="copy" data-guess-id="${escapeHtml(record.id)}">Copiar</button>
+        <button type="button" data-client-action="favorite" data-guess-id="${escapeHtml(record.id)}">${isFavorite ? "Remover favorito" : "Favoritar"}</button>
+        <button type="button" data-client-action="share" data-guess-id="${escapeHtml(record.id)}">Compartilhar</button>
+        <button type="button" data-client-action="similar" data-guess-id="${escapeHtml(record.id)}">Gerar semelhante</button>
+        <button type="button" data-client-action="details" data-guess-id="${escapeHtml(record.id)}">Ver detalhes</button>
+        <button type="button" data-client-action="delete" data-guess-id="${escapeHtml(record.id)}">Excluir</button>
       </div>
     </article>`;
 }
@@ -8391,14 +8578,14 @@ function getGuessById(guessId) {
   return (user.history || []).find((record) => record.id === guessId) || null;
 }
 
-function updateCurrentUser(updater) {
+async function updateCurrentUser(updater) {
   const user = getCurrentUser();
   if (!user) return;
-  updateUser(user.id, updater);
+  await updateUser(user.id, updater);
 }
 
-function toggleFavoriteGuess(guessId) {
-  updateCurrentUser((user) => {
+async function toggleFavoriteGuess(guessId) {
+  await updateCurrentUser((user) => {
     const history = user.history || [];
     const current = history.find((record) => record.id === guessId);
     const nextFavoriteState = !current?.is_favorite;
@@ -8411,8 +8598,8 @@ function toggleFavoriteGuess(guessId) {
   renderDashboard();
 }
 
-function deleteGuessById(guessId) {
-  updateCurrentUser((user) => ({
+async function deleteGuessById(guessId) {
+  await updateCurrentUser((user) => ({
     ...user,
     history: (user.history || []).filter((record) => record.id !== guessId),
     favorites: (user.favorites || []).filter((id) => id !== guessId)
@@ -8443,7 +8630,7 @@ async function shareGuessById(guessId) {
 function showGuessDetails(guessId) {
   const record = getGuessById(guessId);
   if (!record) return;
-  revealGenerator();
+  fillGeneratorFromRecord(record, false);
   renderResult(record);
   document.querySelector("#result").scrollIntoView({ behavior: "smooth", block: "center" });
   document.querySelector("#status").textContent = "Detalhes carregados no gerador.";
@@ -8497,7 +8684,8 @@ function generatePreferred(game, method) {
 function exportCurrentUserData() {
   const user = getCurrentUser();
   if (!user) return;
-  const safeUser = { ...user, password: "oculta" };
+  const safeUser = { ...user };
+  delete safeUser.password; delete safeUser.passwordHash; delete safeUser.passwordSalt;
   const blob = new Blob([JSON.stringify({ users: [safeUser], guesses: user.history || [], favorites: user.favorites || [], user_preferences: user.preferences || {} }, null, 2)], {
     type: "application/json"
   });
@@ -8508,18 +8696,22 @@ function exportCurrentUserData() {
   URL.revokeObjectURL(link.href);
 }
 
-function deleteCurrentAccount() {
+async function deleteCurrentAccount() {
   const user = getCurrentUser();
   if (!user) return;
+  if (window.PalpinetAccounts?.enabled) {
+    if(!window.confirm("Excluir sua conta e todo o histórico sincronizado? Esta ação é permanente."))return;
+    await window.PalpinetAccounts.deleteAccount(); renderAuthState();renderDashboard();return;
+  }
   if (!window.confirm("Excluir esta conta local e todos os dados salvos neste navegador?")) return;
   saveUsers(loadUsers().filter((storedUser) => storedUser.id !== user.id));
-  endSession();
+  await endSession();
   renderAuthState();
   renderDashboard();
   document.querySelector("#status").textContent = "Conta local excluida.";
 }
 
-function saveAccountForm() {
+async function saveAccountForm() {
   const user = getCurrentUser();
   if (!user) return;
   const name = document.querySelector("#accountName").value.trim();
@@ -8540,10 +8732,14 @@ function saveAccountForm() {
     return;
   }
 
-  updateUser(user.id, (storedUser) => ({
+  if(window.PalpinetAccounts?.enabled && email !== user.email) {
+    await window.PalpinetAccounts.updateEmail(email);
+    setMessage(message,"Confirme a alteração de e-mail pelo link recebido.","success");
+  }
+  await updateUser(user.id, (storedUser) => ({
     ...storedUser,
     name,
-    email,
+    email: window.PalpinetAccounts?.enabled ? user.email : email,
     birth_date: birthDate,
     sign,
     city
@@ -8551,57 +8747,29 @@ function saveAccountForm() {
   renderAuthState();
   renderDashboard();
   document.querySelector("#status").textContent = "Conta atualizada com sucesso.";
+  document.querySelector("#accountCloudStatus").textContent = window.PalpinetAccounts?.enabled && email !== user.email ? "Perfil atualizado. Confirme a alteração de e-mail pelo link recebido." : "Perfil atualizado.";
 }
 
-function updateUserPreference(keyName, value) {
-  updateCurrentUser((user) => ({
+async function updateUserPreference(keyName, value) {
+  await updateCurrentUser((user) => ({
     ...user,
     preferences: { ...preferenceDefaults, ...(user.preferences || {}), [keyName]: value }
   }));
 }
 
-function submitRecoveryForm() {
-  const email = cleanEmail(document.querySelector("#recoverEmail").value);
-  const message = document.querySelector("#recoverMessage");
-
-  if (!pendingRecoveryEmail) {
-    if (!email) {
-      setMessage(message, "Informe o e-mail cadastrado.", "error");
-      return;
+async function submitRecoveryForm() {
+  const message=document.querySelector("#recoverMessage");
+  if(!window.PalpinetAccounts?.enabled){setMessage(message,"Esta prévia local não envia e-mails de recuperação. As contas online ainda não foram ativadas.","error");return;}
+  try {
+    if(window.PalpinetAccounts.recovering){
+      const password=document.querySelector("#recoverPassword").value;
+      if(password.length<8 || password!==document.querySelector("#recoverPasswordConfirm").value){setMessage(message,"Use pelo menos 8 caracteres e confirme a mesma senha.","error");return;}
+      await window.PalpinetAccounts.resetPassword(password);await window.PalpinetAccounts.signOut().catch(()=>{});setAuthMode("login");setMessage(document.querySelector("#loginMessage"),"Senha atualizada. Entre com a nova senha.","success");return;
     }
-
-    const user = loadUsers().find((storedUser) => cleanEmail(storedUser.email) === email);
-    if (!user) {
-      setMessage(message, "E-mail não cadastrado.", "error");
-      return;
-    }
-
-    pendingRecoveryEmail = email;
-    document.querySelector("#recoverReset").classList.remove("hidden");
-    document.querySelector("#recoverSubmit").textContent = "Criar nova senha";
-    setMessage(message, "Link local liberado. Defina uma nova senha abaixo.", "success");
-    return;
-  }
-
-  const password = document.querySelector("#recoverPassword").value;
-  const confirmPassword = document.querySelector("#recoverPasswordConfirm").value;
-  if (!password.trim() || !confirmPassword.trim()) {
-    setMessage(message, "Preencha e confirme a nova senha.", "error");
-    return;
-  }
-  if (password !== confirmPassword) {
-    setMessage(message, "As senhas não conferem.", "error");
-    return;
-  }
-
-  saveUsers(loadUsers().map((user) => (cleanEmail(user.email) === pendingRecoveryEmail ? { ...user, password } : user)));
-  const recoveredEmail = pendingRecoveryEmail;
-  pendingRecoveryEmail = "";
-  document.querySelector("#recoverPassword").value = "";
-  document.querySelector("#recoverPasswordConfirm").value = "";
-  document.querySelector("#loginEmail").value = recoveredEmail;
-  setAuthMode("login");
-  setMessage(document.querySelector("#loginMessage"), "Senha atualizada. Entre com a nova senha.", "success");
+    const email=cleanEmail(document.querySelector("#recoverEmail").value);
+    if(!email){setMessage(message,"Informe seu e-mail.","error");return;}
+    await window.PalpinetAccounts.recover(email);setMessage(message,"Se houver uma conta para esse e-mail, você receberá as instruções de recuperação.","success");
+  }catch(error){setMessage(message,error.message,"error");}
 }
 
 function setMessage(element, message = "", type = "") {
@@ -8627,12 +8795,14 @@ function setAuthMode(mode) {
   if (!isRecover) {
     pendingRecoveryEmail = "";
     document.querySelector("#recoverReset").classList.add("hidden");
-    document.querySelector("#recoverSubmit").textContent = "Receber link local";
+    document.querySelector("#recoverSubmit").textContent = "Receber link por e-mail";
   }
 }
 
 function openAuthModal(mode = "login", afterAuth = null, message = "") {
+  document.querySelector("#authModeNote").textContent = window.PalpinetAccounts?.enabled ? "Sua conta e seu histórico são sincronizados entre dispositivos." : window.PalpinetAccounts?.blocked ? "As contas online ainda não foram ativadas." : "Prévia local: esta conta fica somente neste navegador. Use uma senha exclusiva para testes.";
   pendingAfterAuth = afterAuth;
+  if(afterAuth !== "save-result") pendingCombination = null;
   setAuthMode(mode);
   document.querySelector("#authModal").classList.remove("hidden");
   document.body.classList.add("modal-open");
@@ -8648,15 +8818,21 @@ function closeAuthModal() {
   document.querySelector("#authModal").classList.add("hidden");
   document.body.classList.remove("modal-open");
   pendingAfterAuth = null;
+  pendingCombination = null;
 }
 
-function afterSuccessfulAuth() {
+async function afterSuccessfulAuth() {
   const action = pendingAfterAuth;
+  const combination = pendingCombination;
   renderAuthState();
   renderDashboard();
   renderAdmin();
   closeAuthModal();
 
+  if(action === "save-result" && combination) {
+    try {const saved=await saveGameToHistory(combination);renderDashboard();document.querySelector("#status").textContent=saved.reason==="exists"?"Esta combinação já estava salva.":"Combinação salva no seu histórico.";}
+    catch(error){document.querySelector("#status").textContent="Você entrou, mas a combinação não pôde ser salva. "+error.message;}
+  }
   if (action === "generator") {
     revealGenerator();
   document.querySelector("#gerador").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -8705,7 +8881,7 @@ function setup() {
     .map(([slug, name]) => `<option value="${slug}">${name}</option>`)
     .join("");
   methodSelect.value = "aleatorio";
-  signSelect.innerHTML = Object.entries(signOptions)
+  signSelect.innerHTML = `<option value="">Selecione seu signo</option>` + Object.entries(signOptions)
     .map(([slug, name]) => `<option value="${slug}">${name}</option>`)
     .join("");
   signPicker.innerHTML = Object.entries(signOptions)
@@ -8763,6 +8939,33 @@ function setup() {
   }
 
   const customizeToggle = document.querySelector("#customizeToggle");
+  const inspirationButtons = [...document.querySelectorAll("[data-inspiration]")];
+  function syncInspiration() {
+    const method = methodSelect.value;
+    const numeric = ["nome-da-sorte", "data-especial"].includes(method);
+    document.querySelector("#otherInspirations summary").textContent = ["sonho", "matematica"].includes(method) ? "Inspiração: " + methods[method] : "Outras inspirações";
+    document.querySelector("#generatorFields").hidden = false;
+    document.querySelector("#numericChoices").hidden = !numeric;
+    for (const button of inspirationButtons) {
+      const selected = button.dataset.inspiration === method || (numeric && button.dataset.inspiration === "nome-da-sorte");
+      button.setAttribute("aria-pressed", String(selected));
+    }
+    document.querySelectorAll('[name="numericSource"]').forEach(radio => { radio.checked = radio.value === method; });
+  }
+  inspirationButtons.forEach(button => button.addEventListener("click", () => {
+    methodSelect.value = button.dataset.inspiration;
+    methodSelect.dispatchEvent(new Event("change"));
+    document.querySelector("#otherInspirations").open = false;
+  }));
+  document.querySelectorAll('[name="numericSource"]').forEach(radio => radio.addEventListener("change", () => {
+    methodSelect.value = radio.value;
+    methodSelect.dispatchEvent(new Event("change"));
+  }));
+  document.querySelector("#useOtherInspiration").addEventListener("click", () => {
+    methodSelect.dispatchEvent(new Event("change"));
+    document.querySelector("#otherInspirations").open = false;
+    document.querySelector("#game").focus();
+  });
   customizeToggle.addEventListener("click", () => {
     const expanded = customizeToggle.getAttribute("aria-expanded") !== "true";
     customizeToggle.setAttribute("aria-expanded", String(expanded));
@@ -8789,7 +8992,7 @@ function setup() {
     signSelect.classList.toggle("hidden", !isSignMode);
     signPicker.classList.add("hidden");
     if (isSignMode) {
-      signSelect.value = signSelect.value || "aries";
+      signSelect.value = signSelect.value || getCurrentUser()?.sign || "";
       updateSelectedSignButton();
     }
     if (!isSignMode) input.value = "";
@@ -8802,7 +9005,7 @@ function setup() {
   }
 
   gameSelect.addEventListener("change", updateQuantityOptions);
-  methodSelect.addEventListener("change", updateDynamicInput);
+  methodSelect.addEventListener("change", () => { updateDynamicInput(); syncInspiration(); });
   signPicker.addEventListener("click", (event) => {
     const button = event.target.closest("[data-sign]");
     if (!button) return;
@@ -8814,6 +9017,7 @@ function setup() {
     button.addEventListener("click", () => {
       gameSelect.value = button.dataset.gameTarget;
       updateQuantityOptions();
+      syncInspiration();
       revealGenerator();
   document.querySelector("#gerador").scrollIntoView({ behavior: "smooth", block: "start" });
     });
@@ -8835,8 +9039,8 @@ function setup() {
     document.querySelector("#recoverEmail").value = document.querySelector("#loginEmail").value;
     setAuthMode("recover");
   });
-  document.querySelector("#logoutButton").addEventListener("click", () => {
-    endSession();
+  document.querySelector("#logoutButton").addEventListener("click", async () => {
+    try { await endSession(); } catch { document.querySelector("#accountCloudStatus").textContent="Sessão encerrada neste dispositivo. A revogação remota não pôde ser confirmada."; }
     renderAuthState();
     renderDashboard();
     renderAdmin();
@@ -8847,20 +9051,21 @@ function setup() {
     button.addEventListener("click", () => setAuthMode(button.dataset.authMode));
   });
 
-  document.querySelector("#loginForm").addEventListener("submit", (event) => {
+  document.querySelector("#loginForm").addEventListener("submit", async (event) => {
     event.preventDefault();
-    const result = authenticateUser(document.querySelector("#loginEmail").value, document.querySelector("#loginPassword").value);
+    const result = await runAuthAction(event.currentTarget, () => authenticateUser(document.querySelector("#loginEmail").value, document.querySelector("#loginPassword").value));
+    if(!result) return;
     if (!result.ok) {
       setMessage(document.querySelector("#loginMessage"), result.message, "error");
       return;
     }
     document.querySelector("#loginPassword").value = "";
-    afterSuccessfulAuth();
+    await afterSuccessfulAuth();
   });
 
-  document.querySelector("#signupForm").addEventListener("submit", (event) => {
+  document.querySelector("#signupForm").addEventListener("submit", async (event) => {
     event.preventDefault();
-    const result = createUser(
+    const result = await runAuthAction(event.currentTarget, () => createUser(
       document.querySelector("#signupName").value,
       document.querySelector("#signupEmail").value,
       document.querySelector("#signupPassword").value,
@@ -8869,13 +9074,15 @@ function setup() {
         sign: document.querySelector("#signupSign").value,
         city: document.querySelector("#signupCity").value
       }
-    );
+    ));
+    if(!result) return;
     if (!result.ok) {
       setMessage(document.querySelector("#signupMessage"), result.message, "error");
       return;
     }
     document.querySelector("#signupPassword").value = "";
-    afterSuccessfulAuth();
+    if(!result.user){setMessage(document.querySelector("#signupMessage"),result.message,"success");return;}
+    await afterSuccessfulAuth();
   });
 
   document.querySelector("#recoverForm").addEventListener("submit", (event) => {
@@ -8883,7 +9090,7 @@ function setup() {
     submitRecoveryForm();
   });
 
-  document.querySelector("#clientDashboard").addEventListener("click", (event) => {
+  document.querySelector("#clientDashboard").addEventListener("click", async (event) => {
     const viewButton = event.target.closest("[data-client-view]");
     if (viewButton) {
       activeClientView = viewButton.dataset.clientView;
@@ -8905,27 +9112,29 @@ function setup() {
     const action = actionButton.dataset.clientAction;
     const guessId = actionButton.dataset.guessId;
 
-    if (action === "copy") copyGuessById(guessId);
-    if (action === "favorite") toggleFavoriteGuess(guessId);
-    if (action === "share") shareGuessById(guessId);
+    try {
+    if (action === "copy") await copyGuessById(guessId);
+    if (action === "favorite") await toggleFavoriteGuess(guessId);
+    if (action === "share") await shareGuessById(guessId);
     if (action === "similar") generateSimilarGuess(guessId);
     if (action === "details") showGuessDetails(guessId);
-    if (action === "delete" && window.confirm("Excluir este palpite do histórico?")) deleteGuessById(guessId);
+    if (action === "delete" && window.confirm("Excluir este palpite do histórico?")) await deleteGuessById(guessId);
     if (action === "generate-preferred") generatePreferred(actionButton.dataset.game, actionButton.dataset.method);
     if (action === "export-data") exportCurrentUserData();
-    if (action === "delete-account") deleteCurrentAccount();
+    if (action === "delete-account") await deleteCurrentAccount();
+    } catch(error) { document.querySelector("#accountCloudStatus").textContent=error.message; renderDashboard(); }
   });
 
-  document.querySelector("#clientDashboard").addEventListener("submit", (event) => {
+  document.querySelector("#clientDashboard").addEventListener("submit", async (event) => {
     if (!event.target.matches("#accountForm")) return;
     event.preventDefault();
-    saveAccountForm();
+    try { await saveAccountForm(); } catch(error) { setMessage(document.querySelector("#accountMessage"),error.message,"error"); }
   });
 
-  document.querySelector("#clientDashboard").addEventListener("change", (event) => {
+  document.querySelector("#clientDashboard").addEventListener("change", async (event) => {
     const prefInput = event.target.closest("[data-user-pref]");
     if (!prefInput) return;
-    updateUserPreference(prefInput.dataset.userPref, prefInput.checked);
+    try { await updateUserPreference(prefInput.dataset.userPref, prefInput.checked); } catch(error) { document.querySelector("#accountCloudStatus").textContent=error.message; renderDashboard(); }
   });
 
   document.addEventListener("click", (event) => {
@@ -9213,7 +9422,9 @@ function setup() {
       ? "Descreva seu sonho para gerar a interpretação."
       : method === "nome-da-sorte"
         ? "Informe um nome para gerar a interpretação numerológica."
-        : "";
+        : method === "horoscopo" ? "Escolha seu signo para continuar."
+        : method === "data-especial" ? "Escolha uma data para continuar."
+          : "";
 
     if (requiredInputMessage && !value.trim()) {
       document.querySelector("#status").textContent = requiredInputMessage;
@@ -9228,13 +9439,13 @@ function setup() {
     try {
       const record = await requestBackendGeneration(gameSelect.value, method, value, quantity);
       saveRecord(record);
-      const savedForUser = saveGameToHistory(record);
+      const savedForUser = await saveGameToHistory(record).catch(error => ({saved:false,reason:"sync-error",message:error.message}));
       trackEvent("generate_numbers", { game: record.game, method: record.method, quantity: record.quantity, logged_in: Boolean(getCurrentUser()) });
       if (method === "sonho") trackEvent("dream_search", { query: value, game: record.game, source: "generator" });
       if (method === "horoscopo") trackEvent("horoscope_view", { sign: value, game: record.game, source: "generator" });
       renderResult(record);
       renderDashboard();
-      document.querySelector("#status").textContent = savedForUser.saved
+      document.querySelector("#status").textContent = savedForUser.reason === "sync-error" ? "Números gerados, mas não sincronizados. " + savedForUser.message : savedForUser.saved
         ? usesAiReading
           ? "Palpite gerado, interpretado e salvo no seu histórico."
           : "Palpite gerado e salvo no seu histórico."
@@ -9244,12 +9455,12 @@ function setup() {
     } catch (error) {
       const fallbackRecord = generateSmart(gameSelect.value, method, value, quantity) || generateSmart(gameSelect.value, "aleatorio", crypto.randomUUID(), quantity);
       saveRecord(fallbackRecord);
-      saveGameToHistory(fallbackRecord);
+      const savedFallback = await saveGameToHistory(fallbackRecord).catch(error => ({saved:false,reason:"sync-error",message:error.message}));
       trackEvent("generate_numbers", { game: fallbackRecord.game, method: fallbackRecord.method, quantity: fallbackRecord.quantity, mode: "fallback" });
       renderResult(fallbackRecord);
       renderDashboard();
       console.warn("Falha na geração pelo backend Palpinet:", error);
-      document.querySelector("#status").textContent = "Seus números foram gerados com sucesso.";
+      document.querySelector("#status").textContent = savedFallback.reason === "sync-error" ? "Números gerados, mas não sincronizados. " + savedFallback.message : "Seus números foram gerados com sucesso.";
     } finally {
       generateButton.disabled = false;
     }
@@ -9257,6 +9468,7 @@ function setup() {
 
   updateQuantityOptions();
   updateDynamicInput();
+  document.querySelector("#generatorFields").hidden = true;
   hydrateAdSlots();
   renderBlog();
   renderRevenueDashboard();
@@ -9342,7 +9554,38 @@ function setupNavigation() {
   window.addEventListener("popstate", () => { renderBlog(); renderAdmin(); updatePublicRoute(); });
 }
 
+async function runAuthAction(form, operation) {
+  if(form.dataset.submitting) return null;
+  form.dataset.submitting="true";
+  const button=form.querySelector('button[type="submit"]');button.disabled=true;
+  try { return await operation(); }
+  catch(error) { return {ok:false,message:error.message||"Não foi possível concluir. Tente novamente."}; }
+  finally {button.disabled=false;delete form.dataset.submitting;}
+}
+
+async function previewPasswordHash(password, salt) {
+  const data=new TextEncoder();
+  const key=await crypto.subtle.importKey("raw",data.encode(password),"PBKDF2",false,["deriveBits"]);
+  const bits=await crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-256",salt:data.encode(salt),iterations:120000},key,256);
+  return [...new Uint8Array(bits)].map(byte=>byte.toString(16).padStart(2,"0")).join("");
+}
+
 setup();
+const accountStatus = document.querySelector("#accountCloudStatus");
+accountStatus.textContent = window.PalpinetAccounts?.enabled ? "" : window.PalpinetAccounts?.blocked ? "As contas online ainda não foram ativadas." : "Prévia local: seus dados de teste ficam somente neste navegador.";
+const refreshAccount = document.querySelector("#refreshCloudAccount");
+refreshAccount.hidden = !window.PalpinetAccounts?.enabled;
+refreshAccount.addEventListener("click", async () => {
+  try {await window.PalpinetAccounts.refresh();accountStatus.textContent="Histórico atualizado.";}
+  catch(error){accountStatus.textContent=error.message;}
+});
+window.addEventListener("palpinet:accountchange", () => {renderAuthState();renderDashboard();renderAdmin();});
+window.PalpinetAccounts?.init().then(() => {
+  if(window.PalpinetAccounts.recovering){openAuthModal("recover");document.querySelector("#recoverReset").classList.remove("hidden");document.querySelector("#recoverSubmit").textContent="Definir nova senha";}
+}).catch(error => {accountStatus.textContent=error.message;});
+document.addEventListener("visibilitychange", () => {
+  if(!document.hidden && window.PalpinetAccounts?.enabled && getCurrentUser()) window.PalpinetAccounts.refresh().catch(error=>{accountStatus.textContent=error.message;});
+});
 
 
 function offlineRefresh() {

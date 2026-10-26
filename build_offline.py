@@ -2,11 +2,13 @@ from pathlib import Path
 import re,base64,mimetypes
 root=Path(__file__).resolve().parent
 html=(root/'index.html').read_text()
-css='\n'.join((root/name).read_text() for name in ['styles.css','refinements.css','celestial.css'])
+css='\n'.join((root/name).read_text() for name in ['styles.css','refinements.css','celestial.css','ritual.css'])
 js=(root/'app.js').read_text()
 # Route and storage adapters apply only to this portable review artifact.
 js=js.replace('window.location.pathname','palpinetOfflinePath()').replace('window.history.pushState(','offlinePushState(').replace('localStorage','offlineStorage').replace('fetch(','offlineFetch(')
 bootstrap=r'''
+window.palpinetOffline=true;
+window.palpinetAccount={enabled:false,url:'',publishableKey:''};
 function palpinetOfflinePath() {
   return location.hash.startsWith('#/') ? location.hash.slice(1).split('#')[0].split('?')[0] || '/' : '/';
 }
@@ -50,8 +52,9 @@ offlineRefresh();
 html=re.sub(r'\s*<link rel="(?:icon|preload|canonical)"[^>]*>','',html)
 html=re.sub(r'\s*<link rel="stylesheet"[^>]*>','',html)
 html=html.replace('</head>','<style>'+css+'</style></head>')
-script=bootstrap+'\n'+js+'\n'+router
+script=bootstrap+'\n'+(root/'cloud-account.js').read_text()+'\n'+js+'\n'+router
 script=script.replace('</script','<\\/script')
+html=re.sub(r'<script src="/(?:account-config|cloud-account)\.js[^>]*></script>','',html)
 html=re.sub(r'<script src="/app.js[^>]*></script>',lambda _: '<script>'+script+'</script>',html)
 html=html.replace('</header>\n\n    <main>','</header>\n\n    <main>')
 # Embed every local image used by HTML, CSS or JavaScript.
@@ -64,5 +67,6 @@ for asset in sorted(root.rglob('*')):
  html=html.replace(relative,data)
 html=html.replace('<title>Palpinet |','<title>Palpinet Offline |')
 html=html.replace('<div class="quick-head">','<p style="margin:0 0 14px;color:#6040a3;font-size:.8rem">Prévia offline · geração local, sem interpretação por IA</p><div class="quick-head">')
+html='\n'.join(line.rstrip() for line in html.splitlines())+'\n'
 out=root/'offline/Palpinet-offline.html';out.parent.mkdir(exist_ok=True);out.write_text(html)
 print(out, out.stat().st_size,'bytes')

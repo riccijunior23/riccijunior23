@@ -1,56 +1,33 @@
-# Palpinet — versão para revisão
+# Revisão — fluxo de inspiração e contas
 
-Esta versão parte do ZIP `palpinet-online-header-alinhado-admin-20260824.zip`.
-Nenhuma publicação foi feita no Netlify.
+## Experiência
 
-## Visualizar no Windows
+A primeira escolha passa a ser a inspiração: signo, nome/data ou surpresa. Jogo, quantidade e complemento aparecem depois. Sonhos, matemática e todos os métodos anteriores seguem disponíveis. O resultado dá prioridade aos números, a Copiar e a Salvar; as demais ações ficam em um menu de opções acessível por teclado.
 
-1. Extraia o ZIP inteiro para uma nova pasta, mantendo a versão anterior guardada.
-2. Com Python 3 instalado, abra `Visualizar.bat`.
-3. O navegador abre a prévia local. Mantenha a janela do servidor aberta; Ctrl+C encerra.
+A marca recebeu uma versão mais simples do logotipo, e a home mantém a direção visual clara com lua, órbitas e detalhes discretos. Artigos e páginas internas foram preservados.
 
-Também é possível executar `python preview_server.py` na pasta do projeto. O servidor oferece as rotas internas com o mesmo fallback de HTML do Netlify. Não abra somente o HTML por duplo clique: os caminhos dos arquivos são relativos à raiz do site.
+## Contas
 
-## O que mudou
+Supabase Auth e sincronização de histórico, favoritos e preferências foram preparados, com isolamento por usuário no banco, validação da sessão, confirmação de e-mail, recuperação por sessão autorizada, atualização de e-mail e exclusão da própria conta. Perfis não concedem privilégios administrativos.
 
-- Navegação compacta, menu Explorar por clique/teclado e menu móvel recolhível.
-- Home com introdução curta, gerador, informação secundária de prêmio, três passos e até três artigos de categorias diferentes.
-- Mesmo gerador na home e em `/gerador`; links `/#gerador` preservados.
-- Campos mais confortáveis, complementos condicionais e personalização opcional; preço e probabilidade fora das opções.
-- Catálogos completos em Jogos e Métodos; busca e categorias do blog na página própria, com grade que ocupa a largura.
-- Conta em `/conta`, mantendo `/#cliente`, navegação lateral no computador e recolhível no celular. Acesso ao gerador pelos detalhes e pelas combinações semelhantes.
-- Fundo claro, contraste em azul-escuro, ações em roxo, sombras suaves e textos revisados.
-- Identidade, logo, artigos, dados de demonstração, regras de geração e armazenamento local das contas preservados.
+O código anterior de administrador pré-cadastrado, a criação automática de usuário fictício e a recuperação local sem prova de identidade foram retirados. Cópias antigas de JavaScript e CSS na pasta `preview` foram removidas; não eram usadas pela aplicação. O JSON histórico dessa pasta foi preservado.
 
-## Verificações
+O modo local de teste fica identificado e não é usado como autenticação em uma hospedagem pública. As senhas novas de teste são derivadas por PBKDF2 com salt. Uma conta local antiga é migrada para hash após um login válido. O HTML portátil sempre usa o modo offline.
 
-- Sintaxe JavaScript válida; o projeto não exige compilação nem instalação de pacotes.
-- Navegador Chromium: 42 gerações com sete modalidades e seis métodos, conferindo quantidade, intervalo e ausência de números repetidos em cada resultado.
-- Quantidades máximas das sete modalidades também verificadas; navegação de retorno aos catálogos, filtros e busca do blog, detalhes, combinações semelhantes e saída da conta móvel passaram.
-- 55 combinações de página/tamanho entre celular, tablet e computador, sem rolagem horizontal. Verificação adicional em 320 px.
-- Validação de campos, personalização, troca de quantidade, cópia, nova geração, cadastro/login local, salvamento e favoritos.
-- Navegação por teclado, menu Explorar e Escape; navegação móvel e compatibilidade dos links antigos.
-- Verificação automatizada de acessibilidade nas páginas públicas, no login e nas oito telas da conta. Isso não substitui uma auditoria humana completa.
+## Limites
 
-## Limitações da versão recebida
+Nenhum projeto Supabase está configurado neste ambiente. Não foi possível validar autenticação, e-mails ou sincronização contra um serviço hospedado real. SQL e contratos HTTP foram verificados localmente, com essa distinção preservada. A ativação depende das etapas em `supabase/README.md`.
 
-- APIs de geração/interpretação por IA não vieram no ZIP. O fallback local já existente gera as combinações; interpretações externas não foram validadas.
-- Configuração do Supabase contém marcadores de exemplo; sincronização externa não foi ativada.
-- As contas e o histórico continuam no armazenamento local de cada navegador. Não foi criada nem substituída autenticação.
-- Prêmios, concursos, datas e valores de demonstração foram preservados. Não há integração nova com resultados reais.
+APIs de interpretação por IA não vieram no projeto original. O fallback local de geração continua funcionando. Prêmios e dados de demonstração permanecem preservados. Nenhuma publicação no Netlify foi feita.
 
-## Arquivos
+## Evidências de verificação
 
-`index.html` e `app.js` contêm as alterações estruturais e de navegação. `refinements.css` reúne o novo visual sobre a folha original, preservada para os componentes existentes. `preview_server.py` e `Visualizar.bat` servem somente à revisão local. A pasta `preview` pertence ao ZIP original; a aplicação usa os arquivos na raiz.
-
-## Modelo limpo: astrologia, numerologia e loterias
-
-- Abertura com uma frase curta, uma descrição e ilustração estática em traços finos.
-- Fundo claro, roxo suave, detalhes dourados e títulos em fonte com serifa.
-- Gerador em destaque; redução do texto de apoio e de elementos decorativos.
-- Home sem o bloco de prêmio e sem uma seção separada de passos. Os passos já aparecem nos rótulos do gerador; dados e administração do prêmio foram preservados.
-- Três links de artigos substituem os cartões ilustrados na home. Blog completo, artigos e demais páginas continuam acessíveis.
-- Versão offline atualizada, mantendo menus, navegação e geração local.
-- Inicializador para Windows contempla a instalação do Python 3.13 encontrada durante a configuração no computador do usuário.
-
-Validação do modelo limpo: 42 gerações entre sete modalidades e seis métodos; quantidades máximas das sete modalidades; 55 combinações de página e tamanho e uma checagem adicional em 320 px, sem rolagem horizontal. Navegação, menus, busca do blog, cópia, salvamento, favoritos e retorno da conta para o gerador passaram. A verificação automatizada de acessibilidade passou nas páginas verificadas e no login. A versão offline foi testada com a rede desativada, incluindo a ilustração incorporada, menus e geração em duas modalidades, sem requisições remotas ou erros de JavaScript. A instalação e a execução do inicializador no Windows não foram testadas nesta máquina Linux.
+- 42 gerações entre sete modalidades e seis métodos, conferindo quantidade, intervalo e ausência de repetição interna.
+- 30 combinações de página e largura, de 320 a 1440 px, sem rolagem horizontal indesejada.
+- Escolha de inspiração, alternância de nome/data, validação do signo, opções secundárias, cópia, favoritos e salvamento automático após cadastro local.
+- Arquivo offline com logo e demais recursos incorporados, geração e salvamento local, sem requisições externas.
+- Verificações automatizadas de acessibilidade nas páginas selecionadas, login e resultado gerado, sem violações detectadas nos critérios executados. Isso não substitui avaliação humana.
+- Contrato HTTP com provedor simulado: autenticação, confirmação, histórico em clientes independentes, refresh de sessão, recuperação, exclusão, conflitos e falhas de sincronização. O provedor simulado não comprova disponibilidade ou configuração do Supabase real.
+- Políticas SQL em PostgreSQL/PGlite: acesso ao próprio perfil, bloqueio de leitura e alteração entre usuários, bloqueio de anônimos e exclusão da própria conta com remoção do perfil associado.
+- Conteúdo informado no campo Nome é apresentado como texto, sem execução de HTML inserido.
+- Gerador de configuração recusa uma chave administrativa e escreve uma configuração pública em teste isolado. Nenhuma configuração real foi ativada.
