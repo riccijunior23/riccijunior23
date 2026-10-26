@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Palpinet | Números da sorte, sonhos e horóscopo</title>
+    <link rel="icon" href="/palpinet-logo.svg" />
+    <link rel="preload" href="/palpinet-logo.svg" as="image" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta
+      name="description"
+      content="Gerador recreativo de números da sorte com sonhos, horóscopo, numerologia e métodos simbólicos."
+    />
+    <meta property="og:title" content="Palpinet | Números da sorte, sonhos e horóscopo" />
+    <meta property="og:description" content="Conteúdos e gerador recreativo de números da sorte." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://localhost:4173/" />
+    <meta property="og:image" content="/palpinet-logo.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="http://localhost:4173/" />
+    <link rel="stylesheet" href="/styles.css?v=34" />
+    <link rel="stylesheet" href="/refinements.css?v=1" />
+    <script type="application/ld+json" id="seoSchema">{}</script>
+    <script>
+      window.palpinetTracking = {
+        ga4: "GA4_PLACEHOLDER",
+        searchConsole: "SEARCH_CONSOLE_PLACEHOLDER",
+        clarity: "CLARITY_PLACEHOLDER",
+        adsenseClient: "ADSENSE_CLIENT_PLACEHOLDER"
+      };
+      window.palpinetSupabase = {
+        url: "SUPABASE_URL_PLACEHOLDER",
+        anonKey: "SUPABASE_ANON_KEY_PLACEHOLDER",
+        bucket: "palpinet-media"
+      };
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+      (function () {
+        var cfg = window.palpinetTracking || {};
+        if (cfg.ga4 && cfg.ga4.indexOf("PLACEHOLDER") === -1) {
+          var ga = document.createElement("script");
+          ga.async = true;
+          ga.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(cfg.ga4);
+          document.head.appendChild(ga);
+          window.gtag("js", new Date());
+          window.gtag("config", cfg.ga4, { send_page_view: false });
+        }
+        if (cfg.clarity && cfg.clarity.indexOf("PLACEHOLDER") === -1) {
+          (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments);};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", cfg.clarity);
+        }
+        if (cfg.adsenseClient && cfg.adsenseClient.indexOf("PLACEHOLDER") === -1) {
+          var ad = document.createElement("script");
+          ad.async = true;
+          ad.crossOrigin = "anonymous";
+          ad.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + encodeURIComponent(cfg.adsenseClient);
+          document.head.appendChild(ad);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#mainContent">Pular para o conteúdo</a>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Palpinet">
+        <img src="/palpinet-logo.svg" alt="Palpinet" width="178" height="58" loading="lazy" />
+      </a>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="primaryNav">Menu <span aria-hidden="true">☰</span></button>
+      <nav id="primaryNav" aria-label="Navegação principal">
+        <a href="/">Início</a>
+        <a href="/gerador">Gerar números</a>
+        <a href="/jogos">Jogos</a>
+        <details class="explore-menu" id="exploreMenu">
+          <summary>Explorar <span aria-hidden="true">⌄</span></summary>
+          <div class="explore-links">
+            <a href="/sonhos">Sonhos</a><a href="/horoscopo">Horóscopo</a>
+            <a href="/metodos">Métodos</a><a href="/blog">Blog</a>
+          </div>
+        </details>
+      </nav>
+      <div class="header-actions">
+        <button class="header-auth" id="openLogin" type="button">Entrar</button>
+        <span class="user-chip hidden" id="userChip"></span>
+        <a class="account-button hidden" id="accountLink" href="/conta">Minha conta</a>
+        <a class="account-button hidden" id="adminLink" href="/admin">Admin</a>
+        <button class="logout-button hidden" id="logoutButton" type="button">Sair</button>
+      </div>
+    </header>
+
+    <main id="mainContent" tabindex="-1">
+      <section class="hero" id="home">
+        <div class="hero-copy section-shell">
+          <span class="eyebrow">Um pouco de inspiração, muitas possibilidades</span>
+          <h1>Seus números da sorte <span>começam aqui.</span></h1>
+          <p>Crie combinações recreativas inspiradas em sonhos, signos, datas ou matemática.</p>
+        </div>
+      </section>
+<section class="quick-generator section-shell" id="gerador">
+        <div class="quick-head">
+          <div><span class="eyebrow">Seu próximo palpite</span><h2>Crie sua combinação</h2></div>
+          <p>Escolha um jogo e uma inspiração. O resto é com a gente.</p>
+        </div>
+
+        <div class="quick-controls">
+          <label>
+            <span><b>1</b> Escolha o jogo</span>
+            <select id="game"></select>
+          </label>
+          <label for="quantity">
+            <span><b>2</b> Quantidade de números</span>
+            <select id="quantity" aria-describedby="betInfo"></select>
+            <small id="betInfo" class="bet-info" aria-live="polite"></small>
+          </label>
+          <label>
+            <span><b>3</b> Método ou inspiração</span>
+            <select id="method"></select>
+          </label>
+          <button class="customize-toggle" id="customizeToggle" type="button" aria-expanded="false" aria-controls="complementaryField">Personalizar inspiração (opcional)</button>
+          <div class="dynamic-field" id="complementaryField">
+            <label id="inputLabel" for="userInput">Descreva seu sonho</label>
+            <input id="userInput" aria-describedby="inputHint" type="text" placeholder="Ex: sonhei com cobra, água, dinheiro..." />
+            <select id="signSelect" class="hidden" aria-label="Escolha seu signo"></select>
+            <div id="signPicker" class="sign-picker hidden" aria-label="Escolha seu signo"></div>
+            <small id="inputHint">Use poucas palavras. Ex: cobra, água, dinheiro.</small>
+          </div>
+          <button class="primary-button generate-button" id="generate" type="button">Gerar combinação</button>
+        </div>
+
+        <div id="result" class="quick-result hidden" role="region" aria-label="Combinação gerada" aria-live="polite"></div>
+        <p class="status-line" id="status" role="status"></p>
+        <p class="responsible-note">As combinações são recreativas e não aumentam as chances de premiação.</p>
+      </section>
+
+      <section class="official-summary section-shell" id="officialSummary">
+<details><summary>Prêmio em destaque · dados de demonstração</summary>
+            <article class="floating-result prize-result" id="officialInfoCard">
+              <div class="prize-head">
+                <strong id="officialInfoGame">&#9752; Informações oficiais</strong>
+                <span>Prêmio estimado</span>
+              </div>
+              <strong class="prize-value" id="officialInfoPrize">Consulte a CAIXA</strong>
+              <p class="prize-meta" id="officialInfoDetails">Prêmios, concursos, horários, valores e probabilidades podem mudar.</p>
+              <small id="officialInfoNote">Confira sempre os canais oficiais das Loterias CAIXA antes de apostar.</small>
+              <a href="#gerador" data-generate-now>Gerar palpite para este jogo</a>
+            </article>
+</details></section>
+      <section class="how-section" id="como-funciona">
+        <div class="how-inner section-shell">
+          <h2>Do seu jeito, em três passos</h2>
+          <ol class="steps-list">
+            <li><span>1</span><div><strong>Escolha o jogo.</strong><p>Selecione sua modalidade preferida.</p></div></li>
+            <li><span>2</span><div><strong>Escolha sua inspiração.</strong><p>Sonhos, signos, datas ou pura sorte.</p></div></li>
+            <li><span>3</span><div><strong>Gere sua combinação.</strong><p>Copie ou entre para salvar seus números.</p></div></li>
+          </ol>
+        </div>
+      </section>
+      <section class="methods-band" id="catalogMethods">
+        <div class="section-shell methods-layout">
+          <div class="side-copy">
+            <h2>Nossos Métodos</h2>
+            <p>Diferentes caminhos recreativos para criar números da sorte.</p>
+            <a class="outline-link" href="/metodos">Ver todos os métodos →</a>
+          </div>
+          <div class="method-grid" id="methods"></div>
+          <section class="method-principles"><h3>Uma experiência com a sua inspiração</h3>
+            <p>O Palpinet nasceu de uma ideia de 2002. Hoje, combina sonhos, signos, datas e matemática em uma experiência recreativa.</p>
+            <ul><li>Variedade: o gerador consulta o histórico local para evitar combinações repetidas.</li>
+            <li>Personalização: suas palavras e preferências servem de inspiração.</li>
+            <li>Organização: os números seguem os intervalos e as quantidades da modalidade escolhida.</li></ul>
+            <p>Nenhum desses recursos aumenta as chances de premiação.</p></section>
+        </div>
+      </section>
+<section class="games-section section-shell" id="catalogGames">
+        <div class="side-copy">
+          <h2>Jogos em destaque</h2>
+          <p>Comece pelos jogos mais buscados e veja a lista completa na página de jogos.</p>
+          <a class="outline-link light" href="/jogos">Ver todos os jogos →</a>
+        </div>
+        <div class="game-grid" id="games"></div>
+        <p class="game-pricing-note">
+          Valores e probabilidades são informativos e podem mudar. Consulte sempre os canais oficiais antes de apostar.
+        </p>
+      </section>
+
+      <section class="blog-shell" id="blog">
+        <div id="blogApp"></div>
+      </section>
+
+      <section class="client-section section-shell" id="cliente">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Área do Cliente</span>
+            <h2 id="clientTitle">Seu espaço no Palpinet</h2>
+            <p id="clientSubtitle">Encontre seus palpites, favoritos, interpretações e preferências.</p>
+          </div>
+        </div>
+
+        <div class="client-empty" id="clientGuest">
+          <div>
+            <span class="client-kicker">Conta gratuita</span>
+            <h3>Entre para desbloquear seu painel Palpinet</h3>
+            <p>Crie sua conta gratuita para salvar combinações, acessar seu histórico e reencontrar seus números favoritos neste navegador.</p>
+          </div>
+          <div class="client-actions">
+            <button class="primary-button" id="clientLogin" type="button">Entrar</button>
+            <button class="secondary-button" id="clientSignup" type="button">Criar conta grátis</button>
+          </div>
+        </div>
+
+        <div class="client-dashboard hidden" id="clientDashboard">
+          <aside class="client-sidebar" aria-label="Menu da área do cliente">
+            <div class="client-profile-card">
+              <span id="clientInitials">PR</span>
+              <div>
+                <strong id="clientName">Palpinet</strong>
+                <small id="clientEmail">conta local</small>
+              </div>
+            </div>
+            <button class="client-menu-toggle" id="clientMenuToggle" type="button" aria-expanded="false" aria-controls="clientNav">Navegação da conta ⌄</button>
+            <nav id="clientNav">
+              <button class="active" type="button" data-client-view="dashboard">Painel</button>
+              <button type="button" data-client-view="guesses">Meus Palpites</button>
+              <button type="button" data-client-view="favorites">Favoritos</button>
+              <button type="button" data-client-view="history">Histórico</button>
+              <button type="button" data-client-view="interpretations">Interpretações</button>
+              <button type="button" data-client-view="account">Minha Conta</button>
+              <button type="button" data-client-view="settings">Configurações</button>
+              <button type="button" data-client-view="benefits">Benefícios</button>
+              <a class="hidden" id="adminAccountLink" href="/admin">Administração</a>
+              <button type="button" id="clientLogout">Sair da conta</button>
+            </nav>
+          </aside>
+          <div class="client-content" id="clientView" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="revenue-section section-shell hidden" id="receita" aria-hidden="true">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Monetizacao</span>
+            <h2>Painel interno de receita</h2>
+            <p>Preview local para acompanhar visitas, artigos, anuncios, leads e palpites gerados antes de integrar analytics reais.</p>
+          </div>
+        </div>
+        <div id="revenueDashboard"></div>
+      </section>
+<section class="admin-shell" id="admin">
+        <div id="adminApp"></div>
+      </section>
+    </main>
+
+    <footer>
+      <div>
+        <img src="/palpinet-logo.svg" alt="Palpinet" width="178" height="58" loading="lazy" />
+        <p>Unindo sonhos, astrologia e matemática para inspirar combinações recreativas.</p>
+      </div>
+      <nav aria-label="Links do rodapé">
+        <a href="/gerador">Gerar números</a>
+        <a href="/jogos">Jogos</a>
+        <a href="/metodos">Métodos</a>
+        <a href="/patrocinadores">Cupons</a>
+        <a href="/blog">Blog</a>
+        <a href="/contato">Contato</a>
+        <a href="/sonhos">Sonhos</a>
+        <a href="/horoscopo">Horóscopo</a>
+        <a href="/termos-de-uso">Termos</a>
+        <a href="/politica-de-privacidade">Privacidade</a>
+        <a href="/politica-de-cookies">Cookies</a>
+        <a href="/aviso-legal">Aviso Legal</a>
+      </nav>
+      <p>© 2026 Palpinet. Entretenimento digital, sem garantia de prêmios.</p>
+    </footer>
+
+    <div class="auth-modal hidden" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+      <div class="auth-backdrop" data-auth-close></div>
+      <section class="auth-card">
+        <button class="auth-close" id="authClose" type="button" aria-label="Fechar">x</button>
+        <div class="auth-brand">
+          <img src="/palpinet-logo.svg" alt="Palpinet" width="178" height="58" loading="lazy" />
+          <div>
+            <span class="eyebrow">Conta Palpinet</span>
+            <h2 id="authTitle">Entrar na sua conta</h2>
+            <p>Salve histórico, acompanhe seus jogos e continue de onde parou.</p>
+          </div>
+        </div>
+
+        <div class="auth-tabs" role="group" aria-label="Entrar ou criar conta">
+          <button class="active" type="button" data-auth-mode="login">Entrar</button>
+          <button type="button" data-auth-mode="signup">Criar conta</button>
+        </div>
+
+        <form class="auth-form" id="loginForm">
+          <label>
+            E-mail
+            <input id="loginEmail" type="email" autocomplete="email" placeholder="seu@email.com" />
+          </label>
+          <label>
+            Senha
+            <input id="loginPassword" type="password" autocomplete="current-password" placeholder="Sua senha" />
+          </label>
+          <p class="form-message" id="loginMessage"></p>
+          <button class="primary-button auth-submit" type="submit">Entrar</button>
+          <button class="auth-link" id="forgotPassword" type="button">Esqueceu a senha?</button>
+        </form>
+
+        <form class="auth-form hidden" id="signupForm">
+          <label>
+            Nome
+            <input id="signupName" type="text" autocomplete="name" placeholder="Seu nome" />
+          </label>
+          <label>
+            E-mail
+            <input id="signupEmail" type="email" autocomplete="email" placeholder="seu@email.com" />
+          </label>
+          <label>
+            Senha
+            <input id="signupPassword" type="password" autocomplete="new-password" placeholder="Crie uma senha" />
+          </label>
+          <div class="auth-optional-grid">
+            <label>
+              Data de nascimento
+              <input id="signupBirth" type="date" autocomplete="bday" />
+            </label>
+            <label>
+              Signo
+              <select id="signupSign"></select>
+            </label>
+          </div>
+          <label>
+            Cidade
+            <input id="signupCity" type="text" autocomplete="address-level2" placeholder="Sua cidade" />
+          </label>
+          <p class="form-message" id="signupMessage"></p>
+          <button class="primary-button auth-submit" type="submit">Criar conta grátis</button>
+        </form>
+
+        <form class="auth-form hidden" id="recoverForm">
+          <label>
+            E-mail da conta
+            <input id="recoverEmail" type="email" autocomplete="email" placeholder="seu@email.com" />
+          </label>
+          <div class="recover-reset hidden" id="recoverReset">
+            <label>
+              Nova senha
+              <input id="recoverPassword" type="password" autocomplete="new-password" placeholder="Nova senha" />
+            </label>
+            <label>
+              Confirmar nova senha
+              <input id="recoverPasswordConfirm" type="password" autocomplete="new-password" placeholder="Repita a senha" />
+            </label>
+          </div>
+          <p class="form-message" id="recoverMessage"></p>
+          <button class="primary-button auth-submit" id="recoverSubmit" type="submit">Receber link local</button>
+          <button class="auth-link" type="button" data-auth-mode="login">Voltar ao login</button>
+        </form>
+      </section>
+    </div>
+
+        <div class="sponsor-modal hidden" id="sponsorModal" role="dialog" aria-modal="true" aria-label="Patrocinador">
+      <div class="sponsor-backdrop" data-sponsor-close></div>
+      <section class="sponsor-card sponsor-image-only">
+        <button class="sponsor-close" id="sponsorClose" type="button" aria-label="Fechar">x</button>
+        <a class="sponsor-media" id="sponsorMediaLink" href="#" target="_blank" rel="noopener" aria-label="Abrir patrocinador">
+          <img class="sponsor-logo hidden" id="sponsorLogo" alt="" />
+        </a>
+      </section>
+    </div>
+
+    <script src="/app.js?v=34"></script>
+  </body>
+</html>

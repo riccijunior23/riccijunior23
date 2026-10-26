@@ -1,0 +1,752 @@
+{
+  "guesses": [
+    {
+      "id": "1td9us6",
+      "user_id": "user_27p1bx",
+      "game": "mega-sena",
+      "method": "horoscopo",
+      "input_text": "libra",
+      "quantity": 6,
+      "numbers": [
+        7,
+        17,
+        26,
+        35,
+        44,
+        56
+      ],
+      "ai_response": "Horoscopo do dia: Libra favorece escolhas com calma, foco e equilibrio. Energia Palpinet: foco, movimento e renovacao. Use a combinacao 07 â€¢ 17 â€¢ 26 â€¢ 35 â€¢ 44 â€¢ 56 como inspiracao simbolica do dia. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "horoscope",
+      "is_favorite": false,
+      "created_at": "2026-06-01T14:13:09.236Z"
+    },
+    {
+      "id": "f4zm28",
+      "user_id": "user_27p1bx",
+      "game": "lotofacil",
+      "method": "horoscopo",
+      "input_text": "aquario",
+      "quantity": 20,
+      "numbers": [
+        1,
+        2,
+        3,
+        5,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        15,
+        17,
+        18,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "ai_response": "Horoscopo do dia: Aquario favorece escolhas com calma, foco e equilibrio. Energia Palpinet: foco, movimento e renovacao. Use a combinacao 01 â€¢ 02 â€¢ 03 â€¢ 05 â€¢ 07 â€¢ 08 â€¢ 09 â€¢ 10 â€¢ 11 â€¢ 12 â€¢ 13 â€¢ 15 â€¢ 17 â€¢ 18 â€¢ 20 â€¢ 21 â€¢ 22 â€¢ 23 â€¢ 24 â€¢ 25 como inspiracao simbolica do dia. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "horoscope",
+      "is_favorite": false,
+      "created_at": "2026-06-01T20:34:36.987Z"
+    },
+    {
+      "id": "z7oat8",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "horoscopo",
+      "input_text": "aquario",
+      "quantity": 6,
+      "numbers": [
+        11,
+        22,
+        33,
+        42,
+        43,
+        53
+      ],
+      "ai_response": "Horoscopo do dia: Aquario favorece escolhas com calma, foco e equilibrio. Energia Palpinet: foco, movimento e renovacao. Use a combinacao 11 • 22 • 33 • 42 • 43 • 53 como inspiracao simbolica do dia. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "horoscope",
+      "is_favorite": false,
+      "created_at": "2026-06-03T14:50:54.168Z"
+    },
+    {
+      "id": "1n1oc6o",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "Sonhei que caia em um buraco fundo",
+      "quantity": 6,
+      "numbers": [
+        30,
+        31,
+        36,
+        38,
+        46,
+        60
+      ],
+      "ai_response": "Significado do sonho: Sonhei que caia em um buraco fundo pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 30 • 31 • 36 • 38 • 46 • 60 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-03T14:51:16.012Z"
+    },
+    {
+      "id": "1ho8w51",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "Sonhei que pulava de paraquedas",
+      "quantity": 6,
+      "numbers": [
+        21,
+        31,
+        37,
+        43,
+        46,
+        49
+      ],
+      "ai_response": "Significado do sonho: Sonhei que pulava de paraquedas pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 21 • 31 • 37 • 43 • 46 • 49 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-03T14:51:32.415Z"
+    },
+    {
+      "id": "18ythby",
+      "user_id": "user_27p1bx",
+      "game": "mega-sena",
+      "method": "horoscopo",
+      "input_text": "aries",
+      "quantity": 6,
+      "numbers": [
+        1,
+        9,
+        10,
+        18,
+        27,
+        45
+      ],
+      "ai_response": "Horoscopo do dia: Aries favorece escolhas com calma, foco e equilibrio. Energia Palpinet: foco, movimento e renovacao. Use a combinacao 01 • 09 • 10 • 18 • 27 • 45 como inspiracao simbolica do dia. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "horoscope",
+      "is_favorite": false,
+      "created_at": "2026-06-03T16:01:07.362Z"
+    },
+    {
+      "id": "asuwor",
+      "user_id": "user_luiz_ricci",
+      "game": "mega-sena",
+      "method": "horoscopo",
+      "input_text": "touro",
+      "quantity": 6,
+      "numbers": [
+        2,
+        6,
+        15,
+        24,
+        51,
+        55
+      ],
+      "ai_response": "Horoscopo do dia: Touro favorece escolhas com calma, foco e equilibrio. Energia Palpinet: foco, movimento e renovacao. Use a combinacao 02 • 06 • 15 • 24 • 51 • 55 como inspiracao simbolica do dia. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "horoscope",
+      "is_favorite": false,
+      "created_at": "2026-06-04T14:31:17.435Z"
+    },
+    {
+      "id": "1hvxc1c",
+      "user_id": "user_luiz_ricci",
+      "game": "mega-sena",
+      "method": "matematica",
+      "input_text": "",
+      "quantity": 6,
+      "numbers": [
+        1,
+        16,
+        20,
+        31,
+        46,
+        60
+      ],
+      "ai_response": "",
+      "interpretation_type": "",
+      "is_favorite": false,
+      "created_at": "2026-06-04T14:32:13.973Z"
+    },
+    {
+      "id": "dnyt5y",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "matematica",
+      "input_text": "",
+      "quantity": 6,
+      "numbers": [
+        1,
+        8,
+        16,
+        31,
+        46,
+        60
+      ],
+      "ai_response": "",
+      "interpretation_type": "",
+      "is_favorite": false,
+      "created_at": "2026-06-04T21:42:10.488Z"
+    },
+    {
+      "id": "178mt7g",
+      "user_id": "user_luiz_ricci",
+      "game": "mega-sena",
+      "method": "horoscopo",
+      "input_text": "aquario",
+      "quantity": 6,
+      "numbers": [
+        11,
+        22,
+        33,
+        42,
+        53,
+        57
+      ],
+      "ai_response": "Horoscopo do dia: Aquario favorece escolhas com calma, foco e equilibrio. Energia Palpinet: foco, movimento e renovacao. Use a combinacao 11 • 22 • 33 • 42 • 53 • 57 como inspiracao simbolica do dia. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "horoscope",
+      "is_favorite": false,
+      "created_at": "2026-06-05T15:54:23.028Z"
+    },
+    {
+      "id": "13huh9s",
+      "user_id": null,
+      "game": "lotofacil",
+      "method": "horoscopo",
+      "input_text": "aquario",
+      "quantity": 20,
+      "numbers": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "ai_response": "Horoscopo do dia: Aquario favorece escolhas com calma, foco e equilibrio. Energia Palpinet: foco, movimento e renovacao. Use a combinacao 02 • 03 • 04 • 05 • 06 • 08 • 10 • 11 • 12 • 13 • 14 • 15 • 16 • 17 • 19 • 20 • 21 • 22 • 23 • 24 como inspiracao simbolica do dia. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "horoscope",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:31:04.969Z"
+    },
+    {
+      "id": "2hetnk",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "horoscopo",
+      "input_text": "aquario",
+      "quantity": 6,
+      "numbers": [
+        11,
+        22,
+        25,
+        33,
+        42,
+        53
+      ],
+      "ai_response": "Horoscopo do dia: Aquario favorece escolhas com calma, foco e equilibrio. Energia Palpinet: foco, movimento e renovacao. Use a combinacao 11 • 22 • 25 • 33 • 42 • 53 como inspiracao simbolica do dia. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "horoscope",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:32:03.234Z"
+    },
+    {
+      "id": "yg4885",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        4,
+        14,
+        19,
+        40,
+        48,
+        51
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 04 • 14 • 19 • 40 • 48 • 51 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:37:45.563Z"
+    },
+    {
+      "id": "1nb2tvq",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        3,
+        5,
+        23,
+        34,
+        40,
+        51
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 03 • 05 • 23 • 34 • 40 • 51 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:37:49.744Z"
+    },
+    {
+      "id": "1lktmg2",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        13,
+        29,
+        40,
+        51,
+        58,
+        59
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 13 • 29 • 40 • 51 • 58 • 59 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:37:53.061Z"
+    },
+    {
+      "id": "158iiue",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        28,
+        32,
+        40,
+        47,
+        51,
+        54
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 28 • 32 • 40 • 47 • 51 • 54 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:37:57.115Z"
+    },
+    {
+      "id": "19uzuy1",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        12,
+        35,
+        40,
+        41,
+        51,
+        52
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 12 • 35 • 40 • 41 • 51 • 52 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:37:57.474Z"
+    },
+    {
+      "id": "17nr4ue",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        9,
+        15,
+        39,
+        40,
+        50,
+        51
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 09 • 15 • 39 • 40 • 50 • 51 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:37:57.748Z"
+    },
+    {
+      "id": "4fb91p",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        7,
+        29,
+        39,
+        40,
+        51,
+        59
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 07 • 29 • 39 • 40 • 51 • 59 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:37:57.945Z"
+    },
+    {
+      "id": "1id0z7h",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        18,
+        20,
+        30,
+        38,
+        40,
+        51
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 18 • 20 • 30 • 38 • 40 • 51 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:37:58.133Z"
+    },
+    {
+      "id": "68oeu9",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        6,
+        32,
+        40,
+        41,
+        47,
+        51
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 06 • 32 • 40 • 41 • 47 • 51 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:37:58.288Z"
+    },
+    {
+      "id": "14vxb7p",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        4,
+        10,
+        40,
+        48,
+        49,
+        51
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 04 • 10 • 40 • 48 • 49 • 51 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:37:58.446Z"
+    },
+    {
+      "id": "tmdqtd",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        17,
+        24,
+        27,
+        40,
+        51,
+        54
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 17 • 24 • 27 • 40 • 51 • 54 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:37:58.600Z"
+    },
+    {
+      "id": "1fmn2z5",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        2,
+        14,
+        19,
+        36,
+        40,
+        51
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 02 • 14 • 19 • 36 • 40 • 51 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:37:58.760Z"
+    },
+    {
+      "id": "1xp98jr",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        12,
+        21,
+        40,
+        51,
+        52,
+        58
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 12 • 21 • 40 • 51 • 52 • 58 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:37:58.932Z"
+    },
+    {
+      "id": "1kdcq8a",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        23,
+        40,
+        50,
+        51,
+        55,
+        57
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 23 • 40 • 50 • 51 • 55 • 57 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:37:59.079Z"
+    },
+    {
+      "id": "l3zlpl",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        25,
+        26,
+        40,
+        45,
+        51,
+        56
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 25 • 26 • 40 • 45 • 51 • 56 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:37:59.250Z"
+    },
+    {
+      "id": "lmfz3f",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        13,
+        37,
+        38,
+        40,
+        43,
+        51
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 13 • 37 • 38 • 40 • 43 • 51 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:37:59.424Z"
+    },
+    {
+      "id": "4qth8v",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        8,
+        28,
+        34,
+        40,
+        44,
+        51
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 08 • 28 • 34 • 40 • 44 • 51 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:37:59.627Z"
+    },
+    {
+      "id": "s7j4g2",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        5,
+        15,
+        19,
+        20,
+        40,
+        51
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 05 • 15 • 19 • 20 • 40 • 51 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:37:59.793Z"
+    },
+    {
+      "id": "tu3bov",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        2,
+        10,
+        40,
+        51,
+        57,
+        58
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 02 • 10 • 40 • 51 • 57 • 58 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:37:59.965Z"
+    },
+    {
+      "id": "b8erzn",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        3,
+        24,
+        35,
+        40,
+        51,
+        52
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 03 • 24 • 35 • 40 • 51 • 52 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:38:11.624Z"
+    },
+    {
+      "id": "14cmj1t",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        3,
+        18,
+        40,
+        43,
+        47,
+        51
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 03 • 18 • 40 • 43 • 47 • 51 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:38:11.798Z"
+    },
+    {
+      "id": "1rwwbzn",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        4,
+        16,
+        37,
+        40,
+        50,
+        51
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 04 • 16 • 37 • 40 • 50 • 51 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:38:11.979Z"
+    },
+    {
+      "id": "41kv26",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "bala doce",
+      "quantity": 6,
+      "numbers": [
+        9,
+        29,
+        34,
+        40,
+        41,
+        51
+      ],
+      "ai_response": "Significado do sonho: bala doce pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 09 • 29 • 34 • 40 • 41 • 51 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-06-12T16:38:12.150Z"
+    },
+    {
+      "id": "jhcj6i",
+      "user_id": null,
+      "game": "mega-sena",
+      "method": "sonho",
+      "input_text": "chuva",
+      "quantity": 6,
+      "numbers": [
+        7,
+        14,
+        23,
+        31,
+        45,
+        55
+      ],
+      "ai_response": "Significado do sonho: chuva pode simbolizar movimentos internos, renovacao e novas percepcoes. Principais simbolos: imagens, sensacoes e elementos citados no sonho. A combinacao 07 • 14 • 23 • 31 • 45 • 55 foi conectada de forma simbolica ao metodo Sonho do Palpinet. As sugestoes do Palpinet tem carater recreativo e informativo. Nao ha garantia de premiacao.",
+      "interpretation_type": "dream",
+      "is_favorite": false,
+      "created_at": "2026-08-23T22:35:12.441Z"
+    }
+  ]
+}
